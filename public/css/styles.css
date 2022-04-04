@@ -23,10 +23,11 @@ body {
     top: 2px;
 }
 
-.mark {
-    font-size: 16pt;
+.big-mark {
+    font-size: 30pt;
     position: relative;
-    top: 2px;
+    top: 9px;
+    right: 10px;
 }
 
 .success-icon {
