@@ -47,7 +47,7 @@
                         </thead>
 
                         <tbody>
-                            <tr class="success">
+                            <tr class="success" data-href="student.html">
                                 <td>Теодор Тончев</td>
                                 <td>
                                     <i class="mark success-icon fa-solid fa-square-check"></i>
@@ -58,7 +58,7 @@
                                     4/4
                                 </td>
                             </tr>
-                            <tr class="fail">
+                            <tr class="fail" data-href="student.html">
                                 <td>Димитър Димитров</td>
                                 <td>
                                     <i class="mark fail-icon fa-solid fa-square-xmark"></i>
@@ -75,5 +75,15 @@
                 </div>
             </div>
         </main>
+
+        <script>
+            const links = document.querySelectorAll("[data-href]");
+
+            for (const item of links) {
+                item.addEventListener("click", () => {
+                    window.location = item.dataset.href;
+                });
+            }
+        </script>
     </body>
 </html>

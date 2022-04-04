@@ -17,3 +17,22 @@ body {
     height: 100%;
 }
 
+.mark {
+    font-size: 16pt;
+    position: relative;
+    top: 2px;
+}
+
+.mark {
+    font-size: 16pt;
+    position: relative;
+    top: 2px;
+}
+
+.success-icon {
+    color: mediumseagreen;
+}
+
+.fail-icon {
+    color: indianred;
+}

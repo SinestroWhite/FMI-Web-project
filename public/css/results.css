@@ -51,23 +51,15 @@ th, td {
 .results {
 }
 
-.success-icon {
-    color: mediumseagreen;
-}
+
 
 tr:hover i {
     color: white;
 }
 
-.fail-icon {
-    color: indianred;
-}
 
-.mark {
-    font-size: 16pt;
-    position: relative;
-    top: 2px;
-}
+
+
 
 label {
     display: block;
