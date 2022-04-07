@@ -8,5 +8,3 @@ $database_name = $_ENV["DB_DATABASE"];
 $password = $_ENV["DB_PASSWORD"];
 
 $db = new PDO("$connection:host=$host:$port;dbname=$database_name", $username, $password);
-
-var_dump($db);
