@@ -1,0 +1,24 @@
+Error: Undefined constant PDO::MYSQL_ATTR_INIT_COMMAND in /home/georgi/WebstormProjects/FMI-Web-project/database/DB.php:16
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(20): DB->__construct()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/register.php(20): User->store()
+#2 {main}Error: Undefined constant PDO::MYSQL_ATTR_INIT_COMMAND in /home/georgi/WebstormProjects/FMI-Web-project/database/DB.php:16
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(20): DB->__construct()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/register.php(20): User->store()
+#2 {main}PDOException: could not find driver in /home/georgi/WebstormProjects/FMI-Web-project/database/DB.php:15
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/database/DB.php(15): PDO->__construct()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(20): DB->__construct()
+#2 /home/georgi/WebstormProjects/FMI-Web-project/public/register.php(20): User->store()
+#3 {main}
+PDOException: SQLSTATE[HY000] [1698] Access denied for user 'bob'@'localhost' in /home/georgi/WebstormProjects/FMI-Web-project/database/DB.php:16
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/database/DB.php(16): PDO->__construct()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(20): DB->__construct()
+#2 /home/georgi/WebstormProjects/FMI-Web-project/public/register.php(20): User->store()
+#3 {main}
+Error: Call to a member function prepare() on null in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:23
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/register.php(20): User->store()
+#1 {main}
