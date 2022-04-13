@@ -5,6 +5,8 @@ require_once("../errors/DatabaseQueryError.php");
 require_once("../errors/HashingPasswordError.php");
 require_once("../errors/InvalidPasswordError.php");
 require_once("../errors/PasswordMismatchError.php");
+require_once("../errors/UserNotFoundError.php");
+require_once("../errors/InvalidCredentialsError.php");
 
 class User {
   private $name, $email, $expertise, $password;
@@ -28,17 +30,47 @@ public function store() {
 	}
 }
 
-    public function getById($id) {
+    public static function getById($id) {
         $connection = (new DB())->getConnection();
         $sql = "SELECT FROM teachers (name, email, expertise) WHERE id = ?";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = $connection->prepare($sql);
     	$result  = $stmt->execute($id);
     			
     	if(!$result) {
     		throw new DatabaseQueryError();
     	}
     }
+
+    public static function getByEmail($email) {
+        $connection = (new DB())->getConnection();
+        $sql = "SELECT email, password FROM teachers WHERE email = ?";
+
+        $stmt = $connection->prepare($sql);
+    	  $result  = $stmt->execute([$email]);
+
+    	if(!$result) {
+    		throw new DatabaseQueryError();
+    	}
+
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+              if(count($data) != 1) {
+                throw new UserNotFoundError();
+              }
+
+              return $data[0];
+    }
+
+    public static function verifyCredentials(string $email, string $password) {
+        $user = User::getByEmail($email);
+
+        $isCorrect = password_verify($password, $user["password"]);
+
+        if(!$isCorrect) {
+    	    throw new InvalidCredentialsError();
+        }
+    }
+
 
 
   private function verifyPasswordPattern(string $password) {

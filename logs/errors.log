@@ -22,3 +22,59 @@ Error: Call to a member function prepare() on null in /home/georgi/WebstormProje
 Stack trace:
 #0 /home/georgi/WebstormProjects/FMI-Web-project/public/register.php(20): User->store()
 #1 {main}
+Error: Call to undefined function var_bump() in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:58
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#1 {main}
+Error: Call to undefined function var_bump() in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:58
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#1 {main}
+Error: Call to undefined function var_bump() in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:58
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#1 {main}
+Error: Call to undefined function getByEmail() in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:59
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#1 {main}
+Error: Using $this when not in object context in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:58
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#1 {main}
+Error: Call to a member function prepare() on null in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:47
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(58): User::getByEmail()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#2 {main}
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM teachers (email) WHERE email = ?' at line 1 in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:48
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(48): PDOStatement->execute()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(58): User::getByEmail()
+#2 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#3 {main}
+Error: Undefined constant "stmt" in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:54
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(58): User::getByEmail()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#2 {main}
+Error: Class "UserNotFoundError" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:57
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(64): User::getByEmail()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#2 {main}
+Error: Class "UserNotFoundError" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:57
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(64): User::getByEmail()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#2 {main}
+Error: Class "UserNotFoundError" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:57
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(64): User::getByEmail()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#2 {main}
+Error: Class "UserNotFoundError" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/User.php:57
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(64): User::getByEmail()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
+#2 {main}
