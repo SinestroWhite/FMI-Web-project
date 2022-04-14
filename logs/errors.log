@@ -78,3 +78,48 @@ Stack trace:
 #0 /home/georgi/WebstormProjects/FMI-Web-project/models/User.php(64): User::getByEmail()
 #1 /home/georgi/WebstormProjects/FMI-Web-project/public/login.php(16): User::verifyCredentials()
 #2 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:18
+Stack trace:
+#0 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:19
+Stack trace:
+#0 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:19
+Stack trace:
+#0 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:18
+Stack trace:
+#0 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:18
+Stack trace:
+#0 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:18
+Stack trace:
+#0 {main}
+Error: Class "Course" not found in /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php:18
+Stack trace:
+#0 {main}
+Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/Course.php:49
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(19): Course::getAll()
+#1 {main}
+Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/Course.php:49
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(19): Course::getAll()
+#1 {main}
+Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/Course.php:49
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(19): Course::getAll()
+#1 {main}
+Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/Course.php:49
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(19): Course::getAll()
+#1 {main}
+Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/Course.php:49
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(20): Course::getAll()
+#1 {main}
+Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/models/Course.php:50
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(20): Course::getAll()
+#1 {main}

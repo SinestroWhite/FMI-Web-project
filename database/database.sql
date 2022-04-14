@@ -12,7 +12,7 @@ CREATE TABLE teachers (
 CREATE TABLE courses (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    year DATE NOT NULL,
+    year YEAR NOT NULL,
     teacher_id INT,
     PRIMARY KEY(id),
     FOREIGN KEY (teacher_id) REFERENCES teachers(id)

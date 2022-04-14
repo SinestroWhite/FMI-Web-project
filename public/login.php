@@ -1,29 +1,39 @@
 <?php
-    require("../config/env-parse.php");
-    require_once("../models/User.php");
-    require_once("../errors/handling/error-handler.php");
+    require_once("../headers/main.php");
 ?>
 <html>
-  <head>
-    <title>PHP Test</title>
-  </head>
-  <body>
-      <?php
-		if(isset($_POST['login'])) {
-			$email         = $_POST['email'];
-			$password      = $_POST['password'];
+    <head>
+        <title>PHP Test</title>
+    </head>
+    <body>
 
-            User::verifyCredentials($email, $password);
-		}
-	?>
     <form action="login.php" method="post">
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email"/>
+        <label for="pass">Password</label>
+        <input id="pass" type="password" name="password"/>
 
-  		<label for="email">Email</label>
-      <input id="email" type="email" name="email"/>
-      <label for="pass">Password</label>
-      <input id="pass" type="password" name="password"/>
-        
-		  <input type="submit" name="login" value="Submit"/>
+		<input type="submit" name="login" value="Submit"/>
 	</form>
+
+	<a href="register.php">Don't have an account?</a>
   </body>
 </html>
+
+<?php
+	if(isset($_POST['login'])) {
+		$email         = $_POST['email'];
+		$password      = $_POST['password'];
+
+        $user = User::verifyCredentials($email, $password);
+        $_SESSION['login_time'] = time();
+        $_SESSION['id'] = $user["id"];
+        $_SESSION['name'] = $user["name"];
+        $_SESSION['email'] = $user["email"];
+        $_SESSION['expertise'] = $user['expertise'];
+
+//         session_unset();
+//         var_dump($_SESSION);
+        header('Location: dashboard.php');
+	}
+?>

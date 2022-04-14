@@ -17,14 +17,14 @@ class User {
       $this->email = $email;
       $this->expertise = $expertise;
   }
-  
+
 public function store() {
     $connection = (new DB())->getConnection();
     $sql = "INSERT INTO teachers (name, email, expertise, password) VALUES (?, ?, ?, ?)";
 
 	$stmt = $connection->prepare($sql);
 	$result  = $stmt->execute([$this->name, $this->email, $this->expertise, $this->password]);
-			
+
 	if(!$result) {
 		throw new DatabaseQueryError();
 	}
@@ -36,7 +36,7 @@ public function store() {
 
         $stmt = $connection->prepare($sql);
     	$result  = $stmt->execute($id);
-    			
+
     	if(!$result) {
     		throw new DatabaseQueryError();
     	}
@@ -44,7 +44,7 @@ public function store() {
 
     public static function getByEmail($email) {
         $connection = (new DB())->getConnection();
-        $sql = "SELECT email, password FROM teachers WHERE email = ?";
+        $sql = "SELECT * FROM teachers WHERE email = ?";
 
         $stmt = $connection->prepare($sql);
     	  $result  = $stmt->execute([$email]);
@@ -61,7 +61,7 @@ public function store() {
               return $data[0];
     }
 
-    public static function verifyCredentials(string $email, string $password) {
+    public static function verifyCredentials(string $email, string $password): Array {
         $user = User::getByEmail($email);
 
         $isCorrect = password_verify($password, $user["password"]);
@@ -69,13 +69,15 @@ public function store() {
         if(!$isCorrect) {
     	    throw new InvalidCredentialsError();
         }
+
+        return $user;
     }
 
 
 
   private function verifyPasswordPattern(string $password) {
  	$regex = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/";
-	
+
 	if(!preg_match($regex, $password)) {
         throw new InvalidPasswordError();
 	}
