@@ -10,7 +10,7 @@
 |
 */
 
-class InvalidCredentialsError extends Error {
+class InvalidCredentialsError extends CustomError {
     public function __construct() {
         parent::__construct("Invalid Credentials.");
     }

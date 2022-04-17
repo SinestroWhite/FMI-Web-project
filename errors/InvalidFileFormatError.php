@@ -10,7 +10,7 @@
 |
 */
 
-class InvalidFileFormatError extends Error {
+class InvalidFileFormatError extends CustomError {
     public function __construct() {
         parent::__construct("The file format is invalid.");
     }

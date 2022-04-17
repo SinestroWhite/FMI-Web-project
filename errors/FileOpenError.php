@@ -2,15 +2,15 @@
 
 /*
 |--------------------------------------------------------------------------
-| User Not Found Error
+| File Open Error
 |--------------------------------------------------------------------------
 |
-| This error is thrown when a user in the database cannot be found.
+| This error is thrown when a file cannot be opened from the disk.
 |
 */
 
-class UserNotFoundError extends CustomError {
+class FileOpenError extends CustomError {
     public function __construct() {
-        parent::__construct("User not found.");
+        parent::__construct("File cannot be opened.");
     }
 }

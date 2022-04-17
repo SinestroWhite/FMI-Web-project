@@ -10,7 +10,7 @@
 |
 */
 
-class PasswordMismatchError extends Error {
+class PasswordMismatchError extends CustomError {
     public function __construct() {
         parent::__construct("The passwords do not match.");
     }
