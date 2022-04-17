@@ -123,3 +123,13 @@ Error: Class "DB" not found in /home/georgi/WebstormProjects/FMI-Web-project/mod
 Stack trace:
 #0 /home/georgi/WebstormProjects/FMI-Web-project/public/dashboard.php(20): Course::getAll()
 #1 {main}
+ParseError: syntax error, unexpected token ":", expecting "]" in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:15
+Stack trace:
+#0 {main}
+ParseError: syntax error, unexpected token ":", expecting "]" in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:15
+Stack trace:
+#0 {main}
+Error: Undefined constant "path" in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:15
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(21): require_once()
+#1 {main}

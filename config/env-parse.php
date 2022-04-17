@@ -9,10 +9,14 @@
 |
 */
 
-$filename = "../.env";
+$filename = APP_ROOT . ".env";
 $handle = fopen($filename, "r");
+
+if (!$handle) {
+    throw new FileOpenError();
+}
+
 $contents = fread($handle, filesize($filename));
-/* TODO: Handle error */
 fclose($handle);
 
 $arr = explode("\n", $contents);
