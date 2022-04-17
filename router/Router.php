@@ -1,39 +1,44 @@
 <?php
 
-
 class Router {
-    private $path;
+    private $path, $routes;
 
-    public function __constructor() {
-        $path = substr($_SERVER["SCRIPT_NAME"], strrpos($_SERVER["SCRIPT_NAME"], "/") + 1);
-        echo $path;
+    public function __construct() {
+        $this->path = $_SERVER["REQUEST_URI"];
+        // path to the routes file
+        $file = APP_ROOT . "router/routes.json";
+        // put the content of the file in a variable
+        $data = file_get_contents($file);
+        // JSON decode
+        $this->routes = json_decode($data);
+    }
+
+    public function locate() {
+        session_start();
+        foreach ($this->routes as $route) {
+            if ($this->path == $route->path) {
+                if ($this->isLoggedIn()) {
+                    if ($route->meta->auth == "prevent") {
+                        // Redirect logged in user to the dashboard
+                        header("Location: dashboard");
+                        return;
+                    }
+                } else {
+                    if ($route->meta->auth == "required") {
+                        // Redirect not logged in user to the login page
+                        header("Location: login");
+                        return;
+                    }
+                }
+                // Load the requested page
+                require_once APP_ROOT . "views/" . $route->view . ".php";
+                return;
+            }
+        }
+
+        require_once APP_ROOT . "views/404.php";
+    }
+
+    private function isLoggedIn() {
     }
 }
-
-$routes = [
-    [
-        "path" => "/",
-        "view" => "welcome",
-    ],
-    [
-        "path" => "/login",
-        "view" => "login",
-        "meta" => [
-            "auth" => "prevent"
-        ]
-    ],
-    [
-        "path" => "/register",
-        "view" => "register",
-        "meta" => [
-            "auth" => "prevent"
-        ]
-    ],
-    [
-        "path" => "/dashboard",
-        "view" => "dashboard",
-        "meta" => [
-            "auth" => "required"
-        ]
-    ]
-];

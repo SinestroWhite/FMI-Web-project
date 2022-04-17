@@ -7,4 +7,4 @@ unset($_SESSION["email"]);
 unset($_SESSION["expertise"]);
 unset($_SESSION["login_time"]);
 
-header('Location: login.php');
+header('Location: login');

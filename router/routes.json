@@ -1,0 +1,34 @@
+[
+    {
+        "path": "/",
+        "view": "welcome"
+    },
+    {
+        "path": "/login",
+        "view": "login",
+        "meta": {
+            "auth": "prevent"
+        }
+    },
+    {
+        "path": "/register",
+        "view": "register",
+        "meta": {
+            "auth": "prevent"
+        }
+    },
+    {
+        "path": "/dashboard",
+        "view": "dashboard",
+        "meta": {
+            "auth": "required"
+        }
+    },
+    {
+        "path": "/import",
+        "view": "import",
+        "meta": {
+            "auth": "required"
+        }
+    }
+]

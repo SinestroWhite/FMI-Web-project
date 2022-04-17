@@ -19,4 +19,5 @@ require_once APP_ROOT . "config/error-handler.php";
 
 // Import router
 require_once APP_ROOT . "router/Router.php";
-new Router();
+$router = new Router();
+$router->locate();

@@ -1,13 +1,10 @@
-<?php
-    require_once("../headers/main.php");
-?>
 <html>
     <head>
-        <title>PHP Test</title>
+        <title>Gradeview | Login</title>
     </head>
     <body>
 
-    <form action="login.php" method="post">
+    <form action="login" method="post">
         <label for="email">Email</label>
         <input id="email" type="email" name="email"/>
         <label for="pass">Password</label>
@@ -34,6 +31,6 @@
 
 //         session_unset();
 //         var_dump($_SESSION);
-        header('Location: dashboard.php');
+        header('Location: dashboard');
 	}
 ?>

@@ -133,3 +133,102 @@ Error: Undefined constant "path" in /home/georgi/WebstormProjects/FMI-Web-projec
 Stack trace:
 #0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(21): require_once()
 #1 {main}
+ParseError: syntax error, unexpected variable "$routes", expecting "function" or "const" in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:9
+Stack trace:
+#0 {main}
+ParseError: syntax error, unexpected variable "$routes", expecting "function" or "const" in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:9
+Stack trace:
+#0 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:45
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '../headers/main.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/views/login.php:2
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php(45): require_once()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#2 {main}
+Error: Failed opening required '../headers/main.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/views/login.php:2
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php(45): require_once()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#2 {main}
+Error: Failed opening required '../headers/main.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/views/login.php:2
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php(45): require_once()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#2 {main}
+Error: Failed opening required '../headers/main.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/views/login.php:2
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php(44): require_once()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#2 {main}
+Error: Failed opening required '../headers/main.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/views/login.php:2
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php(43): require_once()
+#1 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#2 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}
+Error: Failed opening required '/home/georgi/WebstormProjects/FMI-Web-project/public/../views/welcome.php' (include_path='.:') in /home/georgi/WebstormProjects/FMI-Web-project/router/Router.php:43
+Stack trace:
+#0 /home/georgi/WebstormProjects/FMI-Web-project/public/index.php(23): Router->locate()
+#1 {main}

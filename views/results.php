@@ -1,6 +1,3 @@
-<?php
-    require_once("../headers/main.php");
-?>
 <html>
     <head>
         <title>Results</title>

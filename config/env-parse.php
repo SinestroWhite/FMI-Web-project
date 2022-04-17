@@ -23,5 +23,7 @@ $arr = explode("\n", $contents);
 
 foreach ($arr as $item) {
     $data = explode("=", $item);
-    $_ENV[$data[0]] = $data[1];
+    if ($data[0]) {
+        $_ENV[$data[0]] = $data[1];
+    }
 }
