@@ -8,6 +8,6 @@ function exception_handler($exception) {
     if (is_subclass_of($exception, "Error")) {
         echo $exception->getMessage(), "\n";
     } else {
-       logger($exception);
+        Logger::log($exception);
     }
 }

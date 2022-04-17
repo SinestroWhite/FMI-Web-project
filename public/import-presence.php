@@ -39,7 +39,7 @@ if (isset($_POST["import"])) {
     if (move_uploaded_file($_FILES["presence_list"]["tmp_name"], $target_file)) {
         echo "The file ". htmlspecialchars( basename( $_FILES["presence_list"]["name"])). " has been uploaded.";
     } else {
-        throw new FileUploadError();
+        throw new FileSaveError();
     }
 }
 

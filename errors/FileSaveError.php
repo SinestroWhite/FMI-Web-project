@@ -2,14 +2,14 @@
 
 /*
 |--------------------------------------------------------------------------
-| File Upload Error
+| File Save Error
 |--------------------------------------------------------------------------
 |
-| This error is thrown when an uploaded file cannot be written on the disk.
+| This error is thrown when a file cannot be written on the disk.
 |
 */
 
-class FileUploadError extends Error {
+class FileSaveError extends Error {
     public function __construct() {
         parent::__construct("There was a technical problem and the file could not be saved.");
     }
