@@ -3,7 +3,7 @@
     <title>PHP Test</title>
   </head>
   <body>
-    <form action="register.php" method="post">
+    <form action="register" method="post">
         <label for="name">Name</label>
         <input id="name" type="text" name="name"/>
   		<label for="email">Email</label>
@@ -18,7 +18,7 @@
 		<input type="submit" name="register" value="Submit"/>
 	</form>
 
-	<a href="login.php">I already have an account.</a>
+	<a href="login">I already have an account.</a>
   </body>
 </html>
 <?php
@@ -31,6 +31,6 @@
 
             $user = new User($name, $email, $expertise, $password, $conf_password);
             $user->store();
-            header('Location: login.php');
+            header('Location: login');
 		}
 ?>

@@ -40,5 +40,6 @@ class Router {
     }
 
     private function isLoggedIn() {
+        return isset($_SESSION["login_time"]);
     }
 }
