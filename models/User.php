@@ -14,12 +14,12 @@ class User {
         $connection = (new DB())->getConnection();
         $sql = "INSERT INTO teachers (name, email, expertise, password) VALUES (?, ?, ?, ?)";
 
-    	$stmt = $connection->prepare($sql);
-    	$result  = $stmt->execute([$this->name, $this->email, $this->expertise, $this->password]);
+        $stmt = $connection->prepare($sql);
+        $result = $stmt->execute([$this->name, $this->email, $this->expertise, $this->password]);
 
-    	if(!$result) {
-    		throw new DatabaseQueryError();
-    	}
+        if (!$result) {
+            throw new DatabaseQueryError();
+        }
     }
 
     public static function getById($id) {
@@ -27,11 +27,11 @@ class User {
         $sql = "SELECT FROM teachers (name, email, expertise) WHERE id = ?";
 
         $stmt = $connection->prepare($sql);
-    	$result  = $stmt->execute($id);
+        $result = $stmt->execute($id);
 
-    	if(!$result) {
-    		throw new DatabaseQueryError();
-    	}
+        if (!$result) {
+            throw new DatabaseQueryError();
+        }
     }
 
     public static function getByEmail($email) {
@@ -39,27 +39,27 @@ class User {
         $sql = "SELECT * FROM teachers WHERE email = ?";
 
         $stmt = $connection->prepare($sql);
-    	$result  = $stmt->execute([$email]);
+        $result = $stmt->execute([$email]);
 
-    	if(!$result) {
-    	    throw new DatabaseQueryError();
-    	}
+        if (!$result) {
+            throw new DatabaseQueryError();
+        }
 
         $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        if(count($data) != 1) {
+        if (count($data) != 1) {
             throw new UserNotFoundError();
         }
 
         return $data[0];
     }
 
-    public static function verifyCredentials(string $email, string $password): Array {
+    public static function verifyCredentials(string $email, string $password): array {
         $user = User::getByEmail($email);
 
         $isCorrect = password_verify($password, $user["password"]);
 
-        if(!$isCorrect) {
-    	    throw new InvalidCredentialsError();
+        if (!$isCorrect) {
+            throw new InvalidCredentialsError();
         }
 
         return $user;
@@ -73,25 +73,25 @@ class User {
         }
     }
 
-    private function hashPassword(string $password) : string {
-    	$hashedPassword = password_hash($password, PASSWORD_ARGON2I);
-    	$isCorrect = password_verify($password, $hashedPassword);
+    private function hashPassword(string $password): string {
+        $hashedPassword = password_hash($password, PASSWORD_ARGON2I);
+        $isCorrect = password_verify($password, $hashedPassword);
 
-    	if(!$isCorrect) {
-    		throw new HashingPasswordError();
-    	}
+        if (!$isCorrect) {
+            throw new HashingPasswordError();
+        }
 
-    	return $hashedPassword;
+        return $hashedPassword;
     }
 
-    private function processPassword(string $password, string $confpassword) : string {
-    	if($password !== $confpassword) {
-    		throw new PasswordMismatchError();
-    	}
+    private function processPassword(string $password, string $confpassword): string {
+        if ($password !== $confpassword) {
+            throw new PasswordMismatchError();
+        }
 
-    	$this->verifyPasswordPattern($password);
+        $this->verifyPasswordPattern($password);
 
-    	return $this->hashPassword($password);
+        return $this->hashPassword($password);
     }
 
 }

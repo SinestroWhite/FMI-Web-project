@@ -1,10 +1,10 @@
 <?php
+
 // TODO: Add comments everywhere
 class DB {
     private $connection;
 
-    public function __construct()
-    {
+    public function __construct() {
         $connection = $_ENV["DB_CONNECTION"];
         $host = $_ENV["DB_HOST"];
         $port = $_ENV["DB_PORT"];
@@ -13,13 +13,12 @@ class DB {
         $password = $_ENV["DB_PASSWORD"];
 
         $this->connection = new PDO("$connection:host=$host:$port;dbname=$database_name", $username, $password, [
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            ]);
+            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8",
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ]);
     }
 
-    public function getConnection()
-    {
+    public function getConnection() {
         return $this->connection;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-spl_autoload_register(function($className) {
+spl_autoload_register(function ($className) {
     $paths = [
         APP_ROOT . "errors",
         APP_ROOT . "models",

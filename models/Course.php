@@ -25,12 +25,12 @@ class Course {
         $connection = (new DB())->getConnection();
         $sql = "INSERT INTO courses (name, year, teacher_id) VALUES (?, ?, ?)";
 
-    	$stmt = $connection->prepare($sql);
-    	$result  = $stmt->execute([$this->name, $this->year, $this->teacher_id]);
+        $stmt = $connection->prepare($sql);
+        $result = $stmt->execute([$this->name, $this->year, $this->teacher_id]);
 
-    	if(!$result) {
-    		throw new DatabaseQueryError();
-    	}
+        if (!$result) {
+            throw new DatabaseQueryError();
+        }
     }
 
     public static function delete($id) {
@@ -38,25 +38,25 @@ class Course {
         $sql = "DELETE FROM courses WHERE id = ?";
 
         $stmt = $connection->prepare($sql);
-        $result  = $stmt->execute([$id]);
+        $result = $stmt->execute([$id]);
 
-        if(!$result) {
+        if (!$result) {
             throw new DatabaseQueryError();
         }
     }
 
-    public static function getAll($teacher_id): Array {
+    public static function getAll($teacher_id): array {
         $connection = (new DB())->getConnection();
         $sql = "SELECT * FROM courses WHERE teacher_id = ?";
 
         $stmt = $connection->prepare($sql);
-        $result  = $stmt->execute([$teacher_id]);
+        $result = $stmt->execute([$teacher_id]);
 
-        if(!$result) {
+        if (!$result) {
             throw new DatabaseQueryError();
         }
 
-         $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-         return $data;
+        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $data;
     }
 }

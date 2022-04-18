@@ -1,89 +1,90 @@
 <!DOCTYPE html>
 <html lang="bg">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>
-            Results
-        </title>
+<head>
+    <meta charset="UTF-8"/>
+    <title>
+        Results
+    </title>
 
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/styles.css"/>
-        <link rel="stylesheet" type="text/css" href="css/results.css">
-    </head>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/styles.css"/>
+    <link rel="stylesheet" type="text/css" href="css/results.css">
+</head>
 
-    <body>
-        <header>
-            <nav class="nav">
-                <div class="container">
-                    <div class="grid">
-                        <div class="left">
-                            <h1>Gradeview</h1>
-                        </div>
-                        <div class="right">
-                            <a href="#">Теодор</a>
-                        </div>
-                    </div>
+<body>
+<header>
+    <nav class="nav">
+        <div class="container">
+            <div class="grid">
+                <div class="left">
+                    <h1>Gradeview</h1>
                 </div>
-            </nav>
-        </header>
-
-        <main>
-            <div class="container results">
-                <form class="search">
-                    <div class="input">
-                        <label for="search">Търсене:</label>
-                        <input type="text" id="search" name="search" placeholder="Теодор"/>
-                    </div>
-                </form>
-
-                <div class="table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Студент</th>
-                                <th>Реферат</th>
-                                <th>Присъствия</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr class="success" data-href="student.html">
-                                <td>Теодор Тончев</td>
-                                <td>
-                                    <i class="mark success-icon fa-solid fa-square-check"></i>
-                                    „Vue.js“
-                                </td>
-                                <td>
-                                    <i class="mark success-icon fa-solid fa-square-check"></i>
-                                    4/4
-                                </td>
-                            </tr>
-                            <tr class="fail" data-href="student.html">
-                                <td>Димитър Димитров</td>
-                                <td>
-                                    <i class="mark fail-icon fa-solid fa-square-xmark"></i>
-                                    „React.js“
-                                </td>
-                                <td class="fail">
-                                    <i class="mark fail-icon fa-solid fa-square-xmark"></i>
-                                    2/4
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>
+                <div class="right">
+                    <a href="#">Теодор</a>
                 </div>
             </div>
-        </main>
+        </div>
+    </nav>
+</header>
 
-        <script>
-            const links = document.querySelectorAll("[data-href]");
+<main>
+    <div class="container results">
+        <form class="search">
+            <div class="input">
+                <label for="search">Търсене:</label>
+                <input type="text" id="search" name="search" placeholder="Теодор"/>
+            </div>
+        </form>
 
-            for (const item of links) {
-                item.addEventListener("click", () => {
-                    window.location = item.dataset.href;
-                });
-            }
-        </script>
-    </body>
+        <div class="table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Студент</th>
+                    <th>Реферат</th>
+                    <th>Присъствия</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr class="success" data-href="student.html">
+                    <td>Теодор Тончев</td>
+                    <td>
+                        <i class="mark success-icon fa-solid fa-square-check"></i>
+                        „Vue.js“
+                    </td>
+                    <td>
+                        <i class="mark success-icon fa-solid fa-square-check"></i>
+                        4/4
+                    </td>
+                </tr>
+                <tr class="fail" data-href="student.html">
+                    <td>Димитър Димитров</td>
+                    <td>
+                        <i class="mark fail-icon fa-solid fa-square-xmark"></i>
+                        „React.js“
+                    </td>
+                    <td class="fail">
+                        <i class="mark fail-icon fa-solid fa-square-xmark"></i>
+                        2/4
+                    </td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</main>
+
+<script>
+    const links = document.querySelectorAll("[data-href]");
+
+    for (const item of links) {
+        item.addEventListener("click", () => {
+            window.location = item.dataset.href;
+        });
+    }
+</script>
+</body>
 </html>

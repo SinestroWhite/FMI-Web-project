@@ -1,17 +1,17 @@
 <html>
-    <head>
-        <title>Results</title>
-    </head>
-    <body>
-   <section class="data-section">
-    <div id = "courses">
+<head>
+    <title>Results</title>
+</head>
+<body>
+<section class="data-section">
+    <div id="courses">
         <h1>Таблица на резултатите</h1>
 
     </div>
-   </section>
+</section>
 
-   <a href="logout">Logout</a>
+<a href="logout">Logout</a>
 
-  </body>
+</body>
 </html>
 
