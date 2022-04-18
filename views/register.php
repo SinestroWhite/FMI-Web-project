@@ -15,6 +15,7 @@
     <label for="conf-pass">Confirm password</label>
     <input id="conf-pass" type="password" name="conf_password"/>
 
+    <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
     <input type="submit" name="register" value="Submit"/>
 </form>
 

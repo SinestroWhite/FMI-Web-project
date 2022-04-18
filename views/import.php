@@ -8,6 +8,7 @@
     <!-- TODO: add CSRF filed -->
     <form action="import" method="post" enctype="multipart/form-data">
         <input type="file" name="presence_list">
+        <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
         <input type="submit" value="Качване" name="import"/>
     </form>
 </section>
@@ -71,6 +72,6 @@ if (isset($_POST["import"])) {
     $sql = "INSERT INTO presences (presence_time, name) VALUES (?, ?)";
 
     $stmt = $connection->prepare($sql);
-    $result = $stmt->execute
+//    $result = $stmt->execute
 }
 ?>

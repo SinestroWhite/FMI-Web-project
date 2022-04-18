@@ -12,7 +12,6 @@
             $courses = Course::getAll($teacher_id);
             foreach ($courses as $course) {
                 echo "<li><a href=\"#\">" . $course["name"] . ", " . $course["year"] . "</a></li>";
-
             }
             ?>
         </ul>

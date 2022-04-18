@@ -20,7 +20,10 @@ require_once APP_ROOT . "config/error-handler.php";
 // Import database connection file
 require_once APP_ROOT . "database/DB.php";
 
+// Import CSRF protection
+require_once APP_ROOT . "router/CSRF.php";
+(new CSRF())->validate();
+
 // Import router
 require_once APP_ROOT . "router/Router.php";
-$router = new Router();
-$router->locate();
+(new Router())->locate();

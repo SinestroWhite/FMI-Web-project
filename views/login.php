@@ -10,6 +10,7 @@
     <label for="pass">Password</label>
     <input id="pass" type="password" name="password"/>
 
+    <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
     <input type="submit" name="login" value="Submit"/>
 </form>
 
@@ -29,8 +30,6 @@ if (isset($_POST['login'])) {
     $_SESSION['email'] = $user["email"];
     $_SESSION['expertise'] = $user['expertise'];
 
-//         session_unset();
-//         var_dump($_SESSION);
     header('Location: dashboard');
 }
 ?>

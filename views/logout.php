@@ -6,5 +6,6 @@ unset($_SESSION["name"]);
 unset($_SESSION["email"]);
 unset($_SESSION["expertise"]);
 unset($_SESSION["login_time"]);
+unset($_SESSION["csrf_token"]);
 
 header('Location: login');
