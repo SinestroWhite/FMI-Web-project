@@ -17,6 +17,9 @@ require_once APP_ROOT . "config/auto-load.php";
 require_once APP_ROOT . "config/env-parse.php";
 require_once APP_ROOT . "config/error-handler.php";
 
+// Import database connection file
+require_once APP_ROOT . "database/DB.php";
+
 // Import router
 require_once APP_ROOT . "router/Router.php";
 $router = new Router();

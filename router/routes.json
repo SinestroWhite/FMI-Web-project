@@ -18,6 +18,13 @@
         }
     },
     {
+        "path": "/logout",
+        "view": "logout",
+        "meta": {
+            "auth": "required"
+        }
+    },
+    {
         "path": "/dashboard",
         "view": "dashboard",
         "meta": {
@@ -30,5 +37,16 @@
         "meta": {
             "auth": "required"
         }
+    },
+    {
+        "path": "/results",
+        "view": "results",
+        "meta": {
+            "auth": "required"
+        }
+    },
+    {
+        "path": "/404",
+        "view": "404"
     }
 ]

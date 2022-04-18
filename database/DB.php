@@ -1,5 +1,5 @@
 <?php
-
+// TODO: Add comments everywhere
 class DB {
     private $connection;
 

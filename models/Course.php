@@ -1,8 +1,5 @@
 <?php
 
-require_once("../database/DB.php");
-require_once("../errors/DatabaseQueryError.php");
-
 class Course {
     private $name, $year, $teacher_id;
 
