@@ -5,7 +5,6 @@
 <body>
 <section class="data-section">
     <h1>Импортиране на присъсъствен списък</h1>
-    <!-- TODO: add CSRF filed -->
     <form action="import" method="post" enctype="multipart/form-data">
         <input type="file" name="presence_list">
         <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
@@ -44,34 +43,34 @@ if (isset($_POST["import"])) {
     $minute = $matches[5][0];
     $second = $matches[6][0];
 
-    $regexStudentList = "/Sorted by first name:((.|\n)*)Sorted by last name:/";
+    $regexStudentList = "/Sorted by first name:\r\n(([^\r]|\r)*)\n  \r\n\r\nSorted by last name:/";
     preg_match_all($regexStudentList, $fileContent, $matches_st);
-
+//    var_dump($matches_st);
     $studentList = $matches_st[1][0];
     $res = explode("\n", $studentList);
-
-    // TODO: Attempt to fix the bad way
-    foreach ($res as $index => $student) {
-        if (ctype_space($student) || $student == "") {
-            unset($res[$index]);
-        }
-    }
-
+//
+//    // TODO: Attempt to fix the bad way
+//    foreach ($res as $index => $student) {
+//        if (ctype_space($student) || $student == "") {
+//            unset($res[$index]);
+//        }
+//    }
+//
     var_dump($res);
 
-    $connection = (new DB())->getConnection();
-    $sql = "INSERT INTO presences (presence_time, name) VALUES (?, ?)";
-
-    $stmt = $connection->prepare($sql);
-
-    foreach ($res as $student) {
-
-    }
-
-    $connection = (new DB())->getConnection();
-    $sql = "INSERT INTO presences (presence_time, name) VALUES (?, ?)";
-
-    $stmt = $connection->prepare($sql);
+//    $connection = (new DB())->getConnection();
+//    $sql = "INSERT INTO presences (presence_time, name) VALUES (?, ?)";
+//
+//    $stmt = $connection->prepare($sql);
+//
+//    foreach ($res as $student) {
+//
+//    }
+//
+//    $connection = (new DB())->getConnection();
+//    $sql = "INSERT INTO presences (presence_time, name) VALUES (?, ?)";
+//
+//    $stmt = $connection->prepare($sql);
 //    $result = $stmt->execute
 }
 ?>
