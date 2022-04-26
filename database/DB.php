@@ -22,28 +22,18 @@ class DB {
         return $this->connection;
     }
 
-    public function store(string $sql, array $values) {
+    public function execute(string $sql, array $values): array {
         $stmt = $this->connection->prepare($sql);
         $result = $stmt->execute($values);
 
         if(!$result) {
             throw new DatabaseQueryError();
         }
+
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
-    public function select(string $sql, array $values) : array {
-        $stmt = $this->$connection->prepare($sql);
-        $result = $stmt->execute($values);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
-
-        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        if (count($data) != 1) {
-            throw new UserNotFoundError();
-        }
-
-        return $data[0];
+    public function getLastId() {
+        return $this->connection->lastInsertId();
     }
 }

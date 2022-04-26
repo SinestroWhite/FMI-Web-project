@@ -14,7 +14,7 @@ class User {
         $sql = "INSERT INTO teachers (name, email, expertise, password) VALUES (?, ?, ?, ?)";
         $values = array($this->name, $this->email, $this->expertise, $this->password);
 
-        (new DB())->store($sql, $values);
+        (new DB())->execute($sql, $values);
     }
 
     public static function getById($id) {
@@ -28,12 +28,16 @@ class User {
         $sql = "SELECT * FROM teachers WHERE email = ?";
         $values = array($email);
 
-        return (new DB())->select($sql, $values);
+        $user = (new DB())->execute($sql, $values);
+        if (count($user) != 1) {
+            throw new UserNotFoundError();
+        }
+
+        return $user[0];
     }
 
     public static function verifyCredentials(string $email, string $password): array {
         $user = User::getByEmail($email);
-
         $isCorrect = password_verify($password, $user["password"]);
 
         if (!$isCorrect) {

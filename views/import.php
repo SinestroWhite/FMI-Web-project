@@ -23,12 +23,13 @@ if (isset($_POST["import"])) {
     $fileContent = File::fileValidation($_FILES['presence_list']);
 
     $stamp = File::getTimestamp($fileContent);
-    (new Presence($stamp, "web"))->store();
+    $presence = new Presence($stamp, "web");
+    $presence->store();
 
     $students = File::getStudentList($fileContent);
     Student::storeList($students);
 
-    StudentPresencePivot::storeList($students, $stamp);
+    StudentPresencePivot::storeList($students, $presence->getId());
 
 }
 ?>

@@ -1,15 +1,16 @@
 <?php
 class File {
-
-	private $regex['time-stamp']   = "/([1-9]|1[0-2])\/([1-9]|1[0-9]|2[0-9]|3[0|1])\/(\d{4}):([0-9]|1[0-2]):([0-5]?[0-9]):([0-5]?[0-9]) (AM|PM)/";
-	private $regex['student-list'] = "/Sorted by first name:\r\n(([^\r]|\r)*)\n  \r\n\r\nSorted by last name:/";
+	private const REGEX = [
+        "time-stamp" => "/([1-9]|1[0-2])\/([1-9]|1[0-9]|2[0-9]|3[0|1])\/(\d{4}):([0-9]|1[0-2]):([0-5]?[0-9]):([0-5]?[0-9]) (AM|PM)/",
+        "student-list" => "/Sorted by first name:\r\n(([^\r]|\r)*)\n  \r\n\r\nSorted by last name:/",
+    ];
 
 	public static function fileValidation(array $file) : string {
-		$ext = pathinfo($file["tmp_name"], PATHINFO_EXTENSION);
+		$ext = pathinfo($file["name"], PATHINFO_EXTENSION);
+
 	    if ($ext != "txt") {
 	         throw new InvalidFileFormatError();
 	    }
-
 
 	    if ($file["size"] > 500000) {
 	        throw new FileTooLargeError();
@@ -19,18 +20,27 @@ class File {
 	}
 
 	public static function getTimestamp(string $fileContent) : string {
-		$match = $this->find($fileContent, $this->regex['time-stamp']);
-		
-		return implode(":",$timestampMatch);
+		$matches = File::find($fileContent, File::REGEX['time-stamp']);
+
+        $month = $matches[1][0];
+        $day = $matches[2][0];
+        $year = $matches[3][0];
+        $hour = $matches[4][0];
+        $minute = $matches[5][0];
+        $second = $matches[6][0];
+
+        $string = $year . "-" . $month . "-" . $day . " " . $hour . ":" . $minute . ":" . $second;
+        //throw "Error";
+		return $string;
 	}
 
 	public static function getStudentList(string $fileContent) : array {
-		$match = $this->find($fileContent, $this->regex['student-list']);
+		$match = File::find($fileContent, File::REGEX['student-list']);
 
-		return explode("\n", $match[1][0]);
+		return explode("\r\n", $match[1][0]);
 	}
 
-	private function find(string $fileContent, string $pattern) {
+	private static function find(string $fileContent, string $pattern) {
 		$matches = [];
     	preg_match_all($pattern, $fileContent, $matches);
 

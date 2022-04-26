@@ -2,17 +2,17 @@
 class StudentPresencePivot {
 	private $studentID, $presenceID;
 
-
-	public static function storeList(array $students, string $stamp) {
-		$sql = Function::prepareMultipleInsertSQL("students_presence_pivot", "students_id, presence_id", count($students));
+	public static function storeList(array $students, int $presence_id) {
+		$sql = Functions::prepareMultipleInsertSQL("students_presence_pivot", "student_id, presence_id", count($students));
 
 		foreach($students as $index=>$student) {
+            // TODO: Optimize the number of sql requests
 			$studentDB = Student::getByName($student);
-			
-			$values[$index][0] = $studentDB['id'];
-			$values[$index][1] = $stamp;
+
+			$values[] = $studentDB['id'];
+			$values[] = $presence_id;
 		}
 
-		(new DB())->store($sql, $values);
+		(new DB())->execute($sql, $values);
 	}
 }
