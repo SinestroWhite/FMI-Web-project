@@ -15,7 +15,7 @@ class Student {
 
 	public static function storeList(array $list) {
 		$lenght = count($list);
-		$sql = Functions::prepareMultipleInsertSQL("students", "name", $lenght);
+		$sql = DB::prepareMultipleInsertSQL("students", "name", $lenght);
 
 		(new DB())->execute($sql, $list);
 	}

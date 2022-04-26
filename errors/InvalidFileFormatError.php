@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Invalid File Format Error
+| Invalid BigBlueButtonParser Format Error
 |--------------------------------------------------------------------------
 |
 | This error is thrown when the user attempts to upload a disallowed

@@ -20,13 +20,13 @@
 <?php
 if (isset($_POST["import"])) {
 
-    $fileContent = File::fileValidation($_FILES['presence_list']);
+    $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
 
-    $stamp = File::getTimestamp($fileContent);
+    $stamp = BigBlueButtonParser::getTimestamp($fileContent);
     $presence = new Presence($stamp, "web");
     $presence->store();
 
-    $students = File::getStudentList($fileContent);
+    $students = BigBlueButtonParser::getStudentList($fileContent);
     Student::storeList($students);
 
     StudentPresencePivot::storeList($students, $presence->getId());

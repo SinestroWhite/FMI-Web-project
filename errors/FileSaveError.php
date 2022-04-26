@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| File Save Error
+| BigBlueButtonParser Save Error
 |--------------------------------------------------------------------------
 |
 | This error is thrown when a file cannot be written on the disk.

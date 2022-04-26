@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| File Too Large Error
+| BigBlueButtonParser Too Large Error
 |--------------------------------------------------------------------------
 |
 | This error is thrown when the user attempts to upload a file larger than 0.5MB.
