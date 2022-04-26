@@ -29,29 +29,16 @@ class Course {
     }
 
     public static function delete($id) {
-        $connection = (new DB())->getConnection();
         $sql = "DELETE FROM courses WHERE id = ?";
+        $values = array($id);
 
-        $stmt = $connection->prepare($sql);
-        $result = $stmt->execute([$id]);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
+        (new DB())->execute($sql, $values);
     }
 
     public static function getAll($teacher_id): array {
-        $connection = (new DB())->getConnection();
         $sql = "SELECT * FROM courses WHERE teacher_id = ?";
+        $values = array($teacher_id);
 
-        $stmt = $connection->prepare($sql);
-        $result = $stmt->execute([$teacher_id]);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
-
-        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $data;
+        return (new DB())->execute($sql, $values);
     }
 }
