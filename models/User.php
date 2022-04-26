@@ -11,46 +11,24 @@ class User {
     }
 
     public function store() {
-        $connection = (new DB())->getConnection();
         $sql = "INSERT INTO teachers (name, email, expertise, password) VALUES (?, ?, ?, ?)";
+        $values = array($this->name, $this->email, $this->expertise, $this->password);
 
-        $stmt = $connection->prepare($sql);
-        $result = $stmt->execute([$this->name, $this->email, $this->expertise, $this->password]);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
+        (new DB())->store($sql, $values);
     }
 
     public static function getById($id) {
-        $connection = (new DB())->getConnection();
         $sql = "SELECT FROM teachers (name, email, expertise) WHERE id = ?";
+        $values = array($id);
 
-        $stmt = $connection->prepare($sql);
-        $result = $stmt->execute($id);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
+        return (new DB())->select($sql, $values);
     }
 
-    public static function getByEmail($email) {
-        $connection = (new DB())->getConnection();
+    public static function getByEmail($email) : array {
         $sql = "SELECT * FROM teachers WHERE email = ?";
+        $values = array($email);
 
-        $stmt = $connection->prepare($sql);
-        $result = $stmt->execute([$email]);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
-
-        $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        if (count($data) != 1) {
-            throw new UserNotFoundError();
-        }
-
-        return $data[0];
+        return (new DB())->select($sql, $values);
     }
 
     public static function verifyCredentials(string $email, string $password): array {
