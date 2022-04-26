@@ -46,6 +46,13 @@
         }
     },
     {
+        "path": "/add-course",
+        "view": "add-course",
+        "meta": {
+            "auth": "required"
+        }
+    },
+    {
         "path": "/404",
         "view": "404"
     }

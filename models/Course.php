@@ -22,15 +22,10 @@ class Course {
     }
 
     public function store() {
-        $connection = (new DB())->getConnection();
         $sql = "INSERT INTO courses (name, year, teacher_id) VALUES (?, ?, ?)";
+        $values = array($this->name, $this->year, $this->teacher_id);
 
-        $stmt = $connection->prepare($sql);
-        $result = $stmt->execute([$this->name, $this->year, $this->teacher_id]);
-
-        if (!$result) {
-            throw new DatabaseQueryError();
-        }
+        (new DB())->execute($sql, $values);
     }
 
     public static function delete($id) {

@@ -6,6 +6,7 @@
 <section class="data-section">
     <div id="courses">
         <h1>Курсове</h1>
+        <a href="add-course">Създаване на нов курс</a>
         <ul>
             <?php
             $teacher_id = $_SESSION['id'];

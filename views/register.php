@@ -23,6 +23,7 @@
 </body>
 </html>
 <?php
+// TODO: Add validations everywhere
 if (isset($_POST['register'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
