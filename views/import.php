@@ -19,7 +19,6 @@
 
 <?php
 if (isset($_POST["import"])) {
-
     $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
 
     $stamp = BigBlueButtonParser::getTimestamp($fileContent);

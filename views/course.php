@@ -9,19 +9,9 @@
 <body>
 <section class="data-section">
     <div id="courses">
-        <h1><?php echo $data['name'] ?> - <?php echo $data['year']; ?></h1>
-
         <a href="add-course">Създаване на нов курс</a>
-        <ul>
-            <?php
+        <h1><?= $data['name'] ?> - <?= $data['year'] ?></h1>
 
-//            $teacher_id = $_SESSION['id'];
-//            $courses = Course::getAll($teacher_id);
-//            foreach ($courses as $course) {
-//                echo "<li><a href=\"#\">" . $course["name"] . ", " . $course["year"] . "</a></li>";
-//            }
-            ?>
-        </ul>
     </div>
 </section>
 
