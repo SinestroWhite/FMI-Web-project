@@ -15,7 +15,8 @@ class Router {
 
     public function locate() {
         foreach ($this->routes as $route) {
-            if ($this->path == $route->path) {
+            // /course/2 ==? /course/:id
+            if ($this->match($route->path, $this->path)) {
                 $this->routeGuard($route);
                 return;
             }
@@ -47,5 +48,24 @@ class Router {
         }
         // Load the requested page
         require_once APP_ROOT . "views/" . $route->view . ".php";
+    }
+
+    private function match($route, $subject): bool {
+        preg_match_all("#/:([^/]+)/?#", $route, $output);
+        $parameter_names = $output[1];
+
+        $search_pattern = "#^". preg_replace("#/:[^/]+(/?)#", "/([^/]+)$1", $route) . "/?$#";
+        preg_match_all($search_pattern, $subject, $out);
+
+        $result = [];
+        $i = 1;
+        foreach ($parameter_names as $name) {
+            $result[$name] = $out[$i][0];
+            ++$i;
+        }
+
+        $_ENV["URL_PARAMS"] = $result;
+
+        return preg_match($search_pattern, $subject);
     }
 }

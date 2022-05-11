@@ -53,6 +53,13 @@
         }
     },
     {
+        "path": "/course/:id",
+        "view": "course",
+        "meta": {
+            "auth": "required"
+        }
+    },
+    {
         "path": "/404",
         "view": "404"
     }

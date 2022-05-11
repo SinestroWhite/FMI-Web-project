@@ -41,4 +41,11 @@ class Course {
 
         return (new DB())->execute($sql, $values);
     }
+
+    public static function getById($id): array {
+        $sql = "SELECT * FROM courses WHERE id = ?";
+        $values = array($id);
+
+        return (new DB())->execute($sql, $values)[0];
+    }
 }

@@ -8,4 +8,6 @@ unset($_SESSION["expertise"]);
 unset($_SESSION["login_time"]);
 unset($_SESSION["csrf_token"]);
 
+session_destroy();
+
 header('Location: login');

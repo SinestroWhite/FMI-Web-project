@@ -12,7 +12,7 @@
             $teacher_id = $_SESSION['id'];
             $courses = Course::getAll($teacher_id);
             foreach ($courses as $course) {
-                echo "<li><a href=\"#\">" . $course["name"] . ", " . $course["year"] . "</a></li>";
+                echo "<li><a href=\"course/" . $course['id'] . "\">" . $course["name"] . ", " . $course["year"] . "</a></li>";
             }
             ?>
         </ul>
