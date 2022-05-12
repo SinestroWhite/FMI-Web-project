@@ -39,7 +39,7 @@ class PlanCSVParser {
     public static function processFile($file) {
         $file_content = PlanCSVParser::fileValidation($file);
         $result = PlanCSVParser::getData($file_content);
-        var_dump($result);
+
 
         (new DB())->getConnection();
     }
