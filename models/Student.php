@@ -1,9 +1,11 @@
 <?php
 class Student {
-	private $name;
+	private $name, $fn;
 
-	public function __construct(string $name) {
+	public function __construct(string $name, string $fn) {
 		$this->name = $name;
+        $this->fn = $fn;
+
 	}
 
 	public function store() {

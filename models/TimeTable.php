@@ -14,26 +14,25 @@
 
 class TimeTable
 {
-    private $id, $paper_id, $from_time, $to_time, $date;
+    private $id, $paper_id, $is_real, $from_time, $to_time;
 
-    public function __construct($paper_id, $official_from, $official_to, $actual_from, $actual_to) {
-        $this->paper_id      = $paper_id;
-        $this->official_from = $official_from;
-        $this->official_to   = $official_to;
-        $this->actual_from   = $actual_from;
-        $this->actual_to     = $actual_to;
+    public function __construct($paper_id, $is_real, $from_time, $to_time) {
+        $this->paper_id   = $paper_id;
+        $this->is_real    = $is_real;
+        $this->from_time  = $from_time;
+        $this->to_time    = $to_time;
     }
 
     public function store() {
-        $sql = "INSERT INTO time_tables (paper_id, official_from, official_to, actual_from, actual_to) VALUES (?, ?, ?, ?, ?)";
-        $values = array($this->paper_id, $this->official_from, $this->official_to, $this->actual_from, $this->actual_to);
+        $sql = "INSERT INTO time_tables (paper_id, is_real, from_time, to_time) VALUES (?, ?, ?, ?)";
+        $values = array($this->paper_id, $this->is_real, $this->from_time, $this->to_time);
 
         (new DB())->execute($sql, $values);
     }
 
     public static function storeList(array $list) {
         $length = count($list);
-        $sql = DB::prepareMultipleInsertSQL("time_tables", "paper_id, ", $length);
+        $sql = DB::prepareMultipleInsertSQL("time_tables", "paper_id,is_real,from_time,to_time", $length);
 
         (new DB())->execute($sql, $list);
     }

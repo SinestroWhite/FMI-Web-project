@@ -19,7 +19,7 @@ class PlanCSVParser {
         $rows = explode("\n", $file_data);
 
         $result = [];
-        for ($i = 1; $i < count($rows); ++$i) {
+        for ($i = 0; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
                 $temp_row = explode("\t", $rows[$i]);
 
@@ -29,17 +29,20 @@ class PlanCSVParser {
                     "start" => $temp_row[1],
                     "end" => "",
                 ];
+                // TODO: Fix end over a break
+                if ($i > 0) {
+                    $result[$i-1]['end'] = $result[$i]['start'];
+                }
             }
         }
+
+        $result[count($rows) - 1]['end'] = "11:00";
 
         return $result;
     }
 
-    public static function processFile($file) {
-        $file_content = PlanCSVParser::fileValidation($file);
-        $result = PlanCSVParser::getData($file_content);
-
-
-        (new DB())->getConnection();
+    public static function processPlan(string $plan) {
+        $result = PlanCSVParser::getData($plan);
+        TimeTable::storeList($result);
     }
 }
