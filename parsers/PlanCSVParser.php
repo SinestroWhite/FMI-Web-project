@@ -17,18 +17,17 @@ class PlanCSVParser {
 
     private static function getData(string $file_data): Array {
         $rows = explode("\n", $file_data);
-        $column_names = explode(",", $rows[0]);
 
         $result = [];
         for ($i = 1; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
-                $temp_row = explode(",", $rows[$i]);
+                $temp_row = explode("\t", $rows[$i]);
+
                 $result[] =  [
-                    "name" => $temp_row[0],
-                    "topic" => $temp_row[1],
-                    "start" => $temp_row[2],
-                    "end" => $temp_row[3],
-                    "date" => $temp_row[4]
+                    "name" => $temp_row[4],
+                    "topic" => $temp_row[6],
+                    "start" => $temp_row[1],
+                    "end" => "",
                 ];
             }
         }

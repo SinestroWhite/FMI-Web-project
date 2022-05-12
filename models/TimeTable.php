@@ -12,7 +12,6 @@
 );
  */
 
-
 class TimeTable
 {
     private $id, $paper_id, $from_time, $to_time, $date;

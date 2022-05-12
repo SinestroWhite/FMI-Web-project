@@ -35,13 +35,13 @@ class Router {
             if ($this->isLoggedIn()) {
                 if ($route->meta->auth == "prevent") {
                     // Redirect logged in user to the dashboard
-                    header("Location: dashboard");
+                    header("Location: /dashboard");
                     return;
                 }
             } else {
                 if ($route->meta->auth == "required") {
                     // Redirect not logged in user to the login page
-                    header("Location: login");
+                    header("Location: /login");
                     return;
                 }
             }

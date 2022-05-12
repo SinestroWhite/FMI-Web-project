@@ -43,6 +43,7 @@ CREATE TABLE papers
 (
     id           INT          NOT NULL AUTO_INCREMENT,
     name         VARCHAR(255) NOT NULL,
+    faculty_number VARCHAR(255) UNIQUE NOT NULL,
     student_id   INT,
     is_presented BOOLEAN,
     PRIMARY KEY (id),
@@ -63,6 +64,7 @@ CREATE TABLE time_tables
 (
     id        INT       NOT NULL AUTO_INCREMENT,
     paper_id  INT       NOT NULL,
+    is_real   BOOLEAN   NOT NULL,
     from_time TIMESTAMP NOT NULL,
     to_time   TIMESTAMP NOT NULL,
     PRIMARY KEY (id),
