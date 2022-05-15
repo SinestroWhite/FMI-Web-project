@@ -14,18 +14,19 @@
 
 class TimeTable
 {
-    private $id, $paper_id, $is_real, $from_time, $to_time;
+    private $id, $paper_id, $from_time_planned, $to_time_planned, $from_time_real, $to_time_real;
 
-    public function __construct($paper_id, $is_real, $from_time, $to_time) {
+    public function __construct($paper_id, $from_time_planned, $to_time_planned, $from_time_real, $to_time_real) {
         $this->paper_id   = $paper_id;
-        $this->is_real    = $is_real;
-        $this->from_time  = $from_time;
-        $this->to_time    = $to_time;
+        $this->from_time_planned  = $from_time_planned;
+        $this->to_time_planned    = $to_time_planned;
+        $this->from_time_real     = $from_time_real;
+        $this->to_time_real       = $to_time_real;
     }
 
     public function store() {
-        $sql = "INSERT INTO time_tables (paper_id, is_real, from_time, to_time) VALUES (?, ?, ?, ?)";
-        $values = array($this->paper_id, $this->is_real, $this->from_time, $this->to_time);
+        $sql = "INSERT INTO time_tables (paper_id, from_time_planned, to_time_planned, from_time_real, to_time_real) VALUES (?, ?, ?, ?, ?)";
+        $values = array($this->paper_id, $this->from_time_planned, $this->to_time_planned, $this->from_time_real, $this->to_time_real);
 
         (new DB())->execute($sql, $values);
     }

@@ -24,6 +24,7 @@ class DB {
 
     public function execute(string $sql, array $values): array {
         $stmt = $this->connection->prepare($sql);
+
         $result = $stmt->execute($values);
 
         if(!$result) {

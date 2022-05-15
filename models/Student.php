@@ -1,16 +1,15 @@
 <?php
 class Student {
-	private $name, $fn;
+	private $facultyNumber, $name;
 
-	public function __construct(string $name, string $fn) {
-		$this->name = $name;
-        $this->fn = $fn;
-
+	public function __construct(string $facultyNumber, string $name) {
+        $this->facultyNumber = $facultyNumber;
+        $this->name = $name;
 	}
 
 	public function store() {
-		$sql = "INSERT INTO students (name) VALUES (?)";
-        $values = array($this->name);
+		$sql = "INSERT INTO students (faculty_number, name) VALUES (?, ?)";
+        $values = array($this->facultyNumber, $this->name);
 
         (new DB())->execute($sql, $values);
 	}

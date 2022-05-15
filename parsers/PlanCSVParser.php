@@ -44,6 +44,19 @@ class PlanCSVParser {
 
     public static function processPlan(string $plan) {
         $result = PlanCSVParser::getData($plan);
-        TimeTable::storeList($result);
+
+        $firstId = Student::StoreList($result);
+
+        for ($i = 0; $i < count($result); ++$i) {
+            $result[$i]['id'] = $firstId + $i;
+        }
+
+        $courseID = $_ENV['URL_PARAMS']['id'];
+        StudentCoursePivot::storeList($result, $courseID);
+
+        $firstId = Paper::StoreList($result);
+
+        TimeTable::storeList($result, $date, $firstId);
+
     }
 }

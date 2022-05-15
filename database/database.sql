@@ -23,8 +23,9 @@ CREATE TABLE courses
 
 CREATE TABLE students
 (
-    id   INT          NOT NULL AUTO_INCREMENT,
-    name VARCHAR(255) NOT NULL UNIQUE,
+    id             INT          NOT NULL AUTO_INCREMENT,
+    faculty_number VARCHAR(255) UNIQUE,
+    name           VARCHAR(255) NOT NULL UNIQUE,
     PRIMARY KEY (id)
 );
 

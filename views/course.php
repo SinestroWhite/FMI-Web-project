@@ -1,10 +1,12 @@
 <?php
-    $data = Course::getById($_ENV['URL_PARAMS']['id']);
+    $courseID =$_ENV['URL_PARAMS']['id'];
+    $data = Course::getById($courseID);
+    $timeTableData = TimeTable::getAllByCourseId($courseID);
 ?>
 
 <html>
 <head>
-    <title>Dashboard</title>
+    <title><?= $data['name'] ?> - <?= $data['year'] ?></title>
 </head>
 <body>
 <section class="data-section">

@@ -19,7 +19,7 @@
     <input type="submit" name="register" value="Submit"/>
 </form>
 
-<a href="login">I already have an account.</a>
+<a href="/login">I already have an account.</a>
 </body>
 </html>
 <?php
