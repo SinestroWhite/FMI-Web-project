@@ -6,7 +6,8 @@
 <section class="data-section">
     <div id="courses">
         <h1>Курсове</h1>
-        <a href="add-course">Създаване на нов курс</a>
+        <!-- TODO: Add URL protection so that one user cannot access the courses of another -->
+        <a href="/add-course">Създаване на нов курс</a>
         <ul>
             <?php
             $teacher_id = $_SESSION['id'];
@@ -19,7 +20,7 @@
     </div>
 </section>
 
-<a href="logout">Logout</a>
+<a href="/logout">Logout</a>
 
 </body>
 </html>

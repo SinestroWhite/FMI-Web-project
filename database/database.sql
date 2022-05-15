@@ -1,5 +1,5 @@
 CREATE
-DATABASE gradeview;
+    DATABASE gradeview;
 
 CREATE TABLE teachers
 (
@@ -15,7 +15,7 @@ CREATE TABLE courses
 (
     id         INT          NOT NULL AUTO_INCREMENT,
     name       VARCHAR(255) NOT NULL,
-    year YEAR NOT NULL,
+    year       YEAR         NOT NULL,
     teacher_id INT,
     PRIMARY KEY (id),
     FOREIGN KEY (teacher_id) REFERENCES teachers (id)
@@ -43,7 +43,6 @@ CREATE TABLE papers
 (
     id           INT          NOT NULL AUTO_INCREMENT,
     name         VARCHAR(255) NOT NULL,
-    faculty_number VARCHAR(255) UNIQUE NOT NULL,
     student_id   INT,
     is_presented BOOLEAN,
     PRIMARY KEY (id),
@@ -62,11 +61,12 @@ CREATE TABLE presences
 
 CREATE TABLE time_tables
 (
-    id        INT       NOT NULL AUTO_INCREMENT,
-    paper_id  INT       NOT NULL,
-    is_real   BOOLEAN   NOT NULL,
-    from_time TIMESTAMP NOT NULL,
-    to_time   TIMESTAMP NOT NULL,
+    id                INT       NOT NULL AUTO_INCREMENT,
+    paper_id          INT       NOT NULL,
+    from_time_planned TIMESTAMP NOT NULL,
+    to_time_planned   TIMESTAMP NOT NULL,
+    from_time_real    TIMESTAMP,
+    to_time_real      TIMESTAMP,
     PRIMARY KEY (id),
     FOREIGN KEY (paper_id) REFERENCES papers (id)
 );

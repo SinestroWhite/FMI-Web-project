@@ -15,11 +15,19 @@ class Student {
         (new DB())->execute($sql, $values);
 	}
 
-	public static function storeList(array $list) {
-		$lenght = count($list);
-		$sql = DB::prepareMultipleInsertSQL("students", "name", $lenght);
+	public static function storeList(array $result) {
+        $students = [];
+        foreach($result as $student) {
+            $students[] = $student['faculty_number'];
+            $students[] = $student['name'];
+        }
+		$lenght = count($result);
 
-		(new DB())->execute($sql, $list);
+		$sql = DB::prepareMultipleInsertSQL("students", "faculty_number, name", $lenght);
+
+        $db = new DB();
+		$db->execute($sql, $students);
+        return $db->getLastId();
 	}
 
 	public static function getByName(string $name) : array {

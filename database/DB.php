@@ -34,10 +34,12 @@ class DB {
     }
 
     public function getLastId() {
-        return $this->connection->lastInsertId();
+        return intval($this->connection->lastInsertId());
     }
 
     public static function prepareMultipleInsertSQL(string $table, string $columns, int $count) : string {
+        $columnArr = explode(", ", $columns);
+
         return $sql = "INSERT IGNORE INTO $table ($columns) VALUES " . DB::getQuestionMarks($count, $columns);
     }
 

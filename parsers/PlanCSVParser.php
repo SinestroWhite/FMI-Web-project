@@ -24,6 +24,7 @@ class PlanCSVParser {
                 $temp_row = explode("\t", $rows[$i]);
 
                 $result[] =  [
+                    "faculty_number" => $temp_row[2],
                     "name" => $temp_row[4],
                     "topic" => $temp_row[6],
                     "start" => $temp_row[1],

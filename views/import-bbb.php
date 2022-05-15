@@ -12,7 +12,7 @@
     </form>
 </section>
 
-<a href="logout">Logout</a>
+<a href="/logout">Logout</a>
 
 </body>
 </html>

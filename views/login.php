@@ -14,7 +14,7 @@
     <input type="submit" name="login" value="Submit"/>
 </form>
 
-<a href="register">Don't have an account?</a>
+<a href="/register">Don't have an account?</a>
 </body>
 </html>
 
@@ -30,6 +30,6 @@ if (isset($_POST['login'])) {
     $_SESSION['email'] = $user["email"];
     $_SESSION['expertise'] = $user['expertise'];
 
-    header('Location: dashboard');
+    header('Location: /dashboard');
 }
 ?>

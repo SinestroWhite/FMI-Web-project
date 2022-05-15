@@ -30,11 +30,39 @@ class TimeTable
         (new DB())->execute($sql, $values);
     }
 
-    public static function storeList(array $list) {
-        $length = count($list);
-        $sql = DB::prepareMultipleInsertSQL("time_tables", "paper_id,is_real,from_time,to_time", $length);
+    public static function storeList(array $result, string $date, int $firstId) {
+        $table = [];
+        for ($i = 0; $i < count($result); ++$i) {
+            $table[] = $firstId + $i;
+            $table[] = "FALSE";
+            $table[] = $date . " " . $result[$i]['start'];
+            $table[] = $date . " " . $result[$i]['end'];
+        }
 
-        (new DB())->execute($sql, $list);
+        $length = count($result);
+        $sql = DB::prepareMultipleInsertSQL("time_tables", "paper_id, from_time_planned, to_time_planned, from_time_real, to_time_real", $length);
+
+        (new DB())->execute($sql, $table);
     }
 
+    public static function getAllByCourseId($id): array {
+        // Ekstra SQL
+        $sql = <<<EOF
+        SELECT *
+        FROM time_tables AS T
+            JOIN (
+                SELECT name AS topic, student_id, id
+                FROM papers
+                WHERE student_id IN (
+                    SELECT student_id
+                    FROM students_courses_pivot
+                    WHERE course_id = (?)
+                )
+            ) AS P ON T.paper_id = P.id
+            JOIN students AS S ON S.id = P.student_id;
+        EOF;
+        $values = array($id);
+
+        return (new DB())->execute($sql, $values);
+    }
 }

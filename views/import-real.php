@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Import Plan</title>
+    <title>Import Real Plan</title>
 </head>
 
 <style>
@@ -17,14 +17,14 @@
 </style>
 <body>
 <section class="data-section">
-    <h1>Импортиране на предварителен план</h1>
+    <h1>Импортиране на реален план</h1>
     <form action="import-plan" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне
             <input type="date" name="date" required/>
         </label>
         <label>
-            Предварителен план (копиран от Google Spreadsheet)
+            Реален план (копиран от Google Spreadsheet)
             <textarea name="plan" required></textarea>
         </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>

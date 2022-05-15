@@ -10,4 +10,4 @@ unset($_SESSION["csrf_token"]);
 
 session_destroy();
 
-header('Location: login');
+header('Location: /login');
