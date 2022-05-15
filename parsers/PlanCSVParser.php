@@ -42,7 +42,7 @@ class PlanCSVParser {
         return $result;
     }
 
-    public static function processPlan(string $plan) {
+    public static function processPlan(string $plan, string $date) {
         $result = PlanCSVParser::getData($plan);
 
         $firstId = Student::StoreList($result);
