@@ -38,6 +38,8 @@ class DB {
         return intval($this->connection->lastInsertId());
     }
 
+//    public static function prepare;
+
     public static function prepareMultipleInsertSQL(string $table, string $columns, int $count) : string {
         $columnArr = explode(", ", $columns);
 

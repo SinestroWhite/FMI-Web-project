@@ -35,7 +35,6 @@ class TimeTable
         $table = [];
         for ($i = 0; $i < count($result); ++$i) {
             $table[] = $firstId + $i;
-            $table[] = "FALSE";
             $table[] = $date . " " . $result[$i]['start'];
             $table[] = $date . " " . $result[$i]['end'];
         }

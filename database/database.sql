@@ -54,10 +54,9 @@ CREATE TABLE presences
 (
     id            INT          NOT NULL AUTO_INCREMENT,
     presence_time TIMESTAMP    NOT NULL,
-    course_id     INT,
-    name          VARCHAR(255) NOT NULL,
+    student_course_pivot_id INT,
     PRIMARY KEY (id),
-    FOREIGN KEY (course_id) REFERENCES courses (id)
+    FOREIGN KEY (student_course_pivot_id) REFERENCES students_courses_pivot (id)
 );
 
 CREATE TABLE time_tables
