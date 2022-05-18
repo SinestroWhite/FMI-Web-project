@@ -18,7 +18,7 @@ class User {
     }
 
     public static function getById($id) {
-        $sql = "SELECT FROM teachers (name, email, expertise) WHERE id = ?";
+        $sql = "SELECT * FROM teachers WHERE id = ?";
         $values = array($id);
 
         return (new DB())->select($sql, $values);

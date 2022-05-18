@@ -1,34 +1,48 @@
+<?php
+if (isset($_POST["import"])) {
+    $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
+
+    $stamp = BigBlueButtonParser::getTimestamp($fileContent);
+    if ($_POST['confirm'] != "true" && count(Presence::getByTimestamp($stamp)) != 0) {
+        ?>
+        <script>
+            alert('Списъкът вече е качен. Моля потвърдете, че искате да се качи отново.');
+        </script>
+        <?php
+    } else {
+        $students = BigBlueButtonParser::getStudentList($fileContent);
+        $students = Student::getByNames($students);
+
+        $student_course_pivots_ids = StudentCoursePivot::getIDs($students, $_ENV['URL_PARAMS']['id']);
+
+        $presence = Presence::storeList($stamp, $student_course_pivots_ids);
+        // TODO: students may be in the BBB text file but not in the students table
+        header("Location: /dashboard");
+    }
+}
+?>
 <html>
 <head>
     <title>Import Presence</title>
 </head>
 <body>
 <section class="data-section">
-    <h1>Импортиране на присъсъствен списък</h1>
-    <form action="import" method="post" enctype="multipart/form-data">
+    <h1>Импортиране на присъствен списък</h1>
+    <form action="import-bbb" method="post" enctype="multipart/form-data">
         <input type="file" name="presence_list">
         <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
         <input type="submit" value="Качване" name="import"/>
+        <label>
+            <input type="checkbox" name="confirm" value="true"/>
+            Ако списъка вече е импортиран, искате ли да го качите отново?
+        </label>
     </form>
 </section>
 
 <a href="/logout">Logout</a>
 
+
 </body>
 </html>
 
-<?php
-if (isset($_POST["import"])) {
-    $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
 
-    $stamp = BigBlueButtonParser::getTimestamp($fileContent);
-    $presence = new Presence($stamp, "web");
-    $presence->store();
-
-    $students = BigBlueButtonParser::getStudentList($fileContent);
-    Student::storeList($students);
-
-    StudentPresencePivot::storeList($students, $presence->getId());
-
-}
-?>

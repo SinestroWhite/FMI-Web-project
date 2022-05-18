@@ -52,11 +52,15 @@ class PlanCSVParser {
         }
 
         $courseID = $_ENV['URL_PARAMS']['id'];
-        StudentCoursePivot::storeList($result, $courseID);
+        $firstIdSCP = StudentCoursePivot::storeList($result, $courseID);
 
-        $firstId = Paper::StoreList($result);
+        for($i = 0; $i < count($result); ++$i) {
+            $result[$i]['id'] = $firstIdSCP + $i;
+        }
 
-        TimeTable::storeList($result, $date, $firstId);
+        $firstIdPaper = Paper::StoreList($result);
+
+        TimeTable::storeList($result, $date, $firstIdPaper);
 
     }
 }

@@ -2,6 +2,9 @@
     $courseID =$_ENV['URL_PARAMS']['id'];
     $data = Course::getById($courseID);
     $timeTableData = TimeTable::getAllByCourseId($courseID);
+
+    $sql = "";
+
 ?>
 
 <html>
@@ -22,8 +25,11 @@
                     <td>Име</td>
                     <td>ФН</td>
                     <td>Тема</td>
-                    <td>Планирано начало</td>
-                    <td>Планиран край</td>
+<!--                    <td>Планирано начало</td>-->
+<!--                    <td>Планиран край</td>-->
+<!--                    <td>Реално начало</td>-->
+<!--                    <td>Реален край</td>-->
+<!--                    --><?php //foreach () ?>
                 </tr>
             </thead>
             <tbody>
@@ -32,8 +38,10 @@
                         <td><?= $student['name'] ?></td>
                         <td><?= $student['faculty_number'] ?></td>
                         <td><?= $student['topic'] ?></td>
-                        <td><?= $student['from_time'] ?></td>
-                        <td><?= $student['to_time'] ?></td>
+<!--                        <td>--><?//= $student['from_time_planned'] ?><!--</td>-->
+<!--                        <td>--><?//= $student['to_time_planned'] ?><!--</td>-->
+<!--                        <td>--><?//= $student['from_time_real'] ?><!--</td>-->
+<!--                        <td>--><?//= $student['to_time_real'] ?><!--</td>-->
                     </tr>
                 <?php } ?>
             </tbody>

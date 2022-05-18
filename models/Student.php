@@ -41,4 +41,9 @@ class Student {
 
         return $data[0];
 	}
+
+    public static function getByNames(array $students): array {
+        $sql = "SELECT * FROM students WHERE name IN " . DB::getQuestionLine(count($students));
+        return (new DB())->execute($sql, $students);
+    }
 }

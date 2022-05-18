@@ -44,10 +44,10 @@ CREATE TABLE papers
 (
     id           INT          NOT NULL AUTO_INCREMENT,
     name         VARCHAR(255) NOT NULL,
-    student_id   INT,
+    student_course_pivot_id   INT,
     is_presented BOOLEAN,
     PRIMARY KEY (id),
-    FOREIGN KEY (student_id) REFERENCES students (id)
+    FOREIGN KEY (student_course_pivot_id) REFERENCES students_courses_pivot (id)
 );
 
 CREATE TABLE presences

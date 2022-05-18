@@ -41,7 +41,7 @@ class TimeTable
         }
 
         $length = count($result);
-        $sql = DB::prepareMultipleInsertSQL("time_tables", "paper_id, from_time_planned, to_time_planned, from_time_real, to_time_real", $length);
+        $sql = DB::prepareMultipleInsertSQL("time_tables", "paper_id, from_time_planned, to_time_planned", $length);
 
         (new DB())->execute($sql, $table);
     }
@@ -49,18 +49,12 @@ class TimeTable
     public static function getAllByCourseId($id): array {
         // Ekstra SQL
         $sql = <<<EOF
-        SELECT *
-        FROM time_tables AS T
-            JOIN (
-                SELECT name AS topic, student_id, id
-                FROM papers
-                WHERE student_id IN (
-                    SELECT student_id
-                    FROM students_courses_pivot
-                    WHERE course_id = (?)
-                )
-            ) AS P ON T.paper_id = P.id
-            JOIN students AS S ON S.id = P.student_id;
+            SELECT S.name, S.faculty_number, P.name AS topic, T.from_time_planned, T.to_time_planned
+            FROM students_courses_pivot AS SCP
+                JOIN students S on SCP.student_id = S.id
+                JOIN papers AS P ON P.student_course_pivot_id = SCP.id
+                JOIN time_tables AS T on P.id = T.paper_id
+            WHERE course_id = (?)
         EOF;
         $values = array($id);
 

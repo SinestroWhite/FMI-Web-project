@@ -57,12 +57,17 @@ class Router {
         $search_pattern = "#^". preg_replace("#/:[^/]+(/?)#", "/([^/]+)$1", $route) . "/?$#";
         preg_match_all($search_pattern, $subject, $out);
 
+//        var_dump($out);
         $result = [];
         $i = 1;
         foreach ($parameter_names as $name) {
-            $result[$name] = $out[$i][0];
+            // TODO: Fix udefined $out[$i][0]
+//            if (isset($out[$i][0]) && count($out[$i][0]) != 0) {
+                $result[$name] = $out[$i][0];
+//            }
             ++$i;
         }
+//        var_dump($result);
 
         $_ENV["URL_PARAMS"] = $result;
 

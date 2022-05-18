@@ -2,7 +2,7 @@
 
 class Paper
 {
-    private $id, $name, $student_id, $is_presented;
+    private $id, $name, $student_course_pivot_id, $is_presented;
 
     public function __construct($id, $name, $student_id, $is_presented) {
         $this->id = $id;

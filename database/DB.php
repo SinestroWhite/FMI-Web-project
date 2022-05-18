@@ -52,6 +52,15 @@ class DB {
         return $result;
     }
 
+    public static function getQuestionLine(int $count) {
+        $result = "(?";
+        for ($i = 1; $i < $count; ++$i) {
+            $result .= ",?";
+        }
+        $result .= ")";
+        return $result;
+    }
+
     private static function getQuestionMarks(int $count, string $columns): string {
         if ($count <= 0) {
             throw new UnexpectedValueError();
