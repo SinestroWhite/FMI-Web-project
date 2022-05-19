@@ -3,13 +3,59 @@
     $data = Course::getById($courseID);
     $timeTableData = TimeTable::getAllByCourseId($courseID);
 
-    $sql = "";
+    $sql = <<<EOF
+        SELECT CAST(MIN(T.from_time_planned) AS TIME) AS start_time,
+               CAST(MAX(T.to_time_planned) AS TIME) AS end_time,
+               CAST(T.from_time_planned AS DATE) AS date
+        FROM students_courses_pivot AS SCP
+            JOIN papers P on SCP.id = P.student_course_pivot_id
+            JOIN time_tables T on P.id = T.paper_id
+        WHERE course_id = (?)
+        GROUP BY CAST(T.from_time_planned AS DATE);
+    EOF;
 
+    $timeRes = (new DB())->execute($sql, [$courseID]);
+    var_dump($timeRes);
+    function hoursToMinutes($timeRes): array {
+        $result = [];
+        foreach ($timeRes as $time) {
+            $timeFirst = $time['start_time'];
+            $timeSecond = $time['end_time'];
+            $date = $time['date'];
+
+            $arrFirst  = explode(":", $timeFirst);
+            $arrSecond = explode(":", $timeSecond);
+
+            $minutesFirst  = intval($arrFirst[0]) * 60 + intval($arrFirst[1]);
+            $minutesSecond = intval($arrSecond[0]) * 60 + intval($arrSecond[1]);
+
+            $result[] = [
+                $minutesSecond - $minutesFirst,
+                $date
+            ];
+        }
+
+        return $result;
+    }
+
+    $times = hoursToMinutes($timeRes);
+    var_dump($times);
 ?>
 
 <html>
 <head>
     <title><?= $data['name'] ?> - <?= $data['year'] ?></title>
+
+    <style>
+        table, tr, td {
+            border: solid 1px black;
+            border-collapse: collapse;
+        }
+
+        tr, td {
+            padding: 3px 2px;
+        }
+    </style>
 </head>
 <body>
 <section class="data-section">
@@ -25,7 +71,7 @@
                     <td>Име</td>
                     <td>ФН</td>
                     <td>Тема</td>
-<!--                    <td>Планирано начало</td>-->
+                    <td>Планирано начало</td>
 <!--                    <td>Планиран край</td>-->
 <!--                    <td>Реално начало</td>-->
 <!--                    <td>Реален край</td>-->
@@ -38,7 +84,7 @@
                         <td><?= $student['name'] ?></td>
                         <td><?= $student['faculty_number'] ?></td>
                         <td><?= $student['topic'] ?></td>
-<!--                        <td>--><?//= $student['from_time_planned'] ?><!--</td>-->
+                        <td><?= $student['from_time_planned'] ?></td>
 <!--                        <td>--><?//= $student['to_time_planned'] ?><!--</td>-->
 <!--                        <td>--><?//= $student['from_time_real'] ?><!--</td>-->
 <!--                        <td>--><?//= $student['to_time_real'] ?><!--</td>-->

@@ -2,6 +2,7 @@
 if (isset($_POST["import"])) {
     $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
 
+    // TODO: fix timesamp 12-hour format to 24-hour format
     $stamp = BigBlueButtonParser::getTimestamp($fileContent);
     if ($_POST['confirm'] != "true" && count(Presence::getByTimestamp($stamp)) != 0) {
         ?>
@@ -17,7 +18,7 @@ if (isset($_POST["import"])) {
 
         $presence = Presence::storeList($stamp, $student_course_pivots_ids);
         // TODO: students may be in the BBB text file but not in the students table
-        header("Location: /dashboard");
+        header("Location: /course/" . $_ENV['URL_PARAMS']['id']);
     }
 }
 ?>
