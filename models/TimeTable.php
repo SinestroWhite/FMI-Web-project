@@ -48,7 +48,7 @@ class TimeTable
     public static function getAllByCourseId($id): array {
         // Ekstra SQL
         $sql = <<<EOF
-            SELECT S.name, S.faculty_number, P.name AS topic, T.from_time_planned, T.to_time_planned
+            SELECT S.name, S.id AS studnet_id, S.faculty_number, P.name AS topic, T.from_time_planned, T.to_time_planned
             FROM students_courses_pivot AS SCP
                 JOIN students S on SCP.student_id = S.id
                 JOIN papers AS P ON P.student_course_pivot_id = SCP.id
