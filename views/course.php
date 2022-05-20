@@ -44,13 +44,64 @@
         return sprintf('%02d:%02d', $res_hours, $res_minutes);
     }
 
-    $sql_presence = <<<EOF
-        SELECT SCP.student_id, P.presence_time
-        FROM students_courses_pivot AS SCP
-            JOIN presences P on SCP.id = P.student_course_pivot_id
-        WHERE course_id = (?)
+//    $sql_presence = <<<EOF
+//        SELECT SCP.student_id, P.presence_time
+//        FROM students_courses_pivot AS SCP
+//            JOIN presences P on SCP.id = P.student_course_pivot_id
+//        WHERE course_id = (?)
+//    EOF;
+//var_dump((new DB())->execute($sql_presence, [$courseID]));
+
+
+
+
+//    $sql =<<<EOF
+//        SELECT CAST(from_time_planned AS DATE) AS date, JSON_ARRAYAGG(SCP.student_id) AS student_ids, JSON_ARRAYAGG(P2.presence_time) AS presencs
+//        FROM time_tables AS TT
+//            JOIN papers P on TT.paper_id = P.id
+//            JOIN presences P2 on P.student_course_pivot_id = P2.student_course_pivot_id
+//            JOIN students_courses_pivot AS SCP ON P.student_course_pivot_id = SCP.id
+//        GROUP BY CAST(from_time_planned AS DATE);
+//    EOF;
+
+//    $sql =<<<EOF
+//        SELECT P.presence_time, SCP.student_id
+//        FROM presences AS P
+//            JOIN students_courses_pivot SCP on P.student_course_pivot_id = SCP.id
+//    EOF;
+
+    $sql =<<<EOF
+        SELECT CAST(P.presence_time AS DATE) AS date,
+               JSON_ARRAYAGG(CAST(P.presence_time AS TIME)) AS times,
+               JSON_ARRAYAGG(SCP.student_id) AS student_ids
+        FROM presences AS P
+            JOIN (
+                    SELECT id, student_id
+                    FROM students_courses_pivot
+                    WHERE course_id = (?)
+                ) AS SCP on SCP.id = P.student_course_pivot_id
+        GROUP BY CAST(P.presence_time AS DATE);
     EOF;
-var_dump((new DB())->execute($sql_presence, [$courseID]));
+
+    $data1 = (new DB())->execute($sql, [$courseID]);
+
+    function mapHours($element): array {
+        $result = [];
+        $times = json_decode($element['times']);
+        $students = json_decode($element['student_ids']);
+        foreach ($times as $i => $time) {
+            $time = substr($time,0,-3);
+            $result[$time][] = $students[$i];
+        }
+        return $result;
+    }
+
+    $result = [];
+    foreach ($data1 as $element) {
+        $result[$element['date']] = mapHours($element);
+    }
+    var_dump($result);
+
 
 ?>
 
@@ -103,7 +154,7 @@ var_dump((new DB())->execute($sql_presence, [$courseID]));
         }
 
         .presence {
-            width: 9px;
+            width: 5px;
         }
 
         .green {
@@ -138,9 +189,10 @@ var_dump((new DB())->execute($sql_presence, [$courseID]));
 <!--                    <td>Планиран край</td>-->
 <!--                    <td>Реално начало</td>-->
 <!--                    <td>Реален край</td>-->
-                    <?php for ($i = 0; $i <= $cellCount; ++$i) { ?>
-                        <td class="time"><?= addTime($start_time, $i) ?></td>
-                    <?php } ?>
+<!--                    <td colspan="--><?//= $cellCount ?><!--">02.04.2022</td>-->
+<!--                    --><?php //for ($i = 0; $i <= $cellCount; ++$i) { ?>
+<!--                        <td class="time">--><?//= addTime($start_time, $i) ?><!--</td>-->
+<!--                    --><?php //} ?>
                 </tr>
             </thead>
             <tbody>
@@ -153,9 +205,25 @@ var_dump((new DB())->execute($sql_presence, [$courseID]));
 <!--                        <td>--><?//= $student['to_time_planned'] ?><!--</td>-->
 <!--                        <td>--><?//= $student['from_time_real'] ?><!--</td>-->
 <!--                        <td>--><?//= $student['to_time_real'] ?><!--</td>-->
-                        <?php for ($i = 0; $i < $cellCount; ++$i) { ?>
-                            <td title="<?= addTime($start_time, $i) ?>">
-<!--                                <div class="presence"></div>-->
+                        <?php foreach ($result as $i => $item) {
+                                for ($j = 0; $j < $cellCount; ++$j) {
+                                    $currTime = addTime($start_time, $j);
+                                    // $currTime in $result[$i] ?
+                                    if (in_array($currTime, $item)) {
+                                        if (in_array($student['id'], $item[$currTime])) {
+                                            ?>
+                                                <td class="green"></td>
+                                            <?php
+                                        } else {
+                                            ?>
+                                                <td class="red"></td>
+                                            <?php
+                                        }
+                                    }
+                                }
+                            ?>
+                            <td title="<?= $currTime = addTime($start_time, $i); ?>">
+                                <div class="presence"></div>
                             </td>
                         <?php } ?>
                     </tr>
