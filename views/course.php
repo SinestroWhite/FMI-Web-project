@@ -12,6 +12,7 @@
         WHERE course_id = (?)
     EOF;
 
+
     $timeRes = (new DB())->execute($sql, [$courseID]);
     $start_time = $timeRes[0]['start_time'];
     $end_time = $timeRes[0]['end_time'];
@@ -23,13 +24,7 @@
         $minutesFirst  = intval($arrFirst[0]) * 60 + intval($arrFirst[1]);
         $minutesSecond = intval($arrSecond[0]) * 60 + intval($arrSecond[1]);
 
-            $result[] = [
-                $minutesSecond - $minutesFirst,
-                $date
-            ];
-        }
-
-        return $result;
+        return ($minutesSecond - $minutesFirst);
     }
 
       $cellCount = hoursToMinutes($start_time, $end_time);
