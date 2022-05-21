@@ -88,6 +88,26 @@
         return $result;
     }
 
+    function searchByKey($needle, $haystack): bool {
+        foreach ($haystack as $key => $value) {
+            if ($needle == $key) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function searchByValue($needle, $haystack): bool {
+        foreach ($haystack as $value) {
+            if ($needle == $value) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     $result = [];
     foreach ($data1 as $element) {
         $result[$element['date']] = mapHours($element);
