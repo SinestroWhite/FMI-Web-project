@@ -225,10 +225,19 @@
                     <?php } ?>
                 </tr>
                 <tr>
-                    <?php foreach ($date_times as $i => $date_time) {
-                            foreach ($result[$date_time['date']] as $hour => $ids) {
+                    <?php
+                        foreach ($date_times as $i => $date_time) {
+                            $start_time = $date_time['start_time'];
+                            $end_time = $date_time['end_time'];
+                            $cellCount = hoursToMinutes($start_time, $end_time);
+
+                            for ($i = 0; $i < $cellCount; $i += 15) {
                                 ?>
-                                    <td class="time"><?= $hour ?></td>
+                                    <td class="time" colspan="<?= $i + $cellCount % 15 == $cellCount ? $cellCount % 15 : 15 ?>">
+                                        <?= addTime($start_time, $i) . ' - ' . (($i + $cellCount % 15 == $cellCount) ?
+                                            substr($end_time, 0, -3) :
+                                            addTime($start_time, $i + 15)) ?>
+                                    </td>
                                 <?php
                             }
                         }
@@ -249,6 +258,7 @@
                                 $start_time = $date_time['start_time'];
                                 $end_time = $date_time['end_time'];
                                 $cellCount = hoursToMinutes($start_time, $end_time);
+
 
                                 for ($j = 0; $j < $cellCount; ++$j) {
                                     $currTime = addTime($start_time, $j);
