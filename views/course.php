@@ -159,6 +159,10 @@
             padding: 0 2px;
         }
 
+        .end {
+            border-right: 3px solid black;
+        }
+
         /*.header {*/
         /*    left: 0;*/
         /*    position: sticky;*/
@@ -212,8 +216,12 @@
                     <td class="header" rowspan="2">Име</td>
                     <td class="header1" rowspan="2">ФН</td>
                     <td class="header2" rowspan="2">Тема</td>
-                    <?php foreach ($date_times as $i => $date_time) { ?>
-                        <td class="time" colspan="<?= count($result[$date_time['date']]) ?>"><?= $date_time['date'] ?></td>
+                    <?php foreach ($date_times as $i => $date_time) {
+                            $start_time = $date_time['start_time'];
+                            $end_time = $date_time['end_time'];
+                            $cellCount = hoursToMinutes($start_time, $end_time);
+                        ?>
+                        <td class="time end" colspan="<?= $cellCount ?>"><?= $date_time['date'] ?></td>
                     <?php } ?>
                 </tr>
                 <tr>
@@ -224,7 +232,7 @@
                                 <?php
                             }
                         }
-                        ?>
+                    ?>
                 </tr>
             </thead>
             <tbody>
@@ -242,19 +250,29 @@
                                 $end_time = $date_time['end_time'];
                                 $cellCount = hoursToMinutes($start_time, $end_time);
 
-                                for ($j = 0; $j <= $cellCount; ++$j) {
+                                for ($j = 0; $j < $cellCount; ++$j) {
                                     $currTime = addTime($start_time, $j);
                                     $presences = $result[$date_time['date']];
                                     if (searchByKey($currTime, $presences)) {
                                         if (searchByValue($student['student_id'], $presences[$currTime])) {  // student was present ?
                                             ?>
-                                                <td class="green" title="<?= $currTime ?>"></td>
+                                                <td class="green <?php if ($currTime == substr($end_time, 0, -3)) { echo 'end'; } ?>" title="<?= $currTime ?>">
+                                                    <div class="presence"></div>
+                                                </td>
                                             <?php
                                         } else {
                                             ?>
-                                                <td class="red" title="<?= $currTime ?>"></td>
+                                                <td class="red <?php if ($currTime == substr($end_time, 0, -3)) { echo 'end'; } ?>" title="<?= $currTime ?>">
+                                                    <div class="presence"></div>
+                                                </td>
                                             <?php
                                         }
+                                    } else {
+                                        ?>
+                                            <td class="<?php if ($currTime == substr($end_time, 0, -3)) { echo 'end'; } ?>" title="<?= $currTime ?>">
+                                                <div class="presence"></div>
+                                            </td>
+                                        <?php
                                     }
                                 }
                             ?>
