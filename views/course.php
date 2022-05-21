@@ -3,20 +3,20 @@
     $data = Course::getById($courseID);
     $timeTableData = TimeTable::getAllByCourseId($courseID);
 
-    $sql = <<<EOF
-        SELECT MIN(CAST(T.from_time_planned AS TIME)) AS start_time,
-               MAX(CAST(T.to_time_planned AS TIME)) AS end_time
-        FROM students_courses_pivot AS SCP
-            JOIN papers P on SCP.id = P.student_course_pivot_id
-            JOIN time_tables T on P.id = T.paper_id
-        WHERE course_id = (?)
-    EOF;
+//    $sql = <<<EOF
+//        SELECT MIN(CAST(T.from_time_planned AS TIME)) AS start_time,
+//               MAX(CAST(T.to_time_planned AS TIME)) AS end_time
+//        FROM students_courses_pivot AS SCP
+//            JOIN papers P on SCP.id = P.student_course_pivot_id
+//            JOIN time_tables T on P.id = T.paper_id
+//        WHERE course_id = (?)
+//    EOF;
 
+//    $timeRes = (new DB())->execute($sql, [$courseID]);
 
-    $timeRes = (new DB())->execute($sql, [$courseID]);
-    $start_time = $timeRes[0]['start_time'];
-    $end_time = $timeRes[0]['end_time'];
-
+//    $start_time = $timeRes[0]['start_time'];
+//    $end_time = $timeRes[0]['end_time'];
+//
     function hoursToMinutes($timeFirst, $timeSecond): int {
         $arrFirst  = explode(":", $timeFirst);
         $arrSecond = explode(":", $timeSecond);
@@ -26,8 +26,8 @@
 
         return ($minutesSecond - $minutesFirst);
     }
-
-      $cellCount = hoursToMinutes($start_time, $end_time);
+//
+//      $cellCount = hoursToMinutes($start_time, $end_time);
 
     function addTime($start_time, $minutes) {
         $arrTime = explode(":", $start_time);
@@ -46,9 +46,6 @@
 //        WHERE course_id = (?)
 //    EOF;
 //var_dump((new DB())->execute($sql_presence, [$courseID]));
-
-
-
 
 //    $sql =<<<EOF
 //        SELECT CAST(from_time_planned AS DATE) AS date, JSON_ARRAYAGG(SCP.student_id) AS student_ids, JSON_ARRAYAGG(P2.presence_time) AS presencs
@@ -95,7 +92,22 @@
     foreach ($data1 as $element) {
         $result[$element['date']] = mapHours($element);
     }
-    var_dump($result);
+//    var_dump($result);
+
+    $sql =<<<EOF
+        SELECT CAST(T.from_time_planned AS DATE) AS date,
+               MIN(CAST(T.from_time_planned AS TIME)) AS start_time,
+               MAX(CAST(T.to_time_planned AS TIME)) AS end_time
+        FROM students_courses_pivot AS SCP
+            JOIN papers P on SCP.id = P.student_course_pivot_id
+            JOIN time_tables T on P.id = T.paper_id
+        WHERE course_id = (?)
+        GROUP BY CAST(T.from_time_planned AS DATE);
+    EOF;
+
+    $date_times = (new DB())->execute($sql, [$courseID]);
+//    var_dump($date_times);
+
 
 
 ?>
@@ -127,26 +139,26 @@
             padding: 0 2px;
         }
 
-        .header {
-            left: 0;
-            position: sticky;
-            background-color: #f1f1f1;
-            /*width: 300px;*/
-        }
+        /*.header {*/
+        /*    left: 0;*/
+        /*    position: sticky;*/
+        /*    background-color: #f1f1f1;*/
+        /*    !*width: 300px;*!*/
+        /*}*/
 
-        .header1 {
-            left: 180px;
-            position: sticky;
-            background-color: #d0d0d0;
-            /*border: 1px solid black;*/
-        }
+        /*.header1 {*/
+        /*    left: 180px;*/
+        /*    position: sticky;*/
+        /*    background-color: #d0d0d0;*/
+        /*    !*border: 1px solid black;*!*/
+        /*}*/
 
-        .header2 {
-            left: 234px;
-            position: sticky;
-            background-color: #f1f1f1;
-            /*border-right: 1px solid black;*/
-        }
+        /*.header2 {*/
+        /*    left: 234px;*/
+        /*    position: sticky;*/
+        /*    background-color: #f1f1f1;*/
+        /*    !*border-right: 1px solid black;*!*/
+        /*}*/
 
         .presence {
             width: 5px;
@@ -177,17 +189,22 @@
         <table>
             <thead>
                 <tr>
-                    <td class="header">Име</td>
-                    <td class="header1">ФН</td>
-                    <td class="header2">Тема</td>
-<!--                    <td>Планирано начало</td>-->
-<!--                    <td>Планиран край</td>-->
-<!--                    <td>Реално начало</td>-->
-<!--                    <td>Реален край</td>-->
-<!--                    <td colspan="--><?//= $cellCount ?><!--">02.04.2022</td>-->
-<!--                    --><?php //for ($i = 0; $i <= $cellCount; ++$i) { ?>
-<!--                        <td class="time">--><?//= addTime($start_time, $i) ?><!--</td>-->
-<!--                    --><?php //} ?>
+                    <td class="header" rowspan="2">Име</td>
+                    <td class="header1" rowspan="2">ФН</td>
+                    <td class="header2" rowspan="2">Тема</td>
+                    <?php foreach ($date_times as $i => $date_time) { ?>
+                        <td class="time" colspan="<?= count($result[$date_time['date']]) ?>"><?= $date_time['date'] ?></td>
+                    <?php } ?>
+                </tr>
+                <tr>
+                    <?php foreach ($date_times as $i => $date_time) {
+                            foreach ($result[$date_time['date']] as $hour => $ids) {
+                                ?>
+                                    <td class="time"><?= $hour ?></td>
+                                <?php
+                            }
+                        }
+                        ?>
                 </tr>
             </thead>
             <tbody>
@@ -200,26 +217,27 @@
 <!--                        <td>--><?//= $student['to_time_planned'] ?><!--</td>-->
 <!--                        <td>--><?//= $student['from_time_real'] ?><!--</td>-->
 <!--                        <td>--><?//= $student['to_time_real'] ?><!--</td>-->
-                        <?php foreach ($result as $i => $item) {
-                                for ($j = 0; $j < $cellCount; ++$j) {
+                        <?php foreach ($date_times as $i => $date_time) {
+                                $start_time = $date_time['start_time'];
+                                $end_time = $date_time['end_time'];
+                                $cellCount = hoursToMinutes($start_time, $end_time);
+
+                                for ($j = 0; $j <= $cellCount; ++$j) {
                                     $currTime = addTime($start_time, $j);
-                                    // $currTime in $result[$i] ?
-                                    if (in_array($currTime, $item)) {
-                                        if (in_array($student['id'], $item[$currTime])) {
+                                    $presences = $result[$date_time['date']];
+                                    if (searchByKey($currTime, $presences)) {
+                                        if (searchByValue($student['student_id'], $presences[$currTime])) {  // student was present ?
                                             ?>
-                                                <td class="green"></td>
+                                                <td class="green" title="<?= $currTime ?>"></td>
                                             <?php
                                         } else {
                                             ?>
-                                                <td class="red"></td>
+                                                <td class="red" title="<?= $currTime ?>"></td>
                                             <?php
                                         }
                                     }
                                 }
                             ?>
-                            <td title="<?= $currTime = addTime($start_time, $i); ?>">
-                                <div class="presence"></div>
-                            </td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
