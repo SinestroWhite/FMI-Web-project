@@ -41,6 +41,8 @@
         return sprintf('%02d:%02d', $res_hours, $res_minutes);
     }
 
+
+
 //    $sql_presence = <<<EOF
 //        SELECT SCP.student_id, P.presence_time
 //        FROM students_courses_pivot AS SCP

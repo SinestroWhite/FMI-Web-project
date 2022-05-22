@@ -63,4 +63,35 @@ class PlanCSVParser {
         TimeTable::storeList($result, $date, $firstIdPaper);
 
     }
+
+    public static function processReal(string $real, string $date) {
+        $result = PlanCSVParser::getData($real);
+
+        $sql =<<<EOF
+            SELECT id, name, faculty_number
+            FROM students
+            WHERE (name, faculty_number) IN (?)
+        EOF;
+
+        foreach ($result as $) {
+
+       }
+
+        # INSERT INTO time_tables (paper_id, from_time_real, to_time_real)
+        # SELECT S.faculty_number, S.name, P.name AS topic, TT.id AS time_table_id
+        # FROM papers AS P
+        #         JOIN students_courses_pivot AS SCP ON SCP.id = P.student_course_pivot_id
+        #         JOIN students S on SCP.student_id = S.id
+        #         JOIN time_tables TT on P.id = TT.paper_id
+        #     WHERE S.faculty_number IN () AND S.name IN (????) AND P.name IN (????)
+
+        /*
+            to update :
+            get timetable id by paper id
+            get paper id by $real['topic']
+
+        */
+
+
+    }
 }
