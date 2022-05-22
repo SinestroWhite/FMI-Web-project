@@ -67,6 +67,13 @@
         }
     },
     {
+        "path": "/course/:id/import-real",
+        "view": "import-real",
+        "meta": {
+            "auth": "required"
+        }
+    },
+    {
         "path": "/404",
         "view": "404"
     }

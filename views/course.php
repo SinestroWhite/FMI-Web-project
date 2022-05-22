@@ -17,12 +17,14 @@
 //    $start_time = $timeRes[0]['start_time'];
 //    $end_time = $timeRes[0]['end_time'];
 //
-    function hoursToMinutes($timeFirst, $timeSecond): int {
-        $arrFirst  = explode(":", $timeFirst);
-        $arrSecond = explode(":", $timeSecond);
+    function timeToMinutes($time) : int {
+        $arr = explode(":", $time);
+        return intval($arr[0]) * 60 + intval($arr[1]);
+    }
 
-        $minutesFirst  = intval($arrFirst[0]) * 60 + intval($arrFirst[1]);
-        $minutesSecond = intval($arrSecond[0]) * 60 + intval($arrSecond[1]);
+    function hoursToMinutes($timeFirst, $timeSecond): int {
+        $minutesFirst = timeToMinutes($timeFirst);
+        $minutesSecond = timeToMinutes($timeSecond);
 
         return ($minutesSecond - $minutesFirst);
     }
@@ -128,8 +130,62 @@
     $date_times = (new DB())->execute($sql, [$courseID]);
 //    var_dump($date_times);
 
+    function determinePresence($currTime, $presences, $student_id): string {
+        if (searchByKey($currTime, $presences)) {    // check if current time is in presences
+            if (searchByValue($student_id, $presences[$currTime])) {  // student was present ?
+                return 'green';
+            } else {
+                return 'red';
+            }
+        }
+        return '';
+    }
+
+    function isLast($currTime, $endTime, $dateTime, $dateTimes): string {
+        $endTimeHour = substr($endTime, 0, -3);
+        $lastTimeOfLesson = addTime($currTime, 1);
+        if ($lastTimeOfLesson == $endTimeHour && $dateTime != end($dateTimes)) {
+            return 'end';
+        }
+
+        return '';
+    }
+
+    function isPlanned($currTime, $fromTimePlanned, $isFrom, $currDate): string {
+        $plannedDate = substr($fromTimePlanned, 0, 10);
+        if ($plannedDate != $currDate) {
+            return '';
+        }
+
+        $fromTimePlannedHourMin = substr($fromTimePlanned, 11, 5);
+
+        if($currTime == $fromTimePlannedHourMin) {
+            return $isFrom ? 'start' : 'end';
+        }
+
+        return '';
+    }
+
+    function isMid($currTime, $fromTimePlanned, $toTimePlanned, $currDate): string {
+        $plannedDate = substr($fromTimePlanned, 0, 10);
+        if ($plannedDate != $currDate) {
+            return '';
+        }
+
+        $fromTimePlannedHourMin = substr($fromTimePlanned, 11, 5);
+        $toTimePlannedHourMin = substr($toTimePlanned, 11, 5);
+
+        $fromTimePlannedToMinutes = timeToMinutes($fromTimePlannedHourMin);
+        $toTimePlannedToMinutes = timeToMinutes($toTimePlannedHourMin);
+        $currTimeToMinutes = timeToMinutes($currTime);
 
 
+        if ($currTimeToMinutes >= $fromTimePlannedToMinutes && $currTimeToMinutes <= $toTimePlannedToMinutes) {
+            return 'mid';
+        }
+
+        return '';
+    }
 ?>
 
 <html>
@@ -161,6 +217,15 @@
 
         .end {
             border-right: 3px solid black;
+        }
+
+        .start {
+            border-left: 3px solid black;
+        }
+
+        .mid {
+            border-top: 3px solid black;
+            border-bottom: 3px solid black;
         }
 
         /*.header {*/
@@ -221,7 +286,7 @@
                             $end_time = $date_time['end_time'];
                             $cellCount = hoursToMinutes($start_time, $end_time);
                         ?>
-                        <td class="time end" colspan="<?= $cellCount ?>"><?= $date_time['date'] ?></td>
+                        <td class="time <?php if ($date_time != end($date_times)) { echo 'end'; } ?>" colspan="<?= $cellCount ?>"><?= $date_time['date'] ?></td>
                     <?php } ?>
                 </tr>
                 <tr>
@@ -233,7 +298,7 @@
 
                             for ($i = 0; $i < $cellCount; $i += 15) {
                                 ?>
-                                    <td class="time" colspan="<?= $i + $cellCount % 15 == $cellCount ? $cellCount % 15 : 15 ?>">
+                                    <td class="time <?php if ($i + $cellCount % 15 == $cellCount) { echo 'end'; } ?>" colspan="<?= $i + $cellCount % 15 == $cellCount ? $cellCount % 15 : 15 ?>">
                                         <?= addTime($start_time, $i) . ' - ' . (($i + $cellCount % 15 == $cellCount) ?
                                             substr($end_time, 0, -3) :
                                             addTime($start_time, $i + 15)) ?>
@@ -259,31 +324,21 @@
                                 $end_time = $date_time['end_time'];
                                 $cellCount = hoursToMinutes($start_time, $end_time);
 
-
                                 for ($j = 0; $j < $cellCount; ++$j) {
                                     $currTime = addTime($start_time, $j);
                                     $presences = $result[$date_time['date']];
-                                    if (searchByKey($currTime, $presences)) {
-                                        if (searchByValue($student['student_id'], $presences[$currTime])) {  // student was present ?
-                                            ?>
-                                                <td class="green <?php if ($currTime == substr($end_time, 0, -3)) { echo 'end'; } ?>" title="<?= $currTime ?>">
-                                                    <div class="presence"></div>
-                                                </td>
-                                            <?php
-                                        } else {
-                                            ?>
-                                                <td class="red <?php if ($currTime == substr($end_time, 0, -3)) { echo 'end'; } ?>" title="<?= $currTime ?>">
-                                                    <div class="presence"></div>
-                                                </td>
-                                            <?php
-                                        }
-                                    } else {
-                                        ?>
-                                            <td class="<?php if ($currTime == substr($end_time, 0, -3)) { echo 'end'; } ?>" title="<?= $currTime ?>">
-                                                <div class="presence"></div>
-                                            </td>
-                                        <?php
-                                    }
+
+                                    ?>
+                                        <td class="<?= isPlanned($currTime, $student['from_time_planned'], true, $date_time['date']) ?>
+                                                   <?= isPlanned($currTime, $student['to_time_planned'], false, $date_time['date']) ?>
+                                                   <?= isMid($currTime, $student['from_time_planned'], $student['to_time_planned'], $date_time['date']) ?>
+                                                   <?= determinePresence($currTime, $presences, $student['student_id']) ?>
+                                                   <?= isLast($currTime, $end_time, $date_time, $date_times) ?>" title="<?= $currTime ?>">
+                                            <div class="presence"></div>
+                                        </td>
+                                    <?php
+
+                                                                                // check if current time is real time of presenting
                                 }
                             ?>
                         <?php } ?>
@@ -299,7 +354,3 @@
 
 </body>
 </html>
-
-<?php
-
-?>
