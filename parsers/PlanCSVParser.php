@@ -28,7 +28,7 @@ class PlanCSVParser {
                     "name" => $temp_row[4],
                     "topic" => $temp_row[6],
                     "start" => $temp_row[1],
-                    "end" => "",
+                    "end" => $temp_row[1],
                 ];
                 // TODO: Fix end over a break
                 if ($i > 0) {
@@ -40,6 +40,28 @@ class PlanCSVParser {
         $result[count($rows) - 1]['end'] = "11:00";
 
         return $result;
+    }
+
+    private static function getRealData(string $file_data) : Array {
+        $rows = explode("\n", $file_data);
+
+        $result = [];
+        for ($i = 0; $i < count($rows); ++$i) {
+            if (!empty($rows[$i])) {
+                $temp_row = explode("\t", $rows[$i]);
+
+                $result[] =  [
+                    "faculty_number" => $temp_row[3],
+                    "name" => $temp_row[5],
+                    "topic" => $temp_row[7],
+                    "start" => $temp_row[1],
+                    "end" => $temp_row[2],
+                ];
+            }
+        }
+
+        return $result;
+
     }
 
     public static function processPlan(string $plan, string $date) {

@@ -34,6 +34,18 @@ class DB {
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    public function multipleExecute(string $sql, array $values) {
+        $stmt = $this->connection->prepare($sql);
+
+        foreach ($values as $value) {
+           $result = $stmt->execute($value);
+
+           if(!$result) {
+               throw new DatabaseQueryError();
+           }
+        }
+    }
+
     public function getLastId() {
         return intval($this->connection->lastInsertId());
     }
