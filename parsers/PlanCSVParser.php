@@ -164,6 +164,7 @@ class PlanCSVParser {
         }
 
         foreach ($result as $student) {
+//            var_dump($student, $data);
             $paper_id = getPaperID($student, $data);
 
             $values[] = [
