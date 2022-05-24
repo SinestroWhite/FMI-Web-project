@@ -1,55 +1,68 @@
 [
     {
         "path": "/",
-        "view": "welcome"
+        "view": "welcome",
+        "meta": {
+            "title": ""
+        }
     },
     {
         "path": "/login",
         "view": "login",
         "meta": {
-            "auth": "prevent"
+            "auth": "prevent",
+            "title": "Login"
         }
     },
     {
         "path": "/register",
         "view": "register",
         "meta": {
-            "auth": "prevent"
+            "auth": "prevent",
+            "title": "Register"
         }
     },
     {
         "path": "/logout",
         "view": "logout",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title": "Logout"
         }
     },
     {
         "path": "/dashboard",
         "view": "dashboard",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title": "Dashboard"
         }
     },
     {
         "path": "/results",
         "view": "results",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title": "Results"
         }
     },
     {
         "path": "/add-course",
         "view": "add-course",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title": "Add Course"
         }
     },
     {
         "path": "/course/:id",
         "view": "course",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title": "View Course",
+            "css": [
+                "/assets/css/course.css"
+            ]
         }
     },
     {
@@ -75,6 +88,9 @@
     },
     {
         "path": "/404",
-        "view": "404"
+        "view": "404",
+        "meta": {
+            "title": "Page Not Found"
+        }
     }
 ]

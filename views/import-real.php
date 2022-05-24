@@ -18,12 +18,12 @@
 <body>
 <section class="data-section">
     <h1>Импортиране на реален план</h1>
-    <p><a href="<?= '/course/' . $_ENV['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <p><a href="<?= '/course/' . $this->ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
     <form action="import-real" method="post" enctype="multipart/form-data">
         <label for="dates">Дата на представяне</label>
         <select name="date" id="dates">
             <?php
-                $dates = TimeTable::getDates($_ENV['URL_PARAMS']['id']);
+                $dates = TimeTable::getDates($this->ROUTE['URL_PARAMS']['id']);
                 foreach($dates as $datum) {
                     ?>
                         <option value="<?= $datum['date'] ?>"><?= $datum['date'] ?></option>
@@ -51,6 +51,6 @@ if (isset($_POST["import"])) {
     $date = $_POST['date'];
     PlanCSVParser::processReal($plan, $date);
 
-    header("Location: /course/" . $_ENV['URL_PARAMS']['id']);
+    header("Location: /course/" . $this->ROUTE['URL_PARAMS']['id']);
 }
 ?>

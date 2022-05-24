@@ -1,7 +1,7 @@
 <?php
 
 class Router {
-    private $path, $routes;
+    private $path, $routes, $ROUTE;
 
     public function __construct() {
         $this->path = $_SERVER["REQUEST_URI"];
@@ -17,13 +17,20 @@ class Router {
         foreach ($this->routes as $route) {
             // /course/2 ==? /course/:id
             if ($this->match($route->path, $this->path)) {
+                if (isset($route->meta->title)) {
+                    $this->ROUTE['title'] = $route->meta->title;
+                }
+
+                if (isset($route->meta->css)) {
+                    $this->ROUTE['css'] = $route->meta->css;
+                }
                 $this->routeGuard($route);
                 return;
             }
         }
 
         // Redirect the user to the "not found" page
-        header("Location: 404");
+        header("Location: /404");
     }
 
     public static function isLoggedIn() {
@@ -46,8 +53,14 @@ class Router {
                 }
             }
         }
+
+        $this->ROUTE['view'] = APP_ROOT . "views/" . $route->view . ".php";
+
         // Load the requested page
-        require_once APP_ROOT . "views/" . $route->view . ".php";
+        if (isset($route->meta->template)) {
+            require_once APP_ROOT . $route->meta->template;
+        }
+        require_once APP_ROOT . "templates/main.php";
     }
 
     private function match($route, $subject): bool {
@@ -69,7 +82,7 @@ class Router {
         }
 //        var_dump($result);
 
-        $_ROUTE["URL_PARAMS"] = $result;
+        $this->ROUTE['URL_PARAMS'] = $result;
 
         return preg_match($search_pattern, $subject);
     }

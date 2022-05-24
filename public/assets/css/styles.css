@@ -8,6 +8,7 @@
 */
 
 @import "fonts.css";
+@import "nav.css";
 
 body {
     background-color: #FAFAFA;
@@ -20,3 +21,13 @@ body {
     margin: 0 auto;
     height: 100%;
 }
+
+.image {
+    width: 100%;
+}
+
+.header-title {
+    font-size: 30pt;
+    margin: 16px 0;
+}
+

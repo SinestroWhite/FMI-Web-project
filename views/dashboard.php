@@ -1,9 +1,5 @@
-<html>
-<head>
-    <title>Gradeview | Dashboard</title>
-</head>
-<body>
-<section class="data-section">
+
+<section class="container data-section">
     <div id="courses">
         <h1>Курсове</h1>
         <!-- TODO: Add URL protection so that one user cannot access the courses of another -->
@@ -18,13 +14,8 @@
             ?>
         </ul>
     </div>
+    <a href="/logout">Logout</a>
 </section>
 
-<a href="/logout">Logout</a>
 
-</body>
-</html>
 
-<?php
-
-?>

@@ -7,7 +7,7 @@
 <body>
 <section class="data-section">
     <h1>Импортиране на присъствен списък</h1>
-    <p><a href="<?= '/course/' . $_ENV['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <p><a href="<?= '/course/' . $this->ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
     <?php
     if (isset($_POST["import"])) {
         $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
@@ -22,11 +22,11 @@
             $students = BigBlueButtonParser::getStudentList($fileContent);
             $students = Student::getByNames($students);
 
-            $student_course_pivots_ids = StudentCoursePivot::getIDs($students, $_ENV['URL_PARAMS']['id']);
+            $student_course_pivots_ids = StudentCoursePivot::getIDs($students, $this->ROUTE['URL_PARAMS']['id']);
 
             $presence = Presence::storeList($stamp, $student_course_pivots_ids);
             // TODO: students may be in the BBB text file but not in the students table
-            header("Location: /course/" . $_ENV['URL_PARAMS']['id']);
+            header("Location: /course/" . $this->ROUTE['URL_PARAMS']['id']);
         }
     }
     ?>

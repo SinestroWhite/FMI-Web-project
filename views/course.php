@@ -1,5 +1,5 @@
 <?php
-    $courseID =$_ENV['URL_PARAMS']['id'];
+    $courseID = $this->ROUTE['URL_PARAMS']['id'];
     $data = Course::getById($courseID);
     $timeTableData = TimeTable::getAllByCourseId($courseID);
 
@@ -13,20 +13,14 @@
     $date_times = TimeTable::getPlannedTimesByCourseID($courseID);
 ?>
 
-<html>
-<head>
-    <title>Gradeview | <?= $data['name'] ?> - <?= $data['year'] ?></title>
-    <link rel="stylesheet" type="text/css" href="/assets/css/course.css"/>
-</head>
-<body>
-<section class="data-section">
+<section class="container data-section">
     <div id="courses">
         <h1><?= $data['name'] ?> - <?= $data['year'] ?></h1>
         <p><a href="/dashboard">Dashboard</a></p>
-        <p><a href="/course/<?= $_ENV['URL_PARAMS']['id'] ?>/import-plan">Импортиране на предварителен график на защитити на реферати</a></p>
+        <p><a href="/course/<?= $this->ROUTE['URL_PARAMS']['id'] ?>/import-plan">Импортиране на предварителен график на защитити на реферати</a></p>
         <?php if (count($timeTableData) != 0) { ?>
-        <p><a href="/course/<?= $_ENV['URL_PARAMS']['id'] ?>/import-real">Импортиране на реален график на защити на реферати</a></p>
-        <a href="/course/<?= $_ENV['URL_PARAMS']['id'] ?>/import-bbb">Импортиране на присъствен списък от BBB</a>
+        <p><a href="/course/<?= $this->ROUTE['URL_PARAMS']['id'] ?>/import-real">Импортиране на реален график на защити на реферати</a></p>
+        <a href="/course/<?= $this->ROUTE['URL_PARAMS']['id'] ?>/import-bbb">Импортиране на присъствен списък от BBB</a>
         <div class="table">
         <table>
             <thead>
@@ -99,7 +93,4 @@
     </div>
 </section>
 
-<a href="/logout">Logout</a>
 
-</body>
-</html>

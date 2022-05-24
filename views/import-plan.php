@@ -18,7 +18,7 @@
 <body>
 <section class="data-section">
     <h1>Импортиране на предварителен план</h1>
-    <p><a href="<?= '/course/' . $_ENV['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <p><a href="<?= '/course/' . $this->ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
     <form action="import-plan" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне
@@ -44,6 +44,6 @@ if (isset($_POST["import"])) {
     $date = $_POST['date'];
     PlanCSVParser::processPlan($plan, $date);
 
-    header("Location: /course/" . $_ENV['URL_PARAMS']['id']);
+    header("Location: /course/" . $this->ROUTE['URL_PARAMS']['id']);
 }
 ?>

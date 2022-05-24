@@ -94,7 +94,7 @@ class PlanCSVParser {
             $result[$i]['id'] = $firstId + $i;
         }
 
-        $courseID = $_ENV['URL_PARAMS']['id'];
+        $courseID = $this->ROUTE['URL_PARAMS']['id'];
         $firstIdSCP = StudentCoursePivot::storeList($result, $courseID);
 
         for($i = 0; $i < count($result); ++$i) {
@@ -139,7 +139,7 @@ class PlanCSVParser {
         foreach ($result as $student) {
             $values[] = $student['faculty_number'];
         }
-        $values[] = $_ENV['URL_PARAMS']['id'];
+        $values[] = $this->ROUTE['URL_PARAMS']['id'];
 
         $data = (new DB())->execute($sql, $values);
         $sql =<<<EOF
