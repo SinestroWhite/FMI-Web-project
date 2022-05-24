@@ -23,6 +23,12 @@ class PlanCSVParser {
             if (!empty($rows[$i])) {
                 $temp_row = explode("\t", $rows[$i]);
 
+                foreach ($temp_row as $col) {
+                    if ($col == "") {
+                        throw new InvalidFileStructureError($i + 1, $rows[$i]);
+                    }
+                }
+
                 $result[] =  [
                     "faculty_number" => $temp_row[2],
                     "name" => $temp_row[4],
@@ -48,7 +54,21 @@ class PlanCSVParser {
         $result = [];
         for ($i = 0; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
+                if (str_contains($rows[$i], "Почивка")) {
+                    continue;
+                }
+
                 $temp_row = explode("\t", $rows[$i]);
+
+                if (count($temp_row) != 8) {
+                    throw new InvalidFileStructureError($i + 1, $rows[$i]);
+                }
+
+                foreach ($temp_row as $col) {
+                    if ($col == "") {
+                        throw new InvalidFileStructureError($i + 1, $rows[$i]);
+                    }
+                }
 
                 $result[] =  [
                     "faculty_number" => $temp_row[3],

@@ -20,13 +20,6 @@ class Presence {
         $this->id = $db->getLastId();
 	}
 
-	/*public static function getByName(string $name) : array {
-		$sql = "SELECT * FROM presences WHERE name = ?";
-        $values = array($name);
-
-        return (new DB())->execute($sql, $values);
-	}*/
-
 	public static function getByTimestamp(string $timestamp) : array {
 		$sql = "SELECT * FROM presences WHERE presence_time = ?";
 		$values = array($timestamp);
@@ -46,5 +39,22 @@ class Presence {
         $db->execute($sql, $result);
 
         return $db->getLastId();
+    }
+
+    public static function getPresencesByCourseID($courseID): array {
+        $sql =<<<EOF
+            SELECT CAST(P.presence_time AS DATE) AS date,
+                   JSON_ARRAYAGG(CAST(P.presence_time AS TIME)) AS times,
+                   JSON_ARRAYAGG(SCP.student_id) AS student_ids
+            FROM presences AS P
+                JOIN (
+                        SELECT id, student_id
+                        FROM students_courses_pivot
+                        WHERE course_id = (?)
+                    ) AS SCP on SCP.id = P.student_course_pivot_id
+            GROUP BY CAST(P.presence_time AS DATE);
+        EOF;
+
+        return (new DB())->execute($sql, [$courseID]);
     }
 }
