@@ -37,7 +37,7 @@
                     <?php foreach ($date_times as $i => $date_time) {
                             $start_time = $date_time['start_time'];
                             $end_time = $date_time['end_time'];
-                            $cellCount = hoursToMinutes($start_time, $end_time);
+                            $cellCount = TimeTable::hoursToMinutes($start_time, $end_time);
                         ?>
                         <td class="time <?php if ($date_time != end($date_times)) { echo 'end'; } ?>" colspan="<?= $cellCount ?>"><?= $date_time['date'] ?></td>
                     <?php } ?>
@@ -47,14 +47,14 @@
                         foreach ($date_times as $i => $date_time) {
                             $start_time = $date_time['start_time'];
                             $end_time = $date_time['end_time'];
-                            $cellCount = hoursToMinutes($start_time, $end_time);
+                            $cellCount = TimeTable::hoursToMinutes($start_time, $end_time);
 
                             for ($i = 0; $i < $cellCount; $i += 15) {
                                 ?>
                                     <td class="time <?php if ($i + $cellCount % 15 == $cellCount) { echo 'end'; } ?>" colspan="<?= $i + $cellCount % 15 == $cellCount ? $cellCount % 15 : 15 ?>">
-                                        <?= addTime($start_time, $i) . ' - ' . (($i + $cellCount % 15 == $cellCount) ?
+                                        <?= TimeTable::addTime($start_time, $i) . ' - ' . (($i + $cellCount % 15 == $cellCount) ?
                                             substr($end_time, 0, -3) :
-                                            addTime($start_time, $i + 15)) ?>
+                                            TimeTable::addTime($start_time, $i + 15)) ?>
                                     </td>
                                 <?php
                             }
@@ -71,19 +71,19 @@
                         <?php foreach ($date_times as $i => $date_time) {
                                 $start_time = $date_time['start_time'];
                                 $end_time = $date_time['end_time'];
-                                $cellCount = hoursToMinutes($start_time, $end_time);
+                                $cellCount = TimeTable::hoursToMinutes($start_time, $end_time);
 
                                 for ($j = 0; $j < $cellCount; ++$j) {
-                                    $currTime = addTime($start_time, $j);
+                                    $currTime = TimeTable::addTime($start_time, $j);
                                     $presences = $result[$date_time['date']];
 
                                     ?>
-                                        <td class="<?= isPlanned($currTime, $student['from_time_planned'], true, $date_time['date']) ?>
-                                                   <?= isPlanned($currTime, $student['to_time_planned'], false, $date_time['date']) ?>
-                                                   <?= isMid($currTime, $student['from_time_planned'], $student['to_time_planned'], $date_time['date'], 'mid') ?>
-                                                   <?= isMid($currTime, $student['from_time_real'], $student['to_time_real'], $date_time['date'], 'green') ?>
-                                                   <?= determinePresence($currTime, $presences, $student['student_id']) ?>
-                                                   <?= isLast($currTime, $end_time, $date_time, $date_times) ?>" title="<?= $currTime ?>">
+                                        <td class="<?= TimeTable::isPlanned($currTime, $student['from_time_planned'], true, $date_time['date']) ?>
+                                                   <?= TimeTable::isPlanned($currTime, $student['to_time_planned'], false, $date_time['date']) ?>
+                                                   <?= TimeTable::isMid($currTime, $student['from_time_planned'], $student['to_time_planned'], $date_time['date'], 'mid') ?>
+                                                   <?= TimeTable::isMid($currTime, $student['from_time_real'], $student['to_time_real'], $date_time['date'], 'green') ?>
+                                                   <?= TimeTable::determinePresence($currTime, $presences, $student['student_id']) ?>
+                                                   <?= TimeTable::isLast($currTime, $end_time, $date_time, $date_times) ?>" title="<?= $currTime ?>">
                                             <div class="presence"></div>
                                         </td>
                                     <?php

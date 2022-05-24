@@ -21,7 +21,15 @@ class PlanCSVParser {
         $result = [];
         for ($i = 0; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
+                if (str_contains($rows[$i], "Почивка")) {
+                    continue;
+                }
+
                 $temp_row = explode("\t", $rows[$i]);
+
+                if (count($temp_row) != 7) {
+                    throw new InvalidFileStructureError($i + 1, $rows[$i]);
+                }
 
                 foreach ($temp_row as $col) {
                     if ($col == "") {
@@ -34,17 +42,10 @@ class PlanCSVParser {
                     "name" => $temp_row[4],
                     "topic" => $temp_row[6],
                     "start" => $temp_row[1],
-                    "end" => $temp_row[1],
+                    "end" => TimeTable::addTime($temp_row[1], 5)
                 ];
-                // TODO: Fix end over a break
-                if ($i > 0) {
-                    $result[$i-1]['end'] = $result[$i]['start'];
-                }
             }
         }
-
-        $result[count($rows) - 1]['end'] = "11:00";
-
         return $result;
     }
 
