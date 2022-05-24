@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Dashboard | Add Course</title>
+    <title>Gradeview | Add Course</title>
 </head>
 <body>
 <section class="data-section">
@@ -31,6 +31,6 @@ if (isset($_POST['add-course'])) {
 
     $course = new Course($name, $year, $_SESSION['id']);
     $course->store();
-    header('Location: dashboard');
+    header('Location: /dashboard');
 }
 ?>

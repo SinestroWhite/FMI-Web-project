@@ -1,6 +1,8 @@
 CREATE
     DATABASE gradeview;
 
+USE gradeview;
+
 CREATE TABLE teachers
 (
     id        INT          NOT NULL AUTO_INCREMENT,
@@ -53,7 +55,7 @@ CREATE TABLE papers
 CREATE TABLE presences
 (
     id            INT          NOT NULL AUTO_INCREMENT,
-    presence_time TIMESTAMP    NOT NULL,
+    presence_time DATETIME    NOT NULL,
     student_course_pivot_id INT,
     PRIMARY KEY (id),
     FOREIGN KEY (student_course_pivot_id) REFERENCES students_courses_pivot (id)
@@ -63,10 +65,10 @@ CREATE TABLE time_tables
 (
     id                INT       NOT NULL AUTO_INCREMENT,
     paper_id          INT       NOT NULL,
-    from_time_planned TIMESTAMP NOT NULL,
-    to_time_planned   TIMESTAMP NOT NULL,
-    from_time_real    TIMESTAMP,
-    to_time_real      TIMESTAMP,
+    from_time_planned DATETIME NOT NULL,
+    to_time_planned   DATETIME NOT NULL,
+    from_time_real    DATETIME,
+    to_time_real      DATETIME,
     PRIMARY KEY (id),
     FOREIGN KEY (paper_id) REFERENCES papers (id)
 );

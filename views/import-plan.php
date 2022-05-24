@@ -18,6 +18,7 @@
 <body>
 <section class="data-section">
     <h1>Импортиране на предварителен план</h1>
+    <p><a href="<?= '/course/' . $_ENV['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
     <form action="import-plan" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне

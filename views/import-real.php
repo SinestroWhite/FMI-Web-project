@@ -18,7 +18,8 @@
 <body>
 <section class="data-section">
     <h1>Импортиране на реален план</h1>
-    <form action="import-plan" method="post" enctype="multipart/form-data">
+    <p><a href="<?= '/course/' . $_ENV['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <form action="import-real" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне
             <input type="date" name="date" required/>
@@ -41,7 +42,7 @@
 if (isset($_POST["import"])) {
     $plan = $_POST['plan'];
     $date = $_POST['date'];
-    PlanCSVParser::processPlan($plan, $date);
+    PlanCSVParser::processReal($plan, $date);
 
     header("Location: /course/" . $_ENV['URL_PARAMS']['id']);
 }

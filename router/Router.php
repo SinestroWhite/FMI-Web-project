@@ -26,7 +26,7 @@ class Router {
         header("Location: 404");
     }
 
-    private function isLoggedIn() {
+    public static function isLoggedIn() {
         return isset($_SESSION["login_time"]);
     }
 

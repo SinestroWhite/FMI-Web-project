@@ -1,0 +1,22 @@
+/*
+|--------------------------------------------------------------------------
+| Styles CSS
+|--------------------------------------------------------------------------
+|
+| This file contains the css code that is common for all views.
+|
+*/
+
+@import "fonts.css";
+
+body {
+    background-color: #FAFAFA;
+    font-family: "Open Sans", sans-serif;
+    margin: 0;
+}
+
+.container {
+    width: 40%;
+    margin: 0 auto;
+    height: 100%;
+}

@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Dashboard</title>
+    <title>Gradeview | Dashboard</title>
 </head>
 <body>
 <section class="data-section">

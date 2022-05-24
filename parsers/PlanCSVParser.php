@@ -59,39 +59,78 @@ class PlanCSVParser {
         }
 
         $firstIdPaper = Paper::StoreList($result);
-
         TimeTable::storeList($result, $date, $firstIdPaper);
 
     }
 
     public static function processReal(string $real, string $date) {
-        $result = PlanCSVParser::getData($real);
+        $result = PlanCSVParser::getRealData($real);
+
+        $studentNames = [];
+        $facultyNumbers = [];
+        foreach ($result as $student) {
+            $studentNames[] = $student['name'];
+            $facultyNumbers[] = $student['faculty_number'];
+        }
+
+        $sql ='
+            SELECT P.name AS topic, DATA.name, DATA.faculty_number, P.id AS paper_id
+            FROM papers AS P
+                JOIN (
+                    SELECT SCP.id, S.name, S.faculty_number
+                    FROM students_courses_pivot AS SCP
+                        JOIN (
+                            SELECT id, name, faculty_number
+                            FROM students
+                            WHERE name IN ' . DB::getQuestionLine(count($studentNames)) . '
+                              AND faculty_number IN ' . DB::getQuestionLine(count($facultyNumbers)) . '
+                        ) AS S ON SCP.student_id = S.id
+                    WHERE SCP.course_id = (?)
+            ) AS DATA ON P.student_course_pivot_id = DATA.id
+        ';
+
+        $values = [];
+        foreach ($result as $student) {
+            $values[] = $student['name'];
+        }
+        foreach ($result as $student) {
+            $values[] = $student['faculty_number'];
+        }
+        $values[] = $_ENV['URL_PARAMS']['id'];
+
+        $data = (new DB())->execute($sql, $values);
 
         $sql =<<<EOF
-            SELECT id, name, faculty_number
-            FROM students
-            WHERE (name, faculty_number) IN (?)
+            UPDATE time_tables
+            SET from_time_real = (?), to_time_real = (?)
+            WHERE paper_id = (?)
         EOF;
 
-        foreach ($result as $) {
+        $values = [];
 
-       }
+        function getPaperID($student, $data): string {
+            foreach ($data as $datum) {
+                if ($student['name'] == $datum['name'] &&
+                    $student['faculty_number'] == $datum['faculty_number'] &&
+                    $student['topic'] == $datum['topic']) {
+                    return  $datum['paper_id'];
+                }
 
-        # INSERT INTO time_tables (paper_id, from_time_real, to_time_real)
-        # SELECT S.faculty_number, S.name, P.name AS topic, TT.id AS time_table_id
-        # FROM papers AS P
-        #         JOIN students_courses_pivot AS SCP ON SCP.id = P.student_course_pivot_id
-        #         JOIN students S on SCP.student_id = S.id
-        #         JOIN time_tables TT on P.id = TT.paper_id
-        #     WHERE S.faculty_number IN () AND S.name IN (????) AND P.name IN (????)
+            }
 
-        /*
-            to update :
-            get timetable id by paper id
-            get paper id by $real['topic']
+            return "";
+        }
 
-        */
+        foreach ($result as $student) {
+            $paper_id = getPaperID($student, $data);
 
+            $values[] = [
+                $date . " " . $student['start'],
+                $date . " " . $student['end'],
+                $paper_id
+            ];
+        }
 
+        (new DB())->multipleExecute($sql, $values);
     }
 }
