@@ -28,6 +28,10 @@
             Предварителен план (копиран от Google Spreadsheet)
             <textarea name="plan" required></textarea>
         </label>
+        <label>
+            Конфигурационни данни
+            <textarea name="configuration" placeholder="'field-delimiter':'\t', 'line-delimiter':'\n', 'skip-header-rows':3, 'validate':'true'"></textarea>
+        </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
         <input type="submit" value="Качване" name="import"/>
     </form>
@@ -40,9 +44,18 @@
 
 <?php
 if (isset($_POST["import"])) {
+    if(empty($_POST['plan']) || empty($_POST['date'])) {
+        throw new IncompleteFormError();
+    }
+
+    if(!empty($_POST['configuration'])) {
+        $config = json_decode($_POST['configuration']);
+        PlanCSVParser parser = new PlanCSVParser($config->field-delimiter, $config->line-delimiter, $config->skip-header-rows, $config->validate);
+    }
+
     $plan = $_POST['plan'];
     $date = $_POST['date'];
-    PlanCSVParser::processPlan($plan, $date);
+       parser->processPlan($plan, $date);
 
     header("Location: /course/" . $this->ROUTE['URL_PARAMS']['id']);
 }

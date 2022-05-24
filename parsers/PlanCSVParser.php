@@ -1,7 +1,20 @@
 <?php
 
 class PlanCSVParser {
-    public static function fileValidation(array $file): string {
+    private string $fieldDelimiter;
+    private string $lineDelimiter;
+    private string $skipHeader;
+    private string $validation;
+
+    public function __construct(string $fieldDelimiter, string $lineDelimiter, string $skipHeader, bool $validation) {
+        $this->fieldDelimiter = $fieldDelimiter;
+        $this->lineDelimiter = $lineDelimiter;
+        $this->skipHeader = $skipHeader;
+        $this->validation = $validation;
+    }
+
+
+    public  function fileValidation(array $file): string {
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
 
         if ($ext != "csv") {
@@ -15,17 +28,31 @@ class PlanCSVParser {
         return file_get_contents($file["tmp_name"]);
     }
 
-    private static function getData(string $file_data): Array {
-        $rows = explode("\n", $file_data);
+    public function inputValidation($fields, $row, $rowNumber, $fieldCount){
+
+            if (count($fields) != $fieldCount) {
+                throw new InvalidFileStructureError($rowNumber, $row);
+            }
+
+            foreach ($fields as $col) {
+                if ($col == "") {
+                    throw new InvalidFileStructureError($rowNumber, $row);
+                }
+            }
+
+    }
+
+    private  function getData(string $file_data): Array {
+        $rows = explode($this->lineDelimiter, $file_data);
 
         $result = [];
-        for ($i = 0; $i < count($rows); ++$i) {
+        for ($i = $this->skipHeader; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
                 if (str_contains($rows[$i], "Почивка")) {
                     continue;
                 }
 
-                $temp_row = explode("\t", $rows[$i]);
+                $temp_row = explode($this->fieldDelimiter, $rows[$i]);
 
                 if (count($temp_row) != 7) {
                     throw new InvalidFileStructureError($i + 1, $rows[$i]);
@@ -49,26 +76,20 @@ class PlanCSVParser {
         return $result;
     }
 
-    private static function getRealData(string $file_data) : Array {
-        $rows = explode("\n", $file_data);
+    private  function getRealData(string $file_data) : Array {
+        $rows = explode($this->lineDelimiter, $file_data);
 
         $result = [];
-        for ($i = 0; $i < count($rows); ++$i) {
+        for ($i = $this->skipHeader; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
                 if (str_contains($rows[$i], "Почивка")) {
                     continue;
                 }
 
-                $temp_row = explode("\t", $rows[$i]);
+                $temp_row = explode($this->fieldDelimiter, $rows[$i]);
 
-                if (count($temp_row) != 8) {
-                    throw new InvalidFileStructureError($i + 1, $rows[$i]);
-                }
-
-                foreach ($temp_row as $col) {
-                    if ($col == "") {
-                        throw new InvalidFileStructureError($i + 1, $rows[$i]);
-                    }
+                if($this->validation) {
+                    $this->inputValidation($temp_row, $rows[$i], $i + 1, 8);
                 }
 
                 $result[] =  [
@@ -85,7 +106,7 @@ class PlanCSVParser {
 
     }
 
-    public static function processPlan(string $plan, string $date) {
+    public  function processPlan(string $plan, string $date) {
         $result = PlanCSVParser::getData($plan);
 
         $firstId = Student::StoreList($result);
@@ -106,7 +127,7 @@ class PlanCSVParser {
 
     }
 
-    public static function processReal(string $real, string $date) {
+    public function processReal(string $real, string $date) {
         $result = PlanCSVParser::getRealData($real);
 
         $studentNames = [];

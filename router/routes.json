@@ -69,21 +69,27 @@
         "path": "/course/:id/import-bbb",
         "view": "import-bbb",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title" : "Import from Big Blue Button",
+            "css": [
+                "/assets/css/import-bbb.css"
+            ]
         }
     },
     {
         "path": "/course/:id/import-plan",
         "view": "import-plan",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title" :  "Import plan from Google Sheets"
         }
     },
     {
         "path": "/course/:id/import-real",
         "view": "import-real",
         "meta": {
-            "auth": "required"
+            "auth": "required",
+            "title" : "Import real plan from Google Sheets"
         }
     },
     {
