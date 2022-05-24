@@ -69,7 +69,7 @@ class Router {
         }
 //        var_dump($result);
 
-        $_ENV["URL_PARAMS"] = $result;
+        $_ROUTE["URL_PARAMS"] = $result;
 
         return preg_match($search_pattern, $subject);
     }

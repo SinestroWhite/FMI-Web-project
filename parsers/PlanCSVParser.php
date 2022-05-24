@@ -142,7 +142,6 @@ class PlanCSVParser {
         $values[] = $_ENV['URL_PARAMS']['id'];
 
         $data = (new DB())->execute($sql, $values);
-
         $sql =<<<EOF
             UPDATE time_tables
             SET from_time_real = (?), to_time_real = (?)
@@ -153,9 +152,9 @@ class PlanCSVParser {
 
         function getPaperID($student, $data): string {
             foreach ($data as $datum) {
-                if ($student['name'] == $datum['name'] &&
-                    $student['faculty_number'] == $datum['faculty_number'] &&
-                    $student['topic'] == $datum['topic']) {
+                if (str_contains($datum['name'], $student['name']) &&
+                    str_contains($datum['faculty_number'], $student['faculty_number']) &&
+                    str_contains($datum['topic'], $student['topic'])) {
                     return  $datum['paper_id'];
                 }
 
