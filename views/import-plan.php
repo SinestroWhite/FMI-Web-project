@@ -1,31 +1,14 @@
-<html>
-<head>
-    <title>Import Plan</title>
-</head>
 
-<style>
-    form, input, textarea {
-        display: block;
-    }
-    input[type="submit"] {
-        margin: 10px 0;
-    }
-    textarea {
-        width: 800px;
-        height: 600px;
-    }
-</style>
-<body>
-<section class="data-section">
+<section class="container data-section">
     <h1>Импортиране на предварителен план</h1>
-    <p><a href="<?= '/course/' . $this->ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <p><a href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
     <form action="import-plan" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне
             <input type="date" name="date" required/>
         </label>
         <label>
-            Предварителен план (копиран от Google Spreadsheet)
+            Предварителен план (копиран от Google Spreadsheets)
             <textarea name="plan" required></textarea>
         </label>
         <label>
@@ -37,11 +20,6 @@
     </form>
 </section>
 
-<a href="/logout">Logout</a>
-
-</body>
-</html>
-
 <?php
 if (isset($_POST["import"])) {
     if(empty($_POST['plan']) || empty($_POST['date'])) {
@@ -50,13 +28,15 @@ if (isset($_POST["import"])) {
 
     if(!empty($_POST['configuration'])) {
         $config = json_decode($_POST['configuration']);
-        PlanCSVParser parser = new PlanCSVParser($config->field-delimiter, $config->line-delimiter, $config->skip-header-rows, $config->validate);
+        $parser = new PlanCSVParser($config->field_delimiter, $config->line_delimiter, $config->skip_header_rows, $config->validate);
+    } else {
+        $parser = new PlanCSVParser('\t', '\n', '1', 'true');
     }
 
     $plan = $_POST['plan'];
     $date = $_POST['date'];
-       parser->processPlan($plan, $date);
+    $parser->processPlan($plan, $date);
 
-    header("Location: /course/" . $this->ROUTE['URL_PARAMS']['id']);
+    header("Location: /course/" . Router::$ROUTE['URL_PARAMS']['id']);
 }
 ?>

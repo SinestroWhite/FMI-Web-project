@@ -1,0 +1,10 @@
+form, input, textarea {
+    display: block;
+}
+input[type="submit"] {
+    margin: 10px 0;
+}
+textarea {
+    width: 800px;
+    height: 600px;
+}

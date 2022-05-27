@@ -1,28 +1,16 @@
-<html>
-<head>
-    <title>Gradeview | Add Course</title>
-</head>
-<body>
-<section class="data-section">
-    <div id="courses">
-        <h1>Създаване на нов курс</h1>
+<section class="container data-section">
+    <h2>Създаване на нов курс</h2>
+    <form action="add-course" method="post">
+        <label for="name">Name</label>
+        <input class="input is-link" id="name" type="text" name="name"/>
+        <label for="year">Year</label>
+        <input class="input is-link" id="year" type="number" min="1990" max="2100" name="year"/>
 
-        <form action="add-course" method="post">
-            <label for="name">Name</label>
-            <input id="name" type="text" name="name"/>
-            <label for="year">Year</label>
-            <input id="year" type="number" min="1990" max="2100" name="year"/>
-
-            <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
-            <input type="submit" name="add-course" value="Submit"/>
-        </form>
-    </div>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
+        <input class="button is-link" type="submit" name="add-course" value="Submit"/>
+    </form>
 </section>
 
-<a href="/logout">Logout</a>
-
-</body>
-</html>
 
 <?php
 if (isset($_POST['add-course'])) {

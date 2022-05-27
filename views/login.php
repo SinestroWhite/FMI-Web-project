@@ -1,17 +1,19 @@
+<section class="container">
+    <h2>Вход</h2>
 
-<div class="container">
     <form action="login" method="post">
         <label for="email">Email</label>
-        <input id="email" type="email" name="email"/>
+        <input class="input is-link" id="email" type="email" name="email"/>
         <label for="pass">Password</label>
-        <input id="pass" type="password" name="password"/>
+        <input class="input is-link" id="pass" type="password" name="password"/>
 
-        <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
-        <input type="submit" name="login" value="Submit"/>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
+        <input class="button is-link" type="submit" name="login" value="Submit"/>
     </form>
 
     <a href="/register">Don't have an account?</a>
-</div>
+</section>
+
 <?php
 if (isset($_POST['login'])) {
     $email = $_POST['email'];

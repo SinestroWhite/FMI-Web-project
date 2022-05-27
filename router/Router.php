@@ -1,7 +1,8 @@
 <?php
 
 class Router {
-    private $path, $routes, $ROUTE;
+    public static array $ROUTE = [];
+    private $path, $routes;
 
     public function __construct() {
         $this->path = $_SERVER["REQUEST_URI"];
@@ -18,11 +19,11 @@ class Router {
             // /course/2 ==? /course/:id
             if ($this->match($route->path, $this->path)) {
                 if (isset($route->meta->title)) {
-                    $this->ROUTE['title'] = $route->meta->title;
+                    Router::$ROUTE['title'] = $route->meta->title;
                 }
 
                 if (isset($route->meta->css)) {
-                    $this->ROUTE['css'] = $route->meta->css;
+                    Router::$ROUTE['css'] = $route->meta->css;
                 }
                 $this->routeGuard($route);
                 return;
@@ -54,7 +55,7 @@ class Router {
             }
         }
 
-        $this->ROUTE['view'] = APP_ROOT . "views/" . $route->view . ".php";
+        Router::$ROUTE['view'] = APP_ROOT . "views/" . $route->view . ".php";
 
         // Load the requested page
         if (isset($route->meta->template)) {
@@ -82,7 +83,7 @@ class Router {
         }
 //        var_dump($result);
 
-        $this->ROUTE['URL_PARAMS'] = $result;
+        Router::$ROUTE['URL_PARAMS'] = $result;
 
         return preg_match($search_pattern, $subject);
     }

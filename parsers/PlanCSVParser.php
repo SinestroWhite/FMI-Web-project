@@ -13,7 +13,6 @@ class PlanCSVParser {
         $this->validation = $validation;
     }
 
-
     public  function fileValidation(array $file): string {
         $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
 
@@ -29,17 +28,15 @@ class PlanCSVParser {
     }
 
     public function inputValidation($fields, $row, $rowNumber, $fieldCount){
+        if (count($fields) != $fieldCount) {
+            throw new InvalidFileStructureError($rowNumber, $row);
+        }
 
-            if (count($fields) != $fieldCount) {
+        foreach ($fields as $col) {
+            if ($col == "") {
                 throw new InvalidFileStructureError($rowNumber, $row);
             }
-
-            foreach ($fields as $col) {
-                if ($col == "") {
-                    throw new InvalidFileStructureError($rowNumber, $row);
-                }
-            }
-
+        }
     }
 
     private  function getData(string $file_data): Array {
@@ -115,7 +112,7 @@ class PlanCSVParser {
             $result[$i]['id'] = $firstId + $i;
         }
 
-        $courseID = $this->ROUTE['URL_PARAMS']['id'];
+        $courseID = Router::$ROUTE['URL_PARAMS']['id'];
         $firstIdSCP = StudentCoursePivot::storeList($result, $courseID);
 
         for($i = 0; $i < count($result); ++$i) {
@@ -160,7 +157,7 @@ class PlanCSVParser {
         foreach ($result as $student) {
             $values[] = $student['faculty_number'];
         }
-        $values[] = $this->ROUTE['URL_PARAMS']['id'];
+        $values[] = Router::$ROUTE['URL_PARAMS']['id'];
 
         $data = (new DB())->execute($sql, $values);
         $sql =<<<EOF

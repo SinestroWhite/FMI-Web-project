@@ -1,14 +1,15 @@
 <html>
 <head>
     <title>Gradeview
-        <?php if (isset($this->ROUTE['title'])) {
-            echo  "| " . $this->ROUTE['title'];
+        <?php if (isset(Router::$ROUTE['title'])) {
+            echo  "| " . Router::$ROUTE['title'];
         } ?>
     </title>
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css"/>
     <?php
-        foreach ($this->ROUTE['css'] as $link) {
+        foreach (Router::$ROUTE['css'] as $link) {
             ?>
                 <link rel="stylesheet" type="text/css" href="<?= $link ?>"/>
             <?php
@@ -43,6 +44,6 @@
         </nav>
     </header>
 
-    <?php require_once $this->ROUTE['view']; ?>
+    <?php require_once Router::$ROUTE['view']; ?>
 </body>
 </html>

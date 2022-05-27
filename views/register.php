@@ -1,24 +1,23 @@
-
-
 <div class="container">
+    <h2>Регистрация</h2>
+
     <form action="register" method="post">
         <label for="name">Name</label>
-        <input id="name" type="text" name="name"/>
+        <input class="input is-link" id="name" type="text" name="name"/>
         <label for="email">Email</label>
-        <input id="email" type="email" name="email"/>
+        <input class="input is-link" id="email" type="email" name="email"/>
         <label for="expertise">Expertise</label>
-        <input id="expertise" type="text" name="expertise"/>
+        <input class="input is-link" id="expertise" type="text" name="expertise"/>
         <label for="pass">Password</label>
-        <input id="pass" type="password" name="password"/>
+        <input class="input is-link" id="pass" type="password" name="password"/>
         <label for="conf-pass">Confirm password</label>
-        <input id="conf-pass" type="password" name="conf_password"/>
+        <input class="input is-link" id="conf-pass" type="password" name="conf_password"/>
 
-        <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
-        <input type="submit" name="register" value="Submit"/>
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
+        <input class="button is-link" type="submit" name="register" value="Submit"/>
     </form>
 
-<a href="/login">I already have an account.</a>
-
+    <a href="/login">I already have an account.</a>
 </div>
 <?php
 // TODO: Add validations everywhere

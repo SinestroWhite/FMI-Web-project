@@ -1,8 +1,5 @@
-<html lang="en">
-<head>
-    <title>404</title>
-</head>
-<body>
-<p>Page not found.</p>
-</body>
-</html>
+
+<section class="container">
+    <p>Page not found.</p>
+</section>
+

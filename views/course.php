@@ -1,5 +1,5 @@
 <?php
-    $courseID = $this->ROUTE['URL_PARAMS']['id'];
+    $courseID = Router::$ROUTE['URL_PARAMS']['id'];
     $data = Course::getById($courseID);
     $timeTableData = TimeTable::getAllByCourseId($courseID);
 
@@ -17,10 +17,10 @@
     <div id="courses">
         <h1><?= $data['name'] ?> - <?= $data['year'] ?></h1>
         <p><a href="/dashboard">Dashboard</a></p>
-        <p><a href="/course/<?= $this->ROUTE['URL_PARAMS']['id'] ?>/import-plan">Импортиране на предварителен график на защитити на реферати</a></p>
+        <p><a href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-plan">Импортиране на предварителен график на защитити на реферати</a></p>
         <?php if (count($timeTableData) != 0) { ?>
-        <p><a href="/course/<?= $this->ROUTE['URL_PARAMS']['id'] ?>/import-real">Импортиране на реален график на защити на реферати</a></p>
-        <a href="/course/<?= $this->ROUTE['URL_PARAMS']['id'] ?>/import-bbb">Импортиране на присъствен списък от BBB</a>
+        <p><a href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-real">Импортиране на реален график на защити на реферати</a></p>
+        <a href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-bbb">Импортиране на присъствен списък от BBB</a>
         <div class="table">
         <table>
             <thead>
