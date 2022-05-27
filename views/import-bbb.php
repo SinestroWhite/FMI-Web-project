@@ -3,17 +3,21 @@
     <p><a href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
     <?php
     if (isset($_POST["import"])) {
-        $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
+    if (!file_exists($_FILES['presence-list']['tmp_name']) || !is_uploaded_file($_FILES['presence-list']['tmp_name'])) {
+        throw new IncompleteFormError();
+    }
+    $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
 
-        // TODO: fix timesamp 12-hour format to 24-hour format
-        $stamp = BigBlueButtonParser::getTimestamp($fileContent);
-        if ($_POST['confirm'] != "true" && count(Presence::getByTimestamp($stamp)) != 0) {
-            ?>
-                <p class="red">Списъкът вече е качен. Моля потвърдете, че искате да се качи отново.</p>
-            <?php
-        } else {
-            $students = BigBlueButtonParser::getStudentList($fileContent);
-            $students = Student::getByNames($students);
+    // TODO: fix timestamp 12-hour format to 24-hour format
+    $stamp = BigBlueButtonParser::getTimestamp($fileContent);
+    if ($_POST['confirm'] != "true" && count(Presence::getByTimestamp($stamp)) != 0) {
+        ?>
+        <p class="red">Списъкът вече е качен. Моля потвърдете, че искате да се качи отново.</p>
+        <?php
+    } else {
+    $students = BigBlueButtonParser::getStudentList($fileContent);
+    $sameNameStudents = Student::getSameNameStudents($students);
+    $students = Student::getByNames($students);
 
 
     if (count($sameNameStudents) != 0) { ?>
@@ -51,17 +55,17 @@
         // TODO: students may be in the BBB text file but not in the students table
         header("Location: /course/" . Router::$ROUTE['URL_PARAMS']['id']);
         }
-    }
-    ?>
-    <form action="import-bbb" method="post" enctype="multipart/form-data">
-        <input type="file" name="presence_list">
-        <input type="hidden" name="csrf_token" value="<?=$_SESSION['csrf_token']?>"/>
-        <label>
-            <input type="checkbox" name="confirm" value="true"/>
-            <p>Ако списъка вече е импортиран, искате ли да го качите отново?</p>
-        </label>
-        <input type="submit" value="Качване" name="import"/>
-    </form>
+        }
+        ?>
+        <form action="import-bbb" method="post" enctype="multipart/form-data">
+            <input type="file" name="presence_list">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
+            <label>
+                <input type="checkbox" name="confirm" value="true"/>
+                <p>Ако списъкът вече е импортиран, искате ли да го качите отново?</p>
+            </label>
+            <input type="submit" value="Качване" name="import"/>
+        </form>
 </section>
 
 

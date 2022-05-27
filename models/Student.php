@@ -42,8 +42,18 @@ class Student {
         return $data[0];
 	}
 
+    public static function getSameNameStudents(array $studentNames) : array {
+        $sqlDup = "SELECT * FROM students WHERE NAME IN " . DB::getQuestionLine(count($studentNames)) . " GROUP BY name HAVING (COUNT(*) > 1)";
+      
+
+       return (new DB())->execute($sqlDup, $studentNames);
+    }
+
     public static function getByNames(array $students): array {
+
         $sql = "SELECT * FROM students WHERE name IN " . DB::getQuestionLine(count($students));
+
         return (new DB())->execute($sql, $students);
+
     }
 }

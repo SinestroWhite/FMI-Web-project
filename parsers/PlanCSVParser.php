@@ -39,6 +39,8 @@ class PlanCSVParser {
         }
     }
 
+   // public function getParser()
+
     private  function getData(string $file_data): Array {
         $rows = explode($this->lineDelimiter, $file_data);
 
@@ -51,14 +53,8 @@ class PlanCSVParser {
 
                 $temp_row = explode($this->fieldDelimiter, $rows[$i]);
 
-                if (count($temp_row) != 7) {
-                    throw new InvalidFileStructureError($i + 1, $rows[$i]);
-                }
-
-                foreach ($temp_row as $col) {
-                    if ($col == "") {
-                        throw new InvalidFileStructureError($i + 1, $rows[$i]);
-                    }
+                if($this->validation) {
+                    $this->inputValidation($temp_row, $rows[$i], $i + 1, 7);
                 }
 
                 $result[] =  [
