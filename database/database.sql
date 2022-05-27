@@ -27,7 +27,7 @@ CREATE TABLE students
 (
     id             INT          NOT NULL AUTO_INCREMENT,
     faculty_number VARCHAR(255) UNIQUE,
-    name           VARCHAR(255) NOT NULL UNIQUE,
+    name           VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
 

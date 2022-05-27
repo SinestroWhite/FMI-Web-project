@@ -55,7 +55,7 @@ class DB {
     public static function prepareMultipleInsertSQL(string $table, string $columns, int $count) : string {
         $columnArr = explode(", ", $columns);
 
-        return $sql = "INSERT IGNORE INTO $table ($columns) VALUES " . DB::getQuestionMarks($count, $columns);
+        return $sql = "INSERT INTO $table ($columns) VALUES " . DB::getQuestionMarks($count, $columns);
     }
 
     public static function prepareMultipleData(array $values): array {

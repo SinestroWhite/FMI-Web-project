@@ -28,7 +28,9 @@ class PlanCSVParser {
     }
 
     public function inputValidation($fields, $row, $rowNumber, $fieldCount){
+
         if (count($fields) != $fieldCount) {
+            var_dump($fields, $fieldCount);
             throw new InvalidFileStructureError($rowNumber, $row);
         }
 

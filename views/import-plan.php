@@ -15,7 +15,7 @@
         </label>
         <label>
             Конфигурационни данни
-            <textarea name="configuration" placeholder="'field-delimiter':'\t', 'line-delimiter':'\n', 'skip-header-rows':3, 'validate':'true'"></textarea>
+            <textarea class="textarea small is-link" name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;3&quot;, &quot;validate&quot;:&quot;true&quot;}"></textarea>
         </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
         <input class="button is-link" type="submit" value="Качване" name="import"/>
@@ -32,7 +32,7 @@ if (isset($_POST["import"])) {
         $config = json_decode($_POST['configuration']);
         $parser = new PlanCSVParser($config->field_delimiter, $config->line_delimiter, $config->skip_header_rows, $config->validate);
     } else {
-        $parser = new PlanCSVParser('\t', '\n', '1', 'true');
+        $parser = new PlanCSVParser("\t", "\n", '0', 'true');
     }
 
     $plan = $_POST['plan'];

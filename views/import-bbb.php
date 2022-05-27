@@ -7,21 +7,36 @@
     <?php
     $courseID = Router::$ROUTE['URL_PARAMS']['id'];
     if (isset($_POST["import"])) {
-    if (!file_exists($_FILES['presence-list']['tmp_name']) || !is_uploaded_file($_FILES['presence-list']['tmp_name'])) {
-        throw new IncompleteFormError();
-    }
-    $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
+        if (!file_exists($_FILES['presence_list']['tmp_name']) || !is_uploaded_file($_FILES['presence_list']['tmp_name'])) {
+            throw new IncompleteFormError();
+        }
+        $fileContent = BigBlueButtonParser::fileValidation($_FILES['presence_list']);
+//        var_dump($fileContent);
 
-    // TODO: fix timestamp 12-hour format to 24-hour format
-    $stamp = BigBlueButtonParser::getTimestamp($fileContent);
-    if ($_POST['confirm'] != "true" && count(Presence::getByTimestamp($stamp)) != 0) {
-        ?>
-        <p class="red">Списъкът вече е качен. Моля потвърдете, че искате да се качи отново.</p>
-        <?php
-    } else {
-    $students = BigBlueButtonParser::getStudentList($fileContent);
-    $sameNameStudents = Student::getSameNameStudents($students);
-    $students = Student::getByNames($students);
+        // TODO: fix timestamp 12-hour format to 24-hour format
+        $stamp = BigBlueButtonParser::getTimestamp($fileContent);
+
+        if ($_POST['confirm'] != "true" && count(Presence::getByTimestamp($stamp)) != 0) {
+            ?>
+            <p class="red">Списъкът вече е качен. Моля потвърдете, че искате да се качи отново.</p>
+            <?php
+        } else {
+            $students = BigBlueButtonParser::getStudentList($fileContent);
+            $studentNameCounter = [];
+          //  var_dump($students);
+            foreach ($students as $student) {
+                if (isset($studentNameCounter[$student])) {
+                    $studentNameCounter[$student]++;
+                } else {
+                    $studentNameCounter[$student] = 1;
+                }
+            }
+
+
+            var_dump($studentNameCounter);
+
+            $sameNameStudents = Student::getSameNameStudentsByCourse($students, $courseID);
+            $students = Student::getByNames($students);
 
             if (count($sameNameStudents) != 0) { ?>
                 <form action="import-bbb" method="post" enctype="multipart/form-data">

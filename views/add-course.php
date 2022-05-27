@@ -14,6 +14,10 @@
 
 <?php
 if (isset($_POST['add-course'])) {
+    if (empty($_POST['name']) || empty($_POST['year'])) {
+        throw new IncompleteFormError();
+    }
+
     $name = $_POST['name'];
     $year = $_POST['year'];
 
