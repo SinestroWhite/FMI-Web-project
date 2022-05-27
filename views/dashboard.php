@@ -16,10 +16,10 @@
                 <?php
             }
         ?>
-        <ul>
+        <ul class="list">
             <?php
                 foreach ($courses as $course) {
-                    echo "<li><a href=\"course/" . $course['id'] . "\">" . $course["name"] . ", " . $course["year"] . "</a></li>";
+                    echo "<li><a class=\"is-link\" href=\"course/" . $course['id'] . "\">" . $course["name"] . ", " . $course["year"] . "</a></li>";
                 }
             ?>
         </ul>

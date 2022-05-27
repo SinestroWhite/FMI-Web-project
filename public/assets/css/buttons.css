@@ -1,4 +1,4 @@
-.button, .input, .select, .textarea {
+.button, .input, .select, .textarea, .file-cta, .file-name {
     margin: 10px 0;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -23,7 +23,8 @@
     color: #363636;
     cursor: pointer;
     justify-content: center;
-    padding: calc(.5em - 1px) 1em;
+    text-decoration: none;
+    padding: 0 1em; /*calc(.5em - 1px)*/
     text-align: center;
     white-space: nowrap;
 }

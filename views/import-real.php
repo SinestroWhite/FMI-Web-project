@@ -1,10 +1,12 @@
 
 <section class="container data-section">
-    <h1>Импортиране на реален план</h1>
-    <p><a href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <h1>
+        <a class="icon-back is-link" href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>"><i class="fa-solid fa-chevron-left"></i></a>
+        Импортиране на реален план
+    </h1>
     <form action="import-real" method="post" enctype="multipart/form-data">
         <label for="dates">Дата на представяне</label>
-        <select name="date" id="dates">
+        <select class="select is-link" name="date" id="dates">
             <?php
                 $dates = TimeTable::getDates(Router::$ROUTE['URL_PARAMS']['id']);
                 foreach($dates as $datum) {
@@ -16,14 +18,14 @@
         </select>
         <label>
             Реален план (копиран от Google Spreadsheets)
-            <textarea name="plan" required></textarea>
+            <textarea class="textarea large is-link" name="plan" required></textarea>
         </label>
         <label>
             Конфигурационни данни
-            <textarea name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;3&quot;, &quot;validate&quot;:&quot;true&quot;}"></textarea>
+            <textarea class="textarea small is-link" name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;3&quot;, &quot;validate&quot;:&quot;true&quot;}"></textarea>
         </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <input type="submit" value="Качване" name="import"/>
+        <input class="button is-link" type="submit" value="Качване" name="import"/>
     </form>
 </section>
 

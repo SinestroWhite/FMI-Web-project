@@ -4,7 +4,11 @@ form, input, textarea {
 input[type="submit"] {
     margin: 10px 0;
 }
-textarea {
-    width: 800px;
-    height: 600px;
+
+.large {
+    height: 600px !important;
+}
+
+.small {
+    height: 100px !important;
 }

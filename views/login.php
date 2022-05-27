@@ -11,7 +11,7 @@
         <input class="button is-link" type="submit" name="login" value="Submit"/>
     </form>
 
-    <a href="/register">Don't have an account?</a>
+    <a class="is-link" href="/register">Don't have an account?</a>
 </section>
 
 <?php

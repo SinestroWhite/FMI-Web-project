@@ -24,7 +24,7 @@ class Paper
         for ($i = 0; $i < count($result); ++$i) {
             $papers[] = $result[$i]['topic'];
             $papers[] = $result[$i]['id'];
-            $papers[] = "FALSE";
+            $papers[] = 0;
         }
 
         $lenght = count($result);

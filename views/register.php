@@ -17,7 +17,7 @@
         <input class="button is-link" type="submit" name="register" value="Submit"/>
     </form>
 
-    <a href="/login">I already have an account.</a>
+    <a class="is-link" href="/login">I already have an account.</a>
 </div>
 <?php
 // TODO: Add validations everywhere

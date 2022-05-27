@@ -20,7 +20,7 @@ label {
     display: flex;
 }
 
-input[type^="checkbox"], label {
+input[type^="checkbox"] {
     margin: 10px 0;
 }
 

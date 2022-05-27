@@ -35,7 +35,10 @@
         "view": "dashboard",
         "meta": {
             "auth": "required",
-            "title": "Dashboard"
+            "title": "Dashboard",
+            "css": [
+                "/assets/css/dashboard.css"
+            ]
         }
     },
     {

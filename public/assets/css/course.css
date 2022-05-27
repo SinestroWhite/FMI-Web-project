@@ -9,12 +9,14 @@
 */
 
 .table {
-    /*width: 90%;*/
+    width: 80%;
+    height: 65%;
     overflow-x: auto;
-    margin: 10px 0;
+    margin: 30px auto;
 }
 
 table, tr, td {
+    width: 100%;
     border: solid 1px black;
     border-collapse: collapse;
     white-space: nowrap;
@@ -43,26 +45,26 @@ tr, td {
     border-bottom: 3px solid black;
 }
 
-/*.header {*/
-/*    left: 0;*/
-/*    position: sticky;*/
-/*    background-color: #f1f1f1;*/
-/*    !*width: 300px;*!*/
-/*}*/
+.header {
+    left: 1px;
+    position: sticky;
+    background-color: #f1f1f1;
+    /*width: 300px;*/
+}
 
-/*.header1 {*/
-/*    left: 180px;*/
-/*    position: sticky;*/
-/*    background-color: #d0d0d0;*/
-/*    !*border: 1px solid black;*!*/
-/*}*/
+.header1 {
+    left: 206px;
+    position: sticky;
+    background-color: #d0d0d0;
+    border: 1px solid black;
+}
 
-/*.header2 {*/
-/*    left: 234px;*/
-/*    position: sticky;*/
-/*    background-color: #f1f1f1;*/
-/*    !*border-right: 1px solid black;*!*/
-/*}*/
+.header2 {
+    left: 257px;
+    position: sticky;
+    background-color: #f1f1f1;
+    /*border-right: 1px solid black;*/
+}
 
 .presence {
     width: 5px;

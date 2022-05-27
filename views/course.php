@@ -13,14 +13,20 @@
     $date_times = TimeTable::getPlannedTimesByCourseID($courseID);
 ?>
 
-<section class="container data-section">
+<section class="mini-container data-section">
     <div id="courses">
-        <h1><?= $data['name'] ?> - <?= $data['year'] ?></h1>
-        <p><a href="/dashboard">Dashboard</a></p>
-        <p><a href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-plan">Импортиране на предварителен график на защитити на реферати</a></p>
+        <h1>
+            <a class="icon-back is-link" href="/dashboard"><i class="fa-solid fa-chevron-left"></i></a>
+            <?= $data['name'] ?> - <?= $data['year'] ?>
+        </h1>
+        <a class="button is-link" href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-plan">Предварителен график</a>
         <?php if (count($timeTableData) != 0) { ?>
-        <p><a href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-real">Импортиране на реален график на защити на реферати</a></p>
-        <a href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-bbb">Импортиране на присъствен списък от BBB</a>
+            <a class="button is-link" href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-real">Реален график</a>
+            <a class="button is-link" href="/course/<?= Router::$ROUTE['URL_PARAMS']['id'] ?>/import-bbb">Присъствен списък от BBB</a>
+<!--        <p><a href="/course/--><?//= Router::$ROUTE['URL_PARAMS']['id'] ?><!--/import-real">Импортиране на реален график на защити на реферати</a></p>-->
+<!--        <a href="/course/--><?//= Router::$ROUTE['URL_PARAMS']['id'] ?><!--/import-bbb">Импортиране на присъствен списък от BBB</a>-->
+    </div>
+</section>
         <div class="table">
         <table>
             <thead>
@@ -59,9 +65,21 @@
             <tbody>
                 <?php foreach ($timeTableData as $student) { ?>
                     <tr>
-                        <td class="header"><?= $student['name'] ?></td>
+                        <td class="header" title="<?= $student['name'] ?>">
+                            <div class="hide-long-text">
+                                <span>
+                                    <?= $student['name'] ?>
+                                </span>
+                            </div>
+                        </td>
                         <td class="header1"><?= $student['faculty_number'] ?></td>
-                        <td class="header2"><?= $student['topic'] ?></td>
+                        <td class="header2" title="<?= $student['topic'] ?>">
+                            <div class="hide-long-text">
+                                <span>
+                                    <?= $student['topic'] ?>
+                                </span>
+                            </div>
+                        </td>
                         <?php foreach ($date_times as $i => $date_time) {
                                 $start_time = $date_time['start_time'];
                                 $end_time = $date_time['end_time'];
@@ -90,7 +108,5 @@
         </table>
         </div>
         <?php } ?>
-    </div>
-</section>
 
 

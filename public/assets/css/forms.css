@@ -11,3 +11,23 @@
     color: #363636 !important;
 }
 
+.textarea {
+    display: block;
+    max-width: 100%;
+    min-width: 100%;
+    padding: calc(.75em - 1px);
+    resize: vertical;
+}
+
+.select {
+    cursor: pointer;
+    display: block;
+    font-size: 1em;
+    max-width: 100%;
+    outline: 0;
+    background-color: #fff;
+    border-color: #dbdbdb;
+    border-radius: .375em;
+    color: #363636;
+}
+

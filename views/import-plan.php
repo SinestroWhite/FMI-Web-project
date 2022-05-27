@@ -1,22 +1,24 @@
 
 <section class="container data-section">
-    <h1>Импортиране на предварителен план</h1>
-    <p><a href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>">Назад към курса</a></p>
+    <h1>
+        <a class="icon-back is-link" href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>"><i class="fa-solid fa-chevron-left"></i></a>
+        Импортиране на предварителен план
+    </h1>
     <form action="import-plan" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне
-            <input type="date" name="date" required/>
+            <input class="input is-link" type="date" name="date" required/>
         </label>
         <label>
             Предварителен план (копиран от Google Spreadsheets)
-            <textarea name="plan" required></textarea>
+            <textarea class="textarea large is-link" name="plan" required></textarea>
         </label>
         <label>
             Конфигурационни данни
             <textarea name="configuration" placeholder="'field-delimiter':'\t', 'line-delimiter':'\n', 'skip-header-rows':3, 'validate':'true'"></textarea>
         </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <input type="submit" value="Качване" name="import"/>
+        <input class="button is-link" type="submit" value="Качване" name="import"/>
     </form>
 </section>
 

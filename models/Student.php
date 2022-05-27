@@ -42,11 +42,20 @@ class Student {
         return $data[0];
 	}
 
-    public static function getSameNameStudents(array $studentNames) : array {
-        $sqlDup = "SELECT * FROM students WHERE NAME IN " . DB::getQuestionLine(count($studentNames)) . " GROUP BY name HAVING (COUNT(*) > 1)";
-      
+    public static function getSameNameStudentsByCourse(array $studentNames, string $courseID) : array {
+        $sqlDup = "SELECT name, JSON_ARRAYAGG(S.id) AS ids, JSON_ARRAYAGG(faculty_number) AS faculty_numbers
+                    FROM students AS S
+                        JOIN students_courses_pivot scp on S.id = scp.student_id
+                    WHERE course_id = (?) AND NAME IN " . DB::getQuestionLine(count($studentNames)) . "
+                    GROUP BY name
+                    HAVING (COUNT(*) > 1)";
 
-       return (new DB())->execute($sqlDup, $studentNames);
+        $values = [$courseID];
+        foreach ($studentNames as $studentName) {
+            $values[] = $studentName;
+        }
+
+       return (new DB())->execute($sqlDup, $values);
     }
 
     public static function getByNames(array $students): array {
