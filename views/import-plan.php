@@ -7,18 +7,18 @@
     <form action="import-plan" method="post" enctype="multipart/form-data">
         <label>
             Дата на представяне
-            <input class="input is-link" type="date" name="date" required/>
+            <input class="input is-link" type="date" name="date" required value="<?= $_POST['date'] ?>"/>
         </label>
         <label>
-            Предварителен план (копиран от Google Spreadsheets)
-            <textarea class="textarea large is-link" name="plan" required></textarea>
+            Предварителен план
+            <textarea class="textarea large is-link" name="plan" required><?= $_POST['plan'] ?></textarea>
         </label>
         <label>
             Конфигурационни данни
-            <textarea class="textarea small is-link" name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;3&quot;, &quot;validate&quot;:&quot;true&quot;}"></textarea>
+            <textarea class="textarea small is-link" name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;0&quot;, &quot;validate&quot;:&quot;true&quot;}"><?= $_POST['configuration'] ?></textarea>
         </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <input class="button is-link" type="submit" value="Качване" name="import"/>
+        <input class="button is-link" type="submit" value="Импортиране" name="import"/>
     </form>
 </section>
 

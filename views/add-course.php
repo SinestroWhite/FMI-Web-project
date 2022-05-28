@@ -1,13 +1,13 @@
 <section class="container data-section">
     <h2>Създаване на нов курс</h2>
     <form action="add-course" method="post">
-        <label for="name">Name</label>
+        <label for="name">Име</label>
         <input class="input is-link" id="name" type="text" name="name"/>
-        <label for="year">Year</label>
+        <label for="year">Година</label>
         <input class="input is-link" id="year" type="number" min="1990" max="2100" name="year"/>
 
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <input class="button is-link" type="submit" name="add-course" value="Submit"/>
+        <input class="button is-link" type="submit" name="add-course" value="Създаване"/>
     </form>
 </section>
 

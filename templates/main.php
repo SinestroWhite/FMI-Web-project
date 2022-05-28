@@ -1,10 +1,11 @@
-<html>
+<html lang="bg">
 <head>
     <title>Gradeview
         <?php if (isset(Router::$ROUTE['title'])) {
             echo  "| " . Router::$ROUTE['title'];
         } ?>
     </title>
+    <meta charset="UTF-8"/>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/fontawesome.min.css" integrity="sha384-zIaWifL2YFF1qaDiAo0JFgsmasocJ/rqu7LKYH8CoBEXqGbb9eO+Xi3s6fQhgFWM" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="/assets/css/styles.css"/>
@@ -28,13 +29,13 @@
                         <?php
                         if (Router::isLoggedIn()) {
                             ?>
-                            <a class="link" href="/dashboard">Dashboard</a>
-                            <a class="link" href="/logout">Logout</a>
+                            <a class="link" href="/dashboard">Панел</a>
+                            <a class="link" href="/logout">Изход</a>
                             <?php
                         } else {
                             ?>
-                            <a class="link" href="/login">Login</a>
-                            <a class="link" href="/register">Register</a>
+                            <a class="link" href="/login">Вход</a>
+                            <a class="link" href="/register">Регистрация</a>
                             <?php
                         }
                         ?>

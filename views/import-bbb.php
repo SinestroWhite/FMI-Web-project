@@ -70,9 +70,9 @@
                 </form>
                 <?php
 
-                for ($i = 0; $i < count($sameNameStudents)  as $student) {
-                    $sameNameStudentIds = $_POST[]
-                }
+//                for ($i = 0; $i < count($sameNameStudents)  as $student) {
+//                    $sameNameStudentIds = $_POST[]
+//                }
             }
 
             $student_course_pivots_ids = StudentCoursePivot::getIDs($students, $courseID);
@@ -91,12 +91,12 @@
                         <i class="fas fa-upload"></i>
                     </span>
                     <span class="file-label">
-                        Choose a file…
+                        Изберете файл...
                     </span>
                 </span>
                 <span class="file-name">
                     <p class="tiny"></p>
-                    No file uploaded
+                    Не е избран файл
                 </span>
             </label>
         </div>
@@ -105,7 +105,7 @@
             <input type="checkbox" name="confirm" value="true"/>
             <p>Ако списъкът вече е импортиран, искате ли да го качите отново?</p>
         </label>
-        <input class="button is-link" type="submit" value="Качване" name="import"/>
+        <input class="button is-link" type="submit" value="Импортиране" name="import"/>
     </form>
     <?php } ?>
 </section>

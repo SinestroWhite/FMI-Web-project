@@ -18,14 +18,14 @@
         </select>
         <label>
             Реален план (копиран от Google Spreadsheets)
-            <textarea class="textarea large is-link" name="plan" required></textarea>
+            <textarea class="textarea large is-link" name="plan" required><?= $_POST['plan'] ?></textarea>
         </label>
         <label>
             Конфигурационни данни
-            <textarea class="textarea small is-link" name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;3&quot;, &quot;validate&quot;:&quot;true&quot;}"></textarea>
+            <textarea class="textarea small is-link" name="configuration" placeholder="{&quot;field_delimiter&quot;:&quot;\t&quot;, &quot;line_delimiter&quot;:&quot;\n&quot;, &quot;skip_header-rows&quot;:&quot;3&quot;, &quot;validate&quot;:&quot;true&quot;}"><<?= $_POST['configuration'] ?>/textarea>
         </label>
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <input class="button is-link" type="submit" value="Качване" name="import"/>
+        <input class="button is-link" type="submit" value="Импортиране" name="import"/>
     </form>
 </section>
 

@@ -2,16 +2,16 @@
     <h2>Вход</h2>
 
     <form action="login" method="post">
-        <label for="email">Email</label>
+        <label for="email">Електронна поща</label>
         <input class="input is-link" id="email" type="email" name="email"/>
-        <label for="pass">Password</label>
+        <label for="pass">Парола</label>
         <input class="input is-link" id="pass" type="password" name="password"/>
 
         <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <input class="button is-link" type="submit" name="login" value="Submit"/>
+        <input class="button is-link" type="submit" name="login" value="Вход"/>
     </form>
 
-    <a class="is-link" href="/register">Don't have an account?</a>
+    <a class="is-link" href="/register">Нямате акаунт?</a>
 </section>
 
 <?php
