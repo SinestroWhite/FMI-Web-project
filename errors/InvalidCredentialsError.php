@@ -12,6 +12,6 @@
 
 class InvalidCredentialsError extends CustomError {
     public function __construct() {
-        parent::__construct("Invalid Credentials.");
+        parent::__construct("Невалидни потребителски данни.");
     }
 }

@@ -12,6 +12,6 @@
 
 class CSRFTokenError extends CustomError {
     public function __construct() {
-        parent::__construct("The CSRF token does not match.");
+        parent::__construct("CSRF токенът не съвпада. Моля, обновете страницата.");
     }
 }

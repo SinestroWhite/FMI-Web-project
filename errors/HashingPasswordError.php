@@ -12,6 +12,6 @@
 
 class HashingPasswordError extends CustomError {
     public function __construct() {
-        parent::__construct("The hashing has failed. Please, try again later.");
+        parent::__construct("Хеширането се е провалило. Моля, опитайте отново по-късно.");
     }
 }

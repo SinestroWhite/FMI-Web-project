@@ -12,6 +12,6 @@
 
 class InvalidFileFormatError extends CustomError {
     public function __construct() {
-        parent::__construct("The file format is invalid.");
+        parent::__construct("Форматът на файла е невалиден.");
     }
 }

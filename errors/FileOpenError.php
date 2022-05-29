@@ -11,6 +11,6 @@
 
 class FileOpenError extends CustomError {
     public function __construct() {
-        parent::__construct("BigBlueButtonParser cannot be opened.");
+        parent::__construct("Файлът не може да бъде отворен.");
     }
 }

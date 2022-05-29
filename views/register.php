@@ -5,9 +5,9 @@
         <label for="name">Име</label>
         <input class="input is-link" id="name" type="text" name="name" value="<?= $_POST['name'] ?>"/>
         <label for="email">Електронна поща</label>
-        <input class="input is-link" id="email" type="email" name="email"/>
+        <input class="input is-link" id="email" type="email" name="email" value="<?= $_POST['email'] ?>"/>
         <label for="expertise">Специалност</label>
-        <input class="input is-link" id="expertise" type="text" name="expertise"/>
+        <input class="input is-link" id="expertise" type="text" name="expertise" value="<?= $_POST['expertise'] ?>"/>
         <label for="pass">Парола</label>
         <input class="input is-link" id="pass" type="password" name="password"/>
         <label for="conf-pass">Потвърдете паролата</label>
@@ -22,10 +22,10 @@
 <?php
 // TODO: Add validations everywhere
 if (isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $expertise = $_POST['expertise'];
-    $password = $_POST['password'];
+    $name          = $_POST['name'];
+    $email         = $_POST['email'];
+    $expertise     = $_POST['expertise'];
+    $password      = $_POST['password'];
     $conf_password = $_POST['conf_password'];
 
     if (empty($name) ||

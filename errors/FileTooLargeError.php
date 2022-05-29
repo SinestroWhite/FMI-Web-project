@@ -11,6 +11,6 @@
 
 class FileTooLargeError extends CustomError {
     public function __construct() {
-        parent::__construct("The file is too large. The maximum size is 0.5MB");
+        parent::__construct("Файлът е твърде голям. Максималният размер е 0,5 MB.");
     }
 }

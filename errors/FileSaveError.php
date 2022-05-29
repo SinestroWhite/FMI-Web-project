@@ -11,6 +11,6 @@
 
 class FileSaveError extends CustomError {
     public function __construct() {
-        parent::__construct("There was a technical problem and the file could not be saved.");
+        parent::__construct("Възникнал е технически проблем и файлът не е могъл да бъде запазен.");
     }
 }

@@ -11,6 +11,6 @@
 
 class IncompleteFormError extends CustomError {
     public function __construct() {
-        parent::__construct("Please fill all the fields in the form.");
+        parent::__construct("Моля, попълнете всички полета във формуляра.");
     }
 }

@@ -6,7 +6,7 @@ class User {
     public function __construct(string $name, string $email, string $expertise, string $password, string $conf_password) {
         $this->password = $this->processPassword($password, $conf_password);
         $this->name = $name;
-        $this->email = $email;
+        $this->email = $this->processEmail($email);
         $this->expertise = $expertise;
     }
 
@@ -74,6 +74,23 @@ class User {
         $this->verifyPasswordPattern($password);
 
         return $this->hashPassword($password);
+    }
+
+    private function processEmail(string $email): string {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidEmailError();
+        }
+
+        if ($this->hasDuplicate($email)) {
+           throw new DuplicateItemError();
+        }
+
+        return $email;
+    }
+
+    private function hasDuplicate(string $email) {
+        $sql = "SELECT * FROM teachers WHERE email = ?";
+        return DB::hasDuplicate($sql, [$email]);
     }
 
 }

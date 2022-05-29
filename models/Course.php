@@ -48,4 +48,9 @@ class Course {
 
         return (new DB())->execute($sql, $values)[0];
     }
+
+    public function hasDuplicate(): bool {
+        return DB::hasDuplicate("SELECT * FROM courses WHERE name = (?) AND year = (?)", [$this->name, $this->year]);
+    }
+
 }
