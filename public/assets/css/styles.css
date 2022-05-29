@@ -35,6 +35,11 @@ body {
     width: 100%;
 }
 
+.box-center {
+    width: 500px;
+    margin: 0 auto;
+}
+
 .header-title {
     font-size: 30pt;
     margin: 16px 0;
@@ -166,4 +171,31 @@ form .button {
     white-space: nowrap;
 }
 
+.error-message {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    padding: 30px;
+    background-color: #2b2b2b;
+    box-shadow: 1px -1px 31px -6px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 1px -1px 31px -6px rgba(0,0,0,0.5);
+    -moz-box-shadow: 1px -1px 31px -6px rgba(0,0,0,0.5);
+}
+
+.error-message p {
+    color: white;
+    margin: 0;
+}
+
+@keyframes example {
+    from {opacity: 100%;}
+    to {opacity: 0;}
+}
+
+.fade-out {
+    animation-name: example;
+    animation-duration: 4s;
+    animation-delay: 4s;
+    animation-fill-mode: forwards;
+}
 

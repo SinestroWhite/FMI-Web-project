@@ -3,7 +3,7 @@
 
     <form action="register" method="post">
         <label for="name">Име</label>
-        <input class="input is-link" id="name" type="text" name="name"/>
+        <input class="input is-link" id="name" type="text" name="name" value="<?= $_POST['name'] ?>"/>
         <label for="email">Електронна поща</label>
         <input class="input is-link" id="email" type="email" name="email"/>
         <label for="expertise">Специалност</label>
@@ -27,6 +27,14 @@ if (isset($_POST['register'])) {
     $expertise = $_POST['expertise'];
     $password = $_POST['password'];
     $conf_password = $_POST['conf_password'];
+
+    if (empty($name) ||
+        empty($email) ||
+        empty($expertise) ||
+        empty($password) ||
+        empty($conf_password)) {
+        throw new IncompleteFormError();
+    }
 
     $user = new User($name, $email, $expertise, $password, $conf_password);
     $user->store();

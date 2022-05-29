@@ -3,7 +3,7 @@
 
     <form action="login" method="post">
         <label for="email">Електронна поща</label>
-        <input class="input is-link" id="email" type="email" name="email"/>
+        <input class="input is-link" id="email" type="email" name="email" value="<?= $_POST['email'] ?>"/>
         <label for="pass">Парола</label>
         <input class="input is-link" id="pass" type="password" name="password"/>
 

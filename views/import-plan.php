@@ -24,11 +24,11 @@
 
 <?php
 if (isset($_POST["import"])) {
-    if(empty($_POST['plan']) || empty($_POST['date'])) {
+    if (empty($_POST['plan']) || empty($_POST['date'])) {
         throw new IncompleteFormError();
     }
 
-    if(!empty($_POST['configuration'])) {
+    if (!empty($_POST['configuration'])) {
         $config = json_decode($_POST['configuration']);
         $parser = new PlanCSVParser($config->field_delimiter, $config->line_delimiter, $config->skip_header_rows, $config->validate);
     } else {

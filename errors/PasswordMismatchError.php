@@ -12,6 +12,6 @@
 
 class PasswordMismatchError extends CustomError {
     public function __construct() {
-        parent::__construct("The passwords do not match.");
+        parent::__construct("Паролите не съвпадат.");
     }
 }

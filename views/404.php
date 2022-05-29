@@ -1,5 +1,4 @@
-
 <section class="container">
-    <p>Page not found.</p>
+    <p class="text-center">Страницата не е намерена.</p>
 </section>
 

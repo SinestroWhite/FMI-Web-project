@@ -21,7 +21,7 @@ class CSRF {
     public static function validate() {
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
             if ($_POST['csrf_token'] != $_SESSION['csrf_token']) {
-                throw new CSRFTokenError();
+                header("Location: /csrf");
             }
         }
     }

@@ -1,7 +1,8 @@
 <section class="container data-section">
     <h1>
-        <a class="icon-back is-link" href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>"><i
-                class="fa-solid fa-chevron-left"></i></a>
+        <a class="icon-back is-link" href="<?= '/course/' . Router::$ROUTE['URL_PARAMS']['id'] ?>">
+            <i class="fa-solid fa-chevron-left"></i>
+        </a>
         Импортиране на присъствен списък
     </h1>
     <?php
@@ -23,7 +24,7 @@
         } else {
             $students = BigBlueButtonParser::getStudentList($fileContent);
             $studentNameCounter = [];
-          //  var_dump($students);
+            //  var_dump($students);
             foreach ($students as $student) {
                 if (isset($studentNameCounter[$student])) {
                     $studentNameCounter[$student]++;
@@ -41,28 +42,29 @@
             if (count($sameNameStudents) != 0) { ?>
                 <form action="import-bbb" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-                    <p>В присъствения списък има студент(и) със съвпадащи имена. Моля изберете кое име с кой факултетен номер е свързано. </p>
+                    <p>В присъствения списък има студент(и) със съвпадащи имена. Моля изберете кое име с кой факултетен
+                        номер е свързано. </p>
                     <?php
                     foreach ($sameNameStudents as $i => $student) {
                         for ($j = 0; $j < $studentNameCounter[$student['name']]; $j++) {
 //                            var_dump($studentNameCounter[$student['name']]);
-                        ?>
-                        <label>
-                            <?php echo $student['name']; ?>
-                        </label>
-                        <select class="select is-link" name="fn<?php echo $i; ?>" id="fn">
-                            <?php
-                            $fns = json_decode($student['faculty_numbers']);
-                            $ids = json_decode($student['ids']);
-                            for ($k = 0; $k < count($fns); $k++) {
-                                ?>
-                                <option value="<?= $ids[$k] ?>"><?= $fns[$k] ?></option>
-                                <?php
-                            }
-                            //                }
                             ?>
-                        </select>
-                        <?php
+                            <label>
+                                <?php echo $student['name']; ?>
+                            </label>
+                            <select class="select is-link" name="fn<?php echo $i; ?>" id="fn">
+                                <?php
+                                $fns = json_decode($student['faculty_numbers']);
+                                $ids = json_decode($student['ids']);
+                                for ($k = 0; $k < count($fns); $k++) {
+                                    ?>
+                                    <option value="<?= $ids[$k] ?>"><?= $fns[$k] ?></option>
+                                    <?php
+                                }
+                                //                }
+                                ?>
+                            </select>
+                            <?php
                         }
                     }
                     ?>
@@ -81,12 +83,12 @@
 //            header("Location: /course/" . Router::$ROUTE['URL_PARAMS']['id']);
         }
     } else {
-    ?>
-    <form action="import-bbb" method="post" enctype="multipart/form-data">
-        <div id="file-js-example" class="file has-name">
-            <label class="file-label">
-                <input class="file-input" type="file" name="presence_list">
-                <span class="file-cta">
+        ?>
+        <form action="import-bbb" method="post" enctype="multipart/form-data">
+            <div id="file-js-example" class="file has-name">
+                <label class="file-label">
+                    <input class="file-input" type="file" name="presence_list">
+                    <span class="file-cta">
                     <span class="file-icon">
                         <i class="fas fa-upload"></i>
                     </span>
@@ -94,19 +96,19 @@
                         Изберете файл...
                     </span>
                 </span>
-                <span class="file-name">
+                    <span class="file-name">
                     <p class="tiny"></p>
                     Не е избран файл
                 </span>
+                </label>
+            </div>
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
+            <label>
+                <input type="checkbox" name="confirm" value="true"/>
+                <p>Ако списъкът вече е импортиран, искате ли да го качите отново?</p>
             </label>
-        </div>
-        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>"/>
-        <label>
-            <input type="checkbox" name="confirm" value="true"/>
-            <p>Ако списъкът вече е импортиран, искате ли да го качите отново?</p>
-        </label>
-        <input class="button is-link" type="submit" value="Импортиране" name="import"/>
-    </form>
+            <input class="button is-link" type="submit" value="Импортиране" name="import"/>
+        </form>
     <?php } ?>
 </section>
 

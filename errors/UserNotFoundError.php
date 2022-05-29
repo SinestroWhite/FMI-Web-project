@@ -11,6 +11,6 @@
 
 class UserNotFoundError extends CustomError {
     public function __construct() {
-        parent::__construct("User not found.");
+        parent::__construct("Потребителят не е намерен.");
     }
 }

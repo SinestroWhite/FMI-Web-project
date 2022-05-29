@@ -11,6 +11,6 @@
 
 class UnexpectedValueError extends CustomError {
     public function __construct() {
-        parent::__construct("Unexpected function argument value.");
+        parent::__construct("Подава се неочаквана стойност.");
     }
 }

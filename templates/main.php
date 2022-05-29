@@ -46,5 +46,6 @@
     </header>
 
     <?php require_once Router::$ROUTE['view']; ?>
+
 </body>
 </html>

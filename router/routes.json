@@ -107,5 +107,12 @@
         "meta": {
             "title": "Page Not Found"
         }
+    },
+    {
+        "path": "/csrf",
+        "view": "csrf",
+        "meta": {
+            "title": "Invalid CSRF"
+        }
     }
 ]

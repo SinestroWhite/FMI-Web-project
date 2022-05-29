@@ -173,14 +173,12 @@ class PlanCSVParser {
                     str_contains($datum['topic'], $student['topic'])) {
                     return  $datum['paper_id'];
                 }
-
             }
 
             return "";
         }
 
         foreach ($result as $student) {
-//            var_dump($student, $data);
             $paper_id = getPaperID($student, $data);
 
             $values[] = [
