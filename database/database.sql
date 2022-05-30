@@ -26,7 +26,7 @@ CREATE TABLE courses
 CREATE TABLE students
 (
     id             INT          NOT NULL AUTO_INCREMENT,
-    faculty_number VARCHAR(255) UNIQUE,
+    faculty_number VARCHAR(255) NOT NULL,
     name           VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );

@@ -39,7 +39,7 @@ if (isset($_POST["import"])) {
         $config = json_decode($_POST['configuration']);
         $parser = new PlanCSVParser($config->field_delimiter, $config->line_delimiter, $config->skip_header_rows, $config->validate);
     } else {
-        $parser = new PlanCSVParser('\t', '\n', '1', 'true');
+        $parser = new PlanCSVParser("\t", "\n", '0', 'true');
     }
 
     $plan = $_POST['plan'];

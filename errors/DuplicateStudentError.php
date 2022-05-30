@@ -11,6 +11,6 @@
 
 class DuplicateStudentError extends CustomError {
     public function __construct(string $data) {
-        parent::__construct("Вече същестуват студенти със следните факултетни номера:" . $data);
+        parent::__construct("Вече същестуват студенти със следните факултетни номера: " . $data);
     }
 }

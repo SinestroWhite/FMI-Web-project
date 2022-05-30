@@ -39,6 +39,10 @@ class BigBlueButtonParser {
         $matches = [];
         preg_match_all($pattern, $fileContent, $matches);
 
+        if (count($matches) == 0) {
+          throw new InvalidFileFormatError();
+        }
+
         return $matches;
     }
 

@@ -30,13 +30,12 @@ class PlanCSVParser {
     public function inputValidation($fields, $row, $rowNumber, $fieldCount){
 
         if (count($fields) != $fieldCount) {
-            var_dump($fields, $fieldCount);
-            throw new InvalidFileStructureError($rowNumber, $row);
+            throw new InvalidFileStructureError($rowNumber, $row, "Неправилен брой колони");
         }
 
         foreach ($fields as $col) {
             if ($col == "") {
-                throw new InvalidFileStructureError($rowNumber, $row);
+                throw new InvalidFileStructureError($rowNumber, $row, "Съдържат се празни колони");
             }
         }
     }
@@ -73,7 +72,6 @@ class PlanCSVParser {
 
     private  function getRealData(string $file_data) : Array {
         $rows = explode($this->lineDelimiter, $file_data);
-
         $result = [];
         for ($i = $this->skipHeader; $i < count($rows); ++$i) {
             if (!empty($rows[$i])) {
@@ -149,6 +147,7 @@ class PlanCSVParser {
 
         $studentNames = [];
         $facultyNumbers = [];
+
         foreach ($result as $student) {
             $studentNames[] = $student['name'];
             $facultyNumbers[] = $student['faculty_number'];
@@ -179,6 +178,7 @@ class PlanCSVParser {
         }
         $values[] = Router::$ROUTE['URL_PARAMS']['id'];
         $data = (new DB())->execute($sql, $values);
+
         $sql =<<<EOF
             UPDATE time_tables
             SET from_time_real = (?), to_time_real = (?)

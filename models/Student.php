@@ -29,6 +29,7 @@ class Student {
         return $db->getLastId();
 	}
 
+
 	public static function getByName(string $name) : array {
 		$sql = "SELECT * FROM students WHERE name = ?";
         $values = array($name);
