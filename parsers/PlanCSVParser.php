@@ -102,7 +102,29 @@ class PlanCSVParser {
     }
 
     public  function processPlan(string $plan, string $date) {
+        $courseID = Router::$ROUTE['URL_PARAMS']['id'];
         $result = PlanCSVParser::getData($plan);
+
+
+        $sql =<<<EOF
+            SELECT faculty_number
+            FROM students AS S
+                JOIN students_courses_pivot scp on S.id = scp.student_id
+            WHERE course_id = (?)
+        EOF;
+
+        $registeredFNs = (new DB())->execute($sql, [$courseID]);
+        $fns = [];
+
+        foreach ($registeredFNs as $registeredFN) {
+            $fns[] = $registeredFN['faculty_number'];
+        }
+
+        foreach ($result as $student) {
+            if (TimeTable::searchByValue($student['faculty_number'], $fns)) {
+                throw new DuplicateStudentError($student['faculty_number']);
+            }
+        }
 
         $firstId = Student::StoreList($result);
 
@@ -156,7 +178,6 @@ class PlanCSVParser {
             $values[] = $student['faculty_number'];
         }
         $values[] = Router::$ROUTE['URL_PARAMS']['id'];
-
         $data = (new DB())->execute($sql, $values);
         $sql =<<<EOF
             UPDATE time_tables

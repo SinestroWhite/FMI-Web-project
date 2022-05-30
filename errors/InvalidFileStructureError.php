@@ -11,7 +11,7 @@
 */
 
 class InvalidFileStructureError extends CustomError {
-    public function __construct(int $lineNumber, string $row) {
-        parent::__construct("Възникна грешка на ред" . $lineNumber . ":   \"" . $row . "\".");
+    public function __construct(int $lineNumber, string $row, string $reason) {
+        parent::__construct($reason . " на ред " . $lineNumber . ": <br/>\"" . $row . "\" ");
     }
 }

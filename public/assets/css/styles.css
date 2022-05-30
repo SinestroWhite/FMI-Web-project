@@ -195,7 +195,7 @@ form .button {
 .fade-out {
     animation-name: example;
     animation-duration: 4s;
-    animation-delay: 4s;
+    animation-delay: 5s;
     animation-fill-mode: forwards;
 }
 

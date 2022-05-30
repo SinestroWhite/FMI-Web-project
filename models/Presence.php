@@ -20,9 +20,16 @@ class Presence {
         $this->id = $db->getLastId();
 	}
 
-	public static function getByTimestamp(string $timestamp) : array {
-		$sql = "SELECT * FROM presences WHERE presence_time = ?";
-		$values = array($timestamp);
+	public static function getByTimestamp(string $timestamp, string $courseID) : array {
+		$sql =<<<EOF
+            SELECT *
+            FROM presences AS P
+                JOIN students_courses_pivot AS SCP ON P.student_course_pivot_id = SCP.id
+            WHERE presence_time = (?) AND course_id = (?)
+        EOF;
+
+        $values = array($timestamp);
+        $values[] = $courseID;
 
 		return (new DB())->execute($sql, $values);
 	}

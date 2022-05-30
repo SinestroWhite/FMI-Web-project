@@ -31,8 +31,7 @@
 
 <?php
 if (isset($_POST["import"])) {
-
-    if(empty($_POST['plan']) || empty($_POST['date'])) {
+    if (empty($_POST['plan']) || empty($_POST['date'])) {
         throw new IncompleteFormError();
     }
 

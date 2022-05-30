@@ -11,6 +11,6 @@
 
 class DatabaseQueryError extends CustomError {
     public function __construct() {
-        parent::__construct("There was a technical problem and your request was not fulfilled.");
+        parent::__construct("Възникна техническа грешка и Вашата заявка не беше изпълена.");
     }
 }
