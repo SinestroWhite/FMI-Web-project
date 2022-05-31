@@ -20,7 +20,6 @@
     <a class="is-link" href="/login">Вече имате акаунт?</a>
 </div>
 <?php
-// TODO: Add validations everywhere
 if (isset($_POST['register'])) {
     $name          = $_POST['name'];
     $email         = $_POST['email'];

@@ -9,6 +9,7 @@ function exception_handler($exception) {
         echo '<section class="error-message fade-out"><p>' . $exception->getMessage() . '</p></section>';
     } else {
         if ($_ENV["ENV"] == "PROD") {
+            echo '<section class="error-message fade-out"><p>Възникна неочаквана грешка, моля опитайте отново по-късно.</p></section>';
             Logger::log($exception);
         } else {
             echo "<pre style=\"color: red;\">$exception</pre>";

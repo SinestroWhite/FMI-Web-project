@@ -55,6 +55,11 @@ class Router {
             }
         }
 
+        if (isset(Router::$ROUTE['URL_PARAMS']['id']) && !Course::doesCourseBelongToUser(Router::$ROUTE['URL_PARAMS']['id'])) {
+            header("Location: /invalid-course");
+            return;
+        }
+
         Router::$ROUTE['view'] = APP_ROOT . "views/" . $route->view . ".php";
 
         // Load the requested page

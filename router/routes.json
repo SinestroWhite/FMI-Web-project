@@ -73,7 +73,7 @@
         "view": "import-bbb",
         "meta": {
             "auth": "required",
-            "title" : "Import from Big Blue Button",
+            "title": "Import from Big Blue Button",
             "css": [
                 "/assets/css/import-bbb.css"
             ]
@@ -84,7 +84,7 @@
         "view": "import-plan",
         "meta": {
             "auth": "required",
-            "title" :  "Import plan from Google Sheets",
+            "title": "Import plan from Google Sheets",
             "css": [
                 "/assets/css/import-plan.css"
             ]
@@ -95,7 +95,7 @@
         "view": "import-real",
         "meta": {
             "auth": "required",
-            "title" : "Import real plan from Google Sheets",
+            "title": "Import real plan from Google Sheets",
             "css": [
                 "/assets/css/import-real.css"
             ]
@@ -113,6 +113,13 @@
         "view": "csrf",
         "meta": {
             "title": "Invalid CSRF"
+        }
+    },
+    {
+        "path": "/invalid-course",
+        "view": "invalid-course",
+        "meta": {
+            "title": "Invalid Course"
         }
     }
 ]

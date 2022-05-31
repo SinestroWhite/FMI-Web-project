@@ -99,4 +99,11 @@ class DB {
 
         return implode(",", $questionMarks);
     }
+
+    public static function hasDuplicate(string $sql, array $values): bool {
+        $result = (new DB())->execute($sql, $values);
+        $count = count($result);
+
+        return $count >= 1;
+    }
 }
