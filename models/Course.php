@@ -53,4 +53,15 @@ class Course {
         return DB::hasDuplicate("SELECT * FROM courses WHERE name = (?) AND year = (?)", [$this->name, $this->year]);
     }
 
+    public static function doesCourseBelongToUser(string $courseID): bool {
+        $teacherID = $_SESSION['id'];
+        $sql = "SELECT * FROM courses WHERE id = (?) AND teacher_id = (?)";
+
+        $result = (new DB())->execute($sql, [$courseID, $teacherID]);
+
+        return count($result) == 1;
+
+
+    }
+
 }
