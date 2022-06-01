@@ -183,6 +183,11 @@ class TimeTable
         return '';
     }
 
+    public static function validateDate($date, $format = 'Y-m-d'): bool {
+        $d = DateTime::createFromFormat($format, $date);
+        return $d && $d->format($format) == $date;
+    }
+
     public static function getPlannedTimesByCourseID($courseID) {
         $sql =<<<EOF
             SELECT CAST(T.from_time_planned AS DATE) AS date,

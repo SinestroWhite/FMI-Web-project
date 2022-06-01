@@ -10,8 +10,8 @@
 |
 */
 
-class InvalidEmailError extends CustomError {
-    public function __construct() {
-        parent::__construct("Избраният имейл не е валиден.");
+class InvalidDataError extends CustomError {
+    public function __construct($item) {
+        parent::__construct("Избраната стойност за " . $item . " не е валидена.");
     }
 }

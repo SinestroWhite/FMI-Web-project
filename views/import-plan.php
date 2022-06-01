@@ -23,9 +23,14 @@
 </section>
 
 <?php
+
 if (isset($_POST["import"])) {
     if (empty($_POST['plan']) || empty($_POST['date'])) {
         throw new IncompleteFormError();
+    }
+
+    if (!TimeTable::validateDate($_POST['date'])) {
+        throw new InvalidDataError("дата на представяне");
     }
 
     if (!empty($_POST['configuration'])) {

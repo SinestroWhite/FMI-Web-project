@@ -35,6 +35,10 @@ if (isset($_POST["import"])) {
         throw new IncompleteFormError();
     }
 
+    if (!TimeTable::validateDate($_POST['date'])) {
+        throw new InvalidDataError("дата на представяне");
+    }
+
     if(!empty($_POST['configuration'])) {
         $config = json_decode($_POST['configuration']);
         $parser = new PlanCSVParser($config->field_delimiter, $config->line_delimiter, $config->skip_header_rows, $config->validate);

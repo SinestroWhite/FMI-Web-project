@@ -18,6 +18,10 @@ if (isset($_POST['add-course'])) {
         throw new IncompleteFormError();
     }
 
+    if (!is_numeric($_POST['year'])) {
+        throw new InvalidDataError('година');
+    }
+
     $name = $_POST['name'];
     $year = $_POST['year'];
 

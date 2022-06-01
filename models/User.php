@@ -78,7 +78,7 @@ class User {
 
     private function processEmail(string $email): string {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidEmailError();
+            throw new InvalidDataError("email");
         }
 
         if ($this->hasDuplicate($email)) {
